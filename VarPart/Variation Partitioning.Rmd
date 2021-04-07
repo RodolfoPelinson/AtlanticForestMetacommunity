@@ -1,0 +1,84 @@
+---
+title: "Variation Partitioning"
+author: "Rodolfo Pelinson"
+date: "07/04/2021"
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+First we have to load the separated data matrices we need. It all comes from the Data.csv file in the Data folder. The data matrices are prepared sourcing the "Loading_data.R" file in the Auxiliary Scripts folder.
+```{r, echo=TRUE, eval=FALSE}
+library(AtlanticForestMetacommunity)
+source("Loading_data.R")
+```
+
+
+```{r, echo=FALSE, eval=TRUE}
+source("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Auxiliary Scripts/Loading_data.R")
+library(AtlanticForestMetacommunity)
+```
+
+The used packages to run this analysis are:
+
+`vegan` version 2.5-6
+`ade4` version 1.7-15
+`adespatial` version 0.3-8
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+library(vegan)
+library(ade4)
+library(adespatial)
+```
+
+
+
+To remove multicolinear variables from our Environmental Matrix I built a function that removes variables with the variance inflation factor (VIF) higher than 3. The function `VIF_selection()` simply uses the `vif.cca()` from the `vegan` package. 
+```{r}
+Broad_env_VIF <- VIF_selection(Broad_pa,  Broad_env_st[,-6])
+
+SSF_env_VIF <- VIF_selection(SSF_pa,  SSF_env_st)
+ST_env_VIF <- VIF_selection(ST_pa,  ST_env_st)
+IC_env_VIF <- VIF_selection(IC_pa,  IC_env_st)
+NI_env_VIF <- VIF_selection(NI_pa,  NI_env_st)
+MD_env_VIF <- VIF_selection(MD_pa,  MD_env_st)
+JA_env_VIF <- VIF_selection(JA_pa,  JA_env_st)
+
+DRF_env_VIF <- VIF_selection(DRF_pa,  DRF_env_st)
+UBA_env_VIF <- VIF_selection(UBA_pa,  UBA_env_st)
+BER_env_VIF <- VIF_selection(BER_pa,  BER_env_st)
+ITA_env_VIF <- VIF_selection(ITA_pa,  ITA_env_st)
+```
+
+
+Same thing for climate variables
+```{r}
+Broad_clim_VIF <- VIF_selection(Broad_pa,  Broad_clim_st[,-6])
+SSF_clim_VIF <- VIF_selection(SSF_pa,  SSF_clim_st)
+DRF_clim_VIF <- VIF_selection(DRF_pa,  DRF_clim_st)
+```
+
+
+Constructing matrices of spatial filters
+```{r}
+Broad_dbMEM <- dbmem(dist(Broad_coord), silent = F, thresh = NULL)
+
+SSF_dbMEM <- dbmem(dist(SSF_coord), silent = F, thresh = NULL)
+ST_dbMEM <- dbmem(dist(ST_coord), silent = F, thresh = NULL)
+IC_dbMEM <- dbmem(dist(IC_coord), silent = F, thresh = NULL)
+NI_dbMEM <- dbmem(dist(NI_coord), silent = F, thresh = NULL)
+MD_dbMEM <- dbmem(dist(MD_coord), silent = F, thresh = NULL)
+JA_dbMEM <- dbmem(dist(JA_coord), silent = F, thresh = NULL)
+
+DRF_dbMEM <- dbmem(dist(DRF_coord), silent = F, thresh = NULL)
+UBA_dbMEM <- dbmem(dist(UBA_coord), silent = F, thresh = NULL)
+BER_dbMEM <- dbmem(dist(BER_coord), silent = F, thresh = NULL)
+ITA_dbMEM <- dbmem(dist(ITA_coord), silent = F, thresh = NULL)
+
+```
+
