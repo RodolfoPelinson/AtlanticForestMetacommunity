@@ -4,7 +4,8 @@
 #' a variance inflation factor higher than 3 for giving matrix of response variables. It uses the function vif.cca() from package vegan.
 #' @param Y A matrix of response variables
 #' @param X A matrix of predictor variables from which multicolinear variables will be excluded.
-
+#' @export
+#'
 
 VIF_selection <- function(Y,X){
   New_X <- X

@@ -9,6 +9,14 @@
 This package is intended to reproduce the data analysis presented
     by Pelinson et al 2021. "Disentangling the multiple drivers of amphibian metacommunity structure in the Atlantic Forest at multiple spatial scales"
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/RodolfoPelinson/AtlanticForestMetacommunity}
+  \item Report bugs at \url{https://github.com/RodolfoPelinson/AtlanticForestMetacommunity/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Rodolfo Pelinson \email{rodolfopelinson@gmail.com} (\href{https://orcid.org/0000-0002-8894-588X}{ORCID})
 
