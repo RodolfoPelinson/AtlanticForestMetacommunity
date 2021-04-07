@@ -36,6 +36,7 @@ library(adespatial)
 ```
 
 
+#Reducing Multicolinearity
 
 To remove multicolinear variables from our Environmental Matrix I built a function that removes variables with the variance inflation factor (VIF) higher than 3. The function `VIF_selection()` simply uses the `vif.cca()` from the `vegan` package. 
 ```{r}
@@ -62,6 +63,7 @@ SSF_clim_VIF <- VIF_selection(SSF_pa,  SSF_clim_st)
 DRF_clim_VIF <- VIF_selection(DRF_pa,  DRF_clim_st)
 ```
 
+##Spatial Variables
 
 Constructing matrices of spatial filters
 ```{r}
@@ -79,5 +81,186 @@ UBA_dbMEM <- dbmem(dist(UBA_coord), silent = F, thresh = NULL)
 BER_dbMEM <- dbmem(dist(BER_coord), silent = F, thresh = NULL)
 ITA_dbMEM <- dbmem(dist(ITA_coord), silent = F, thresh = NULL)
 
+```
+
+
+##Forward Selection
+
+
+#Similarly to removing variables with VIF higher than 3, I built a function to select the most important variables, when they could significantly explain speices occurrences. Here we use the function `fs()` from package `adespatial`.
+```{r}
+Broad_env_FS <- forward_selection(Broad_pa, Broad_env_VIF)
+
+SSF_env_FS <- forward_selection(SSF_pa, SSF_env_VIF)
+ST_env_FS <- forward_selection(ST_pa, ST_env_VIF)
+IC_env_FS <- forward_selection(IC_pa, IC_env_VIF)
+NI_env_FS <- forward_selection(NI_pa, NI_env_VIF)
+MD_env_FS <- forward_selection(MD_pa, MD_env_VIF)
+JA_env_FS <- forward_selection(JA_pa, JA_env_VIF)
+
+DRF_env_FS <- forward_selection(DRF_pa, DRF_env_VIF)
+UBA_env_FS <- forward_selection(UBA_pa, UBA_env_VIF)
+BER_env_FS <- forward_selection(BER_pa, BER_env_VIF)
+ITA_env_FS <- forward_selection(ITA_pa, ITA_env_VIF)
+```
+
+
+Forward Selection of climate variables.
+```{r}
+Broad_clim_FS <- forward_selection(Broad_pa, Broad_clim_VIF)
+
+SSF_clim_FS <- forward_selection(SSF_pa, SSF_clim_VIF)
+DRF_clim_FS <- forward_selection(DRF_pa, DRF_clim_VIF)
+```
+
+
+Forward Selection of Spatial variables (dbMEMs).
+```{r}
+Broad_dbMEM_FS <- forward_selection(Broad_pa, Broad_dbMEM)
+
+SSF_dbMEM_FS <- forward_selection(SSF_pa, SSF_dbMEM)
+ST_dbMEM_FS <- forward_selection(ST_pa, ST_dbMEM)
+IC_dbMEM_FS <- forward_selection(IC_pa, IC_dbMEM)
+NI_dbMEM_FS <- forward_selection(NI_pa, NI_dbMEM)
+MD_dbMEM_FS <- forward_selection(MD_pa, MD_dbMEM)
+JA_dbMEM_FS <- forward_selection(JA_pa, JA_dbMEM)
+
+DRF_dbMEM_FS <- forward_selection(DRF_pa, DRF_dbMEM)
+UBA_dbMEM_FS <- forward_selection(UBA_pa, UBA_dbMEM)
+BER_dbMEM_FS <- forward_selection(BER_pa, BER_dbMEM)
+ITA_dbMEM_FS <- forward_selection(ITA_pa, ITA_dbMEM)
+```
+
+
+We can plot these important spatial variables to better understand what spatial patterns they describe.
+
+Large Scale MEM 1, 2, 3 and 4.
+```{r}
+sr.value(Broad_coord, Broad_dbMEM_FS[,1], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+
+sr.value(Broad_coord, Broad_dbMEM_FS[,2], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+
+sr.value(Broad_coord, Broad_dbMEM_FS[,3], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+
+sr.value(Broad_coord, Broad_dbMEM_FS[,4], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```
+
+Intermediate Scale DRF MEM 1.
+```{r}
+sr.value(DRF_coord, DRF_dbMEM_FS, ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```
+
+Intermediate Scale SSF MEM 1.
+```{r}
+sr.value(SSF_coord, SSF_dbMEM_FS, ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```
+
+Small Extent DRF - Ubatuba MEM 1
+```{r}
+sr.value(UBA_coord, UBA_dbMEM_FS[,1], ylim = c(-23.37694,-23.33123), xlim = c(-44.95004, -44.80492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+
+```
+
+Small Extent DRF - Bertioga MEM 1
+```{r}
+sr.value(BER_coord, BER_dbMEM_FS[,1], ylim = c(-23.76198,-23.71684), xlim = c(-45.94223, -45.73709), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```
+
+Small Extent DRF - Itanhaém MEM 1 and 2.
+```{r}
+sr.value(ITA_coord, ITA_dbMEM_FS[,1], ylim = c(-24.6527,-24.1786), xlim = c(-47.31181, -46.89443), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+
+sr.value(ITA_coord, ITA_dbMEM_FS[,2], ylim = c(-24.6527,-24.1786), xlim = c(-47.31181, -46.89443), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```
+
+
+
+Small Extent DRF - Santa Fé do Sul MEM 1 and 2.
+```{r}
+sr.value(ST_coord, ST_dbMEM_FS[,1], ylim = c(-20.18789,-20.17733), xlim = c(-50.89639, -50.89056), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+
+sr.value(ST_coord, ST_dbMEM_FS[,2], ylim = c(-20.18789,-20.17733), xlim = c(-50.89639, -50.89056), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```
+
+
+Small Extent DRF - Icém MEM 1 and 2.
+```{r}
+sr.value(IC_coord, IC_dbMEM_FS[,1], ylim = c(-20.375,-20.355), xlim = c(-49.28556, -49.18333), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+
+sr.value(IC_coord, IC_dbMEM_FS[,2], ylim = c(-20.375,-20.355), xlim = c(-49.28556, -49.18333), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```
+
+
+
+Small Extent DRF - Nova Itapirema MEM 1.
+```{r}
+sr.value(NI_coord, NI_dbMEM_FS, ylim = c(-21.08111,-21.07333), xlim = c(-49.54072, -49.51689), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```
+
+
+Small Extent DRF - Morro do Diabo MEM 1.
+```{r}
+sr.value(MD_coord, MD_dbMEM_FS[,1], ylim = c(-22.65958, -22.34950), xlim = c(-52.34536, -52.16550), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```
+
+
+Small Extent DRF - Jataí MEM 1.
+```{r}
+sr.value(JA_coord, JA_dbMEM_FS[,1], ylim = c(-21.58556, -21.56376), xlim = c(-47.79086, -47.72289), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```
+
+
+
+
+##Variation Partitioning
+
+
+Large Extent
+```{r}
+#Variation partitioning Broad
+Broad_varpart <- var_partitioning_1(Y = Broad_pa, 
+                                       env = Broad_env_FS,
+                                       clim = Broad_clim_FS,
+                                       spa = Broad_dbMEM_FS, percent_r2 = F)
+Broad_varpart
+```
+
+Intermediate Extent
+```{r}
+DRF_varpart <- var_partitioning_1(Y = DRF_pa, 
+                                      env = DRF_env_FS,
+                                      clim = DRF_clim_FS,
+                                      spa = DRF_dbMEM_FS, percent_r2 = F)
+
+SSF_varpart <- var_partitioning_1(Y = SSF_pa, 
+                                      env = SSF_env_FS,
+                                      clim = SSF_clim_FS,
+                                      spa = SSF_dbMEM_FS, percent_r2 = F)
+
+SSF_varpart
+DRF_varpart
+```
+
+Small Extent
+```{r}
+ST_varpart <- var_partitioning_2(ST_pa, ST_env_FS, ST_dbMEM_FS, allow_negative_r2 = F, percent_r2 = F)
+IC_varpart <- var_partitioning_2(IC_pa, IC_env_FS, IC_dbMEM_FS, allow_negative_r2 = F, percent_r2 = F)
+NI_varpart <- var_partitioning_2(NI_pa, NI_env_FS, NI_dbMEM_FS, allow_negative_r2 = F, percent_r2 = F)
+MD_varpart <- var_partitioning_2(MD_pa, MD_env_FS, MD_dbMEM_FS, allow_negative_r2 = F, percent_r2 = F)
+JA_varpart <- var_partitioning_2(JA_pa, JA_env_FS, JA_dbMEM_FS, allow_negative_r2 = F, percent_r2 = F)
+
+UBA_varpart <- var_partitioning_2(UBA_pa, UBA_env_FS, UBA_dbMEM_FS, allow_negative_r2 = F, percent_r2 = F)
+BER_varpart <- var_partitioning_2(BER_pa, BER_env_FS, BER_dbMEM_FS, allow_negative_r2 = F, percent_r2 = F)
+ITA_varpart <- var_partitioning_2(ITA_pa, ITA_env_FS, ITA_dbMEM_FS, allow_negative_r2 = F, percent_r2 = F)
+
+ST_varpart
+IC_varpart
+NI_varpart
+MD_varpart
+JA_varpart
+
+UBA_varpart
+BER_varpart
+ITA_varpart
 ```
 
