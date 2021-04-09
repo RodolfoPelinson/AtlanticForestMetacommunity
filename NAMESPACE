@@ -2,6 +2,8 @@
 
 export(VIF_selection)
 export(forward_selection)
+export(lighten_color)
+export(mix_color)
 export(sr_value)
 export(var_partitioning_1)
 export(var_partitioning_2)

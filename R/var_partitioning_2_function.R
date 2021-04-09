@@ -77,22 +77,23 @@ var_partitioning_2 <- function(Y, env, spa, allow_negative_r2 = FALSE, percent_r
                 p = p_pure_spa)
 
   Env_Spa <- c(Adj_R2 = r2_env_spatially_structured, NA, NA, NA)
+
   Resid <- c(Adj_R2 = r2_resid, NA, NA, NA)
 
   if(isFALSE(allow_negative_r2)){
     if(r2_pure_spa < 0 | r2_spa < 0){
       Resid <- c(Adj_R2 = 1-r2_env, NA, NA, NA)
-      result <- rbind(Env, Resid)
+      result <- rbind(Pure_Env = Env, Resid)
     }else{
 
       if(r2_pure_env < 0 | r2_env < 0){
         Resid <- c(Adj_R2 = 1-r2_spa, NA, NA, NA)
-        result <- rbind(Spa, Resid)
+        result <- rbind(Pure_Spa = Spa, Resid)
       }else{
         if(r2_env_spatially_structured < 0){
           Resid2 <- c(Adj_R2 = 1-(r2_env + r2_spa), NA, NA, NA)
           All2 <- c(Adj_R2 = (r2_env + r2_spa), NA, NA, NA)
-          result <- rbind(All_original = All, All = All2, Env, Spa, Resid_original = Resid, Resid = Resid2)
+          result <- rbind(All_original = All, All = All2, Pure_Env = Env, Pure_Spa = Spa, Resid_original = Resid, Resid = Resid2)
         }else{
           result <- rbind(All, Env, Spa, Pure_Env, Pure_Spa, Env_Spa, Resid)
         }
