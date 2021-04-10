@@ -16,16 +16,17 @@ forward_selection <- function(Y,X){
     res <- try(X_forw <- forward.sel(Y, as.matrix(X), adjR2thresh = X.R2, nperm = 9999))
     if(inherits(res, "try-error")){
       message("No variables selected")
-      NEW_X <- X
+      NEW_X <- data.frame(X)
     }else{
-      NEW_X <- X[,match(X_forw$variables, colnames(X))]
+      NEW_X <- data.frame(X[,match(X_forw$variables, colnames(X))])
+      colnames(NEW_X) <- colnames(X)[1:nrow(X_forw)]
     }
 
   }
   else{
     message("Forward selection NOT performed. p > 0.05")
-    NEW_X <- X
+    NEW_X <- data.frame(X)
   }
-  if(is.null(NEW_X)){NEW_X <- X}
+  if(is.null(NEW_X)){NEW_X <- data.frame(X)}
   return(NEW_X)
 }

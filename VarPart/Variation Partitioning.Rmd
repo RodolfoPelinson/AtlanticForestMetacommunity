@@ -34,7 +34,10 @@ library(vegan)
 library(ade4)
 library(adespatial)
 ```
-
+\  
+\  
+\  
+\  
 
 ## Reducing Multicolinearity
 
@@ -54,6 +57,8 @@ UBA_env_VIF <- VIF_selection(UBA_pa,  UBA_env_st)
 BER_env_VIF <- VIF_selection(BER_pa,  BER_env_st)
 ITA_env_VIF <- VIF_selection(ITA_pa,  ITA_env_st)
 ```
+\  
+\  
 
 
 Same thing for climate variables
@@ -62,6 +67,8 @@ Broad_clim_VIF <- VIF_selection(Broad_pa,  Broad_clim_st[,-6])
 SSF_clim_VIF <- VIF_selection(SSF_pa,  SSF_clim_st)
 DRF_clim_VIF <- VIF_selection(DRF_pa,  DRF_clim_st)
 ```
+\  
+\  
 
 ## Spatial Variables
 
@@ -82,57 +89,202 @@ BER_dbMEM <- dbmem(dist(BER_coord), silent = F, thresh = NULL)
 ITA_dbMEM <- dbmem(dist(ITA_coord), silent = F, thresh = NULL)
 
 ```
+\  
+\  
+\  
+\  
 
 
 ## Forward Selection
 
+Similarly to removing variables with VIF higher than 3, I built a function to select the most important variables, when they could significantly explain species occurrences. This function mostly rely on the function `fs()` from package `adespatial`. Forward selection is only performed when the whole predictor matrix can significantly explain (p < 0.05) the variation in species occurrences.
 
-Similarly to removing variables with VIF higher than 3, I built a function to select the most important variables, when they could significantly explain speices occurrences. Here we use the function `fs()` from package `adespatial`.
-```{r, cache = TRUE, message=FALSE, warning=FALSE,results='hide'}
+
+### Broad Spatial Extent
+```{r, cache = TRUE, warning=FALSE}
 Broad_env_FS <- forward_selection(Broad_pa, Broad_env_VIF)
-
-SSF_env_FS <- forward_selection(SSF_pa, SSF_env_VIF)
-ST_env_FS <- forward_selection(ST_pa, ST_env_VIF)
-IC_env_FS <- forward_selection(IC_pa, IC_env_VIF)
-NI_env_FS <- forward_selection(NI_pa, NI_env_VIF)
-MD_env_FS <- forward_selection(MD_pa, MD_env_VIF)
-JA_env_FS <- forward_selection(JA_pa, JA_env_VIF)
-
-DRF_env_FS <- forward_selection(DRF_pa, DRF_env_VIF)
-UBA_env_FS <- forward_selection(UBA_pa, UBA_env_VIF)
-BER_env_FS <- forward_selection(BER_pa, BER_env_VIF)
-ITA_env_FS <- forward_selection(ITA_pa, ITA_env_VIF)
-```
-
-
-Forward Selection of climate variables.
-```{r, cache = TRUE, message=FALSE, warning=FALSE,results='hide'}
 Broad_clim_FS <- forward_selection(Broad_pa, Broad_clim_VIF)
-
-SSF_clim_FS <- forward_selection(SSF_pa, SSF_clim_VIF)
-DRF_clim_FS <- forward_selection(DRF_pa, DRF_clim_VIF)
-```
-
-
-Forward Selection of Spatial variables (dbMEMs).
-```{r, cache = TRUE, message=FALSE, warning=FALSE,results='hide'}
 Broad_dbMEM_FS <- forward_selection(Broad_pa, Broad_dbMEM)
 
+#Retained Environmental Variables
+colnames(Broad_env_FS)
+
+#Retained Climate Variables
+colnames(Broad_clim_FS)
+
+#Retained Spatial Variables
+colnames(Broad_dbMEM_FS)
+```
+\  
+\  
+
+### Intermediate Spatial Extent
+#### DRF
+```{r, cache = TRUE, warning=FALSE}
+DRF_env_FS <- forward_selection(DRF_pa, DRF_env_VIF)
+DRF_clim_FS <- forward_selection(DRF_pa, DRF_clim_VIF)
+DRF_dbMEM_FS <- forward_selection(DRF_pa, DRF_dbMEM)
+
+#Retained Environmental Variables
+colnames(DRF_env_FS)
+
+#Retained Climate Variables
+colnames(DRF_clim_FS)
+
+#Retained Spatial Variables
+colnames(DRF_dbMEM_FS)
+
+```
+\  
+\ 
+
+#### SSF
+```{r, cache = TRUE, warning=FALSE}
+SSF_env_FS <- forward_selection(SSF_pa, SSF_env_VIF)
+SSF_clim_FS <- forward_selection(SSF_pa, SSF_clim_VIF)
 SSF_dbMEM_FS <- forward_selection(SSF_pa, SSF_dbMEM)
+
+#Retained Environmental Variables
+colnames(SSF_env_FS)
+
+#Retained Climate Variables
+colnames(SSF_clim_FS)
+
+#Retained Spatial Variables
+colnames(SSF_dbMEM_FS)
+
+```
+\  
+\  
+
+### Small Spatial Extent
+#### DRF
+Ubatuba
+```{r, cache = TRUE, warning=FALSE}
+UBA_env_FS <- forward_selection(UBA_pa, UBA_env_VIF)
+UBA_dbMEM_FS <- forward_selection(UBA_pa, UBA_dbMEM)
+
+#Retained Environmental Variables
+colnames(UBA_env_FS)
+
+#Retained Spatial Variables
+colnames(UBA_dbMEM_FS)
+
+```
+\  
+\  
+
+Bertioga
+```{r, cache = TRUE, warning=FALSE}
+BER_env_FS <- forward_selection(BER_pa, BER_env_VIF)
+BER_dbMEM_FS <- forward_selection(BER_pa, BER_dbMEM)
+
+#Retained Environmental Variables
+colnames(BER_env_FS)
+
+#Retained Spatial Variables
+colnames(BER_dbMEM_FS)
+
+```
+\  
+\  
+
+Itanhaém
+```{r, cache = TRUE, warning=FALSE}
+ITA_env_FS <- forward_selection(ITA_pa, ITA_env_VIF)
+ITA_dbMEM_FS <- forward_selection(ITA_pa, ITA_dbMEM)
+
+#Retained Environmental Variables
+colnames(ITA_env_FS)
+
+#Retained Spatial Variables
+colnames(ITA_dbMEM_FS)
+
+```
+\  
+\  
+
+#### SSF
+Santa Fé do Sul
+```{r, cache = TRUE, warning=FALSE}
+ST_env_FS <- forward_selection(ST_pa, ST_env_VIF)
 ST_dbMEM_FS <- forward_selection(ST_pa, ST_dbMEM)
+
+#Retained Environmental Variables
+colnames(ST_env_FS)
+
+#Retained Spatial Variables
+colnames(ST_dbMEM_FS)
+
+```
+\  
+\  
+
+Icém
+```{r, cache = TRUE, warning=FALSE}
+IC_env_FS <- forward_selection(IC_pa, IC_env_VIF)
 IC_dbMEM_FS <- forward_selection(IC_pa, IC_dbMEM)
+
+#Retained Environmental Variables
+colnames(IC_env_FS)
+
+#Retained Spatial Variables
+colnames(IC_dbMEM_FS)
+
+```
+\  
+\  
+
+Nova Itapirema
+```{r, cache = TRUE, warning=FALSE}
+NI_env_FS <- forward_selection(NI_pa, NI_env_VIF)
 NI_dbMEM_FS <- forward_selection(NI_pa, NI_dbMEM)
+
+#Retained Environmental Variables
+colnames(NI_env_FS)
+
+#Retained Spatial Variables
+colnames(NI_dbMEM_FS)
+
+```
+\  
+\  
+
+Morro do Diabo
+```{r, cache = TRUE, warning=FALSE}
+MD_env_FS <- forward_selection(MD_pa, MD_env_VIF)
 MD_dbMEM_FS <- forward_selection(MD_pa, MD_dbMEM)
+
+#Retained Environmental Variables
+colnames(MD_env_FS)
+
+#Retained Spatial Variables
+colnames(MD_dbMEM_FS)
+
+```
+\  
+\  
+
+Jataí
+```{r, cache = TRUE, warning=FALSE}
+JA_env_FS <- forward_selection(JA_pa, JA_env_VIF)
 JA_dbMEM_FS <- forward_selection(JA_pa, JA_dbMEM)
 
-DRF_dbMEM_FS <- forward_selection(DRF_pa, DRF_dbMEM)
-UBA_dbMEM_FS <- forward_selection(UBA_pa, UBA_dbMEM)
-BER_dbMEM_FS <- forward_selection(BER_pa, BER_dbMEM)
-ITA_dbMEM_FS <- forward_selection(ITA_pa, ITA_dbMEM)
+#Retained Environmental Variables
+colnames(JA_env_FS)
+
+#Retained Spatial Variables
+colnames(JA_dbMEM_FS)
+
 ```
+\  
+\  
+\  
+\  
 
 
-We can plot these important spatial variables to better understand what spatial patterns they describe.
+
+We can plot the important spatial variables to better understand what spatial patterns they describe.
 
 Large Scale MEM 1, 2, 3 and 4.
 ```{r, fig.height= 10, fig.width=10, fig.align='center'}
@@ -151,20 +303,40 @@ title(main = "LARGE SCALE MEM 4", line = 3, outer = F, adj = 1)
 
 ```
 
+\  
+\  
+\  
+\  
+
+
+
 Intermediate Scale DRF MEM 1.
 ```{r, fig.height= 5, fig.width=5, fig.align='center'}
 par(mfrow = c(1,1))
-sr_value(DRF_coord, DRF_dbMEM_FS, ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(DRF_coord, DRF_dbMEM_FS[,1], ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
 title(main = "DRF MEM 1", line = 3, outer = F, adj = 1)
 
 ```
 
+\  
+\  
+\  
+\  
+
+
+
 Intermediate Scale SSF MEM 1.
 ```{r, fig.height= 5, fig.width=5, fig.align='center'}
-sr_value(SSF_coord, SSF_dbMEM_FS, ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(SSF_coord, SSF_dbMEM_FS[,1], ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
 title(main = "SSF MEM 1", line = 3, outer = F, adj = 1)
 
 ```
+
+\  
+\  
+\  
+\  
+
 
 Small Extent DRF - Ubatuba MEM 1
 ```{r, fig.height= 5, fig.width=5, fig.align='center'}
@@ -174,12 +346,22 @@ title(main = "Ubatuba MEM 1", line = 3, outer = F, adj = 1)
 
 ```
 
+\  
+\  
+
+
 Small Extent DRF - Bertioga MEM 1
 ```{r, fig.height= 5, fig.width=5, fig.align='center'}
 sr_value(BER_coord, BER_dbMEM_FS[,1], ylim = c(-23.76198,-23.71684), xlim = c(-45.94223, -45.73709), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
 title(main = "Bertioga MEM 1", line = 3, outer = F, adj = 1)
 
 ```
+
+\  
+\  
+\  
+\  
+
 
 Small Extent DRF - Itanhaém MEM 1 and 2.
 ```{r, fig.height= 5, fig.width=10, fig.align='center'}
@@ -193,6 +375,11 @@ sr_value(ITA_coord, ITA_dbMEM_FS[,2], ylim = c(-24.6527,-24.1786), xlim = c(-47.
 title(main = "Itanhaém MEM 2", line = 3, outer = F, adj = 1)
 
 ```
+
+\  
+\  
+\  
+\  
 
 
 
@@ -209,6 +396,12 @@ title(main = "Santa Fé do Sul MEM 2", line = 3, outer = F, adj = 1)
 
 ```
 
+\  
+\  
+\  
+\  
+
+
 
 Small Extent DRF - Icém MEM 1 and 2.
 ```{r, fig.height= 5, fig.width=10, fig.align='center'}
@@ -223,14 +416,28 @@ title(main = "Icém MEM 2", line = 3, outer = F, adj = 1)
 
 ```
 
+\  
+\  
+\  
+\  
+
+
+
 
 
 Small Extent DRF - Nova Itapirema MEM 1.
 ```{r, fig.height= 5, fig.width=5, fig.align='center'}
-sr_value(NI_coord, NI_dbMEM_FS, ylim = c(-21.08111,-21.07333), xlim = c(-49.54072, -49.51689), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(NI_coord, NI_dbMEM_FS[,1], ylim = c(-21.08111,-21.07333), xlim = c(-49.54072, -49.51689), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
 title(main = "Nova Itapirema MEM 1", line = 3, outer = F, adj = 1)
 
 ```
+
+\  
+\  
+\  
+\  
+
+
 
 
 Small Extent DRF - Morro do Diabo MEM 1.
@@ -240,6 +447,12 @@ title(main = "Morro do Diabo MEM 1", line = 3, outer = F, adj = 1)
 
 ```
 
+\  
+\  
+\  
+\  
+
+
 
 Small Extent DRF - Jataí MEM 1.
 ```{r, fig.height= 5, fig.width=5, fig.align='center'}
@@ -248,13 +461,17 @@ title(main = "Jataí MEM 1", line = 3, outer = F, adj = 1)
 
 ```
 
+\  
+\  
+\  
+\  
 
 
+## Variation Partitioning
+ 
+ 
 
-##Variation Partitioning
-
-
-Large Extent
+#### Large Extent
 ```{r, cache = TRUE}
 #Variation partitioning Broad
 Broad_varpart <- var_partitioning_1(Y = Broad_pa, 
@@ -263,8 +480,10 @@ Broad_varpart <- var_partitioning_1(Y = Broad_pa,
                                        spa = Broad_dbMEM_FS, percent_r2 = F)
 Broad_varpart
 ```
-
-
+\  
+\  
+ 
+#### Intermediate Extent
 ```{r, cache = TRUE}
 DRF_varpart <- var_partitioning_1(Y = DRF_pa, 
                                       env = DRF_env_FS,
@@ -279,8 +498,10 @@ SSF_varpart <- var_partitioning_1(Y = SSF_pa,
 SSF_varpart
 DRF_varpart
 ```
-
-
+\  
+\  
+ 
+#### Small Extent
 
 Small Extent allowing negative fractions
 ```{r, cache = TRUE}
@@ -304,9 +525,10 @@ UBA_varpart
 BER_varpart
 ITA_varpart
 ```
-
-
-
+\  
+\  
+  
+  
 
 Small Extent not allowing negative fractions
 ```{r, cache = TRUE}
@@ -330,7 +552,8 @@ UBA_varpart2
 BER_varpart2
 ITA_varpart2
 ```
-
+\  
+\  
 
 Constructing a matrix with all R2 values 
 ```{r, message=FALSE, warning=FALSE}
@@ -371,9 +594,11 @@ rownames(Varpart_plot) <- c("Broad", "SSF", "DRF", "Santa Fé do Sul", "Icém", 
 Varpart_barplot <- t(Varpart_plot)
 Varpart_barplot
 ```
-
-
-
+\  
+\    
+\  
+\      
+  
 
 Plotting the Variation Partioning as barplots.
 ```{r, fig.height= 10, fig.width=10, fig.align='center'}
@@ -388,11 +613,8 @@ for(i in 1:dim(Varpart_barplot)[1]){
   }
 }
 
-round(colSums(Varpart_barplot),2)
 
 Varpart_barplot_break <- Varpart_barplot; Varpart_barplot_break[8,] <- Varpart_barplot_break[8,]-0.3
-
-colSums(Varpart_barplot_break)
 
 Varpart_barplot_break <- Varpart_barplot_break[c(1,4,3,6,2,5,7,8),]
 
