@@ -18,4 +18,4 @@ The analyses were divided in three different sections:
 
 [Variation
 Partitioning](https://github.com/RodolfoPelinson/AtlanticForestMetacommunity/blob/master/VarPart/Variation-Partitioning.md)  
-[EMS](link)
+[EMS](https://github.com/RodolfoPelinson/AtlanticForestMetacommunity/blob/master/EMS/EMS.md)
