@@ -3,25 +3,25 @@
 
 library("vegan")
 
-dados = read.csv("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Not Commit/Data.csv",header=TRUE,row.names = 1, encoding = "UTF-8")
-dados
+data = read.csv("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Not Commit/Data.csv",header=TRUE,row.names = 1, encoding = "UTF-8")
+data
 
 ##################################################################################################################
 ###########################################    SPECIES DATA    ###################################################
 ##################################################################################################################
 
-Broad=dados[2:nrow(dados),1:57]
+Broad=data[2:nrow(data),1:57]
 
 for(i in 1:ncol(Broad)){
   Broad[,i]<- as.numeric(Broad[,i])
 }
 
-SSFoc<-dados[which(dados$ecoregion == "SSF"),1:57]
+SSFoc<-data[which(data$ecoregion == "SSF"),1:57]
 for(i in 1:ncol(SSFoc)){
   SSFoc[,i]<- as.numeric(SSFoc[,i])
 }
 
-DRFoc=dados[which(dados$ecoregion == "DRF"),1:57]
+DRFoc=data[which(data$ecoregion == "DRF"),1:57]
 for(i in 1:ncol(DRFoc)){
   DRFoc[,i]<- as.numeric(DRFoc[,i])
 }
@@ -92,39 +92,39 @@ ITA_pa=ITA_pa_orig[,which (colSums(ITA_pa_orig)>1)]
 ##################################################################################################################
 ########################################    ENVIRONMENTAL DATA    ################################################
 ##################################################################################################################
-Broadenv<-data.frame(hydroperiod = dados$hydroperiod[2:nrow(dados)],
-                    canopy_cover = dados$canopy_cover[2:nrow(dados)],
-                    area = dados$area[2:nrow(dados)],
-                    depth = dados$depth[2:nrow(dados)],
-                    nvt = dados$nvt[2:nrow(dados)],
-                    ecoregion = as.factor(dados$ecoregion[2:nrow(dados)]))
-rownames(Broadenv)<- rownames(dados)[2:nrow(dados)]
+Broadenv<-data.frame(hydroperiod = data$hydroperiod[2:nrow(data)],
+                    canopy_cover = data$canopy_cover[2:nrow(data)],
+                    area = data$area[2:nrow(data)],
+                    depth = data$depth[2:nrow(data)],
+                    nvt = data$nvt[2:nrow(data)],
+                    ecoregion = as.factor(data$ecoregion[2:nrow(data)]))
+rownames(Broadenv)<- rownames(data)[2:nrow(data)]
 for(i in 1:ncol(Broadenv)){
   Broadenv[,i]<- as.numeric(Broadenv[,i])
 }
 
-SSF_locality <- dados$locality[2:47]
+SSF_locality <- data$locality[2:47]
 
-SSFenv<-data.frame(hydroperiod = dados$hydroperiod,
-                   canopy_cover = dados$canopy_cover,
-                   area = dados$area,
-                   depth = dados$depth,
-                   nvt = dados$nvt)[2:47,]
-rownames(SSFenv)<- rownames(dados)[2:47]
+SSFenv<-data.frame(hydroperiod = data$hydroperiod,
+                   canopy_cover = data$canopy_cover,
+                   area = data$area,
+                   depth = data$depth,
+                   nvt = data$nvt)[2:47,]
+rownames(SSFenv)<- rownames(data)[2:47]
 
 for(i in 1:ncol(SSFenv)){
   SSFenv[,i]<- as.numeric(SSFenv[,i])
 }
 
-DRF_locality <- dados$locality[48:nrow(dados)]
+DRF_locality <- data$locality[48:nrow(data)]
 
 
-DRFenv<-data.frame(hydroperiod = dados$hydroperiod,
-                   canopy_cover = dados$canopy_cover,
-                   area = dados$area,
-                   depth = dados$depth,
-                   nvt = dados$nvt)[48:nrow(dados),]
-rownames(DRFenv)<- rownames(dados)[48:nrow(dados)]
+DRFenv<-data.frame(hydroperiod = data$hydroperiod,
+                   canopy_cover = data$canopy_cover,
+                   area = data$area,
+                   depth = data$depth,
+                   nvt = data$nvt)[48:nrow(data),]
+rownames(DRFenv)<- rownames(data)[48:nrow(data)]
 for(i in 1:ncol(DRFenv)){
   DRFenv[,i]<- as.numeric(DRFenv[,i])
 }
@@ -182,9 +182,9 @@ ITA_env_st <- data.frame(t(na.omit(t(ITA_env_st))))
 #########################################    SPATIAL DATA    #####################################################
 ##################################################################################################################
 
-Broad_coord <- data.frame(lat = dados$lat[2:nrow(dados)], long = dados$long[2:nrow(dados)])
+Broad_coord <- data.frame(lat = data$lat[2:nrow(data)], long = data$long[2:nrow(data)])
 
-SSF_coord <- data.frame(lat = dados$lat, long = dados$long)[2:47,]
+SSF_coord <- data.frame(lat = data$lat, long = data$long)[2:47,]
 IC_coord=SSF_coord[9:20,]
 ST_coord=SSF_coord[1:8,]
 NI_coord=SSF_coord[21:28,]
@@ -192,7 +192,7 @@ MD_coord=SSF_coord[29:36,]
 JA_coord=SSF_coord[37:46,]
 
 
-DRF_coord=data.frame(lat = dados$lat, long = dados$long)[48:nrow(dados),]
+DRF_coord=data.frame(lat = data$lat, long = data$long)[48:nrow(data),]
 UBA_coord=(DRF_coord[c(10,11,12,13,14,15,16,17,18,19,38,39,40,41,42,43,44,45,46,47,48,49,50),])
 BER_coord=(DRF_coord[26:37,])
 ITA_coord=(DRF_coord[c(1,2,3,4,5,6,7,8,9,20,21,22,23,24,25),])
