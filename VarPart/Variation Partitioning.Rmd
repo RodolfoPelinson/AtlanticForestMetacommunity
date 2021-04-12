@@ -105,14 +105,21 @@ Similarly to removing variables with VIF higher than 3, I built a function to se
 Broad_env_FS <- forward_selection(Broad_pa, Broad_env_VIF)
 Broad_clim_FS <- forward_selection(Broad_pa, Broad_clim_VIF)
 Broad_dbMEM_FS <- forward_selection(Broad_pa, Broad_dbMEM)
+```
 
-#Retained Environmental Variables
+
+<span style="color: #D4AC0D;">Retained Environmental Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(Broad_env_FS)
+```
 
-#Retained Climate Variables
+<span style="color: #CB4335;">Retained Climate Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(Broad_clim_FS)
+```
 
-#Retained Spatial Variables
+<span style="color: #3498DB;">Retained Spatial Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(Broad_dbMEM_FS)
 ```
 \  
@@ -124,16 +131,21 @@ colnames(Broad_dbMEM_FS)
 DRF_env_FS <- forward_selection(DRF_pa, DRF_env_VIF)
 DRF_clim_FS <- forward_selection(DRF_pa, DRF_clim_VIF)
 DRF_dbMEM_FS <- forward_selection(DRF_pa, DRF_dbMEM)
+```
 
-#Retained Environmental Variables
+<span style="color: #D4AC0D;">Retained Environmental Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(DRF_env_FS)
+```
 
-#Retained Climate Variables
+<span style="color: #CB4335;">Retained Climate Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(DRF_clim_FS)
+```
 
-#Retained Spatial Variables
+<span style="color: #3498DB;">Retained Spatial Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(DRF_dbMEM_FS)
-
 ```
 \  
 \ 
@@ -143,19 +155,25 @@ colnames(DRF_dbMEM_FS)
 SSF_env_FS <- forward_selection(SSF_pa, SSF_env_VIF)
 SSF_clim_FS <- forward_selection(SSF_pa, SSF_clim_VIF)
 SSF_dbMEM_FS <- forward_selection(SSF_pa, SSF_dbMEM)
+```
 
-#Retained Environmental Variables
+<span style="color: #D4AC0D;">Retained Environmental Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(SSF_env_FS)
+```
 
-#Retained Climate Variables
+<span style="color: #CB4335;">Retained Climate Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(SSF_clim_FS)
+```
 
-#Retained Spatial Variables
+<span style="color: #3498DB;">Retained Spatial Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(SSF_dbMEM_FS)
-
 ```
 \  
 \  
+
 
 ### Small Spatial Extent
 #### DRF
@@ -163,13 +181,16 @@ Ubatuba
 ```{r, cache = TRUE, warning=FALSE}
 UBA_env_FS <- forward_selection(UBA_pa, UBA_env_VIF)
 UBA_dbMEM_FS <- forward_selection(UBA_pa, UBA_dbMEM)
+```
 
-#Retained Environmental Variables
+<span style="color: #D4AC0D;">Retained Environmental Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(UBA_env_FS)
+```
 
-#Retained Spatial Variables
+<span style="color: #3498DB;">Retained Spatial Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(UBA_dbMEM_FS)
-
 ```
 \  
 \  
@@ -178,13 +199,16 @@ Bertioga
 ```{r, cache = TRUE, warning=FALSE}
 BER_env_FS <- forward_selection(BER_pa, BER_env_VIF)
 BER_dbMEM_FS <- forward_selection(BER_pa, BER_dbMEM)
+```
 
-#Retained Environmental Variables
+<span style="color: #D4AC0D;">Retained Environmental Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(BER_env_FS)
+```
 
-#Retained Spatial Variables
+<span style="color: #3498DB;">Retained Spatial Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(BER_dbMEM_FS)
-
 ```
 \  
 \  
@@ -193,13 +217,16 @@ Itanhaém
 ```{r, cache = TRUE, warning=FALSE}
 ITA_env_FS <- forward_selection(ITA_pa, ITA_env_VIF)
 ITA_dbMEM_FS <- forward_selection(ITA_pa, ITA_dbMEM)
+```
 
-#Retained Environmental Variables
+<span style="color: #D4AC0D;">Retained Environmental Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(ITA_env_FS)
+```
 
-#Retained Spatial Variables
+<span style="color: #3498DB;">Retained Spatial Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(ITA_dbMEM_FS)
-
 ```
 \  
 \  
@@ -209,28 +236,35 @@ Santa Fé do Sul
 ```{r, cache = TRUE, warning=FALSE}
 ST_env_FS <- forward_selection(ST_pa, ST_env_VIF)
 ST_dbMEM_FS <- forward_selection(ST_pa, ST_dbMEM)
+```
 
-#Retained Environmental Variables
+<span style="color: #D4AC0D;">Retained Environmental Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(ST_env_FS)
+```
 
-#Retained Spatial Variables
+<span style="color: #3498DB;">Retained Spatial Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(ST_dbMEM_FS)
-
 ```
 \  
 \  
+
 
 Icém
 ```{r, cache = TRUE, warning=FALSE}
 IC_env_FS <- forward_selection(IC_pa, IC_env_VIF)
 IC_dbMEM_FS <- forward_selection(IC_pa, IC_dbMEM)
+```
 
-#Retained Environmental Variables
+<span style="color: #D4AC0D;">Retained Environmental Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(IC_env_FS)
+```
 
-#Retained Spatial Variables
+<span style="color: #3498DB;">Retained Spatial Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(IC_dbMEM_FS)
-
 ```
 \  
 \  
@@ -239,13 +273,16 @@ Nova Itapirema
 ```{r, cache = TRUE, warning=FALSE}
 NI_env_FS <- forward_selection(NI_pa, NI_env_VIF)
 NI_dbMEM_FS <- forward_selection(NI_pa, NI_dbMEM)
+```
 
-#Retained Environmental Variables
+<span style="color: #D4AC0D;">Retained Environmental Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(NI_env_FS)
+```
 
-#Retained Spatial Variables
+<span style="color: #3498DB;">Retained Spatial Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(NI_dbMEM_FS)
-
 ```
 \  
 \  
@@ -254,13 +291,16 @@ Morro do Diabo
 ```{r, cache = TRUE, warning=FALSE}
 MD_env_FS <- forward_selection(MD_pa, MD_env_VIF)
 MD_dbMEM_FS <- forward_selection(MD_pa, MD_dbMEM)
+```
 
-#Retained Environmental Variables
+<span style="color: #D4AC0D;">Retained Environmental Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(MD_env_FS)
+```
 
-#Retained Spatial Variables
+<span style="color: #3498DB;">Retained Spatial Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(MD_dbMEM_FS)
-
 ```
 \  
 \  
@@ -269,13 +309,16 @@ Jataí
 ```{r, cache = TRUE, warning=FALSE}
 JA_env_FS <- forward_selection(JA_pa, JA_env_VIF)
 JA_dbMEM_FS <- forward_selection(JA_pa, JA_dbMEM)
+```
 
-#Retained Environmental Variables
+<span style="color: #D4AC0D;">Retained Environmental Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(JA_env_FS)
+```
 
-#Retained Spatial Variables
+<span style="color: #3498DB;">Retained Spatial Variables</span>
+```{r, cache = TRUE, warning=FALSE}
 colnames(JA_dbMEM_FS)
-
 ```
 \  
 \  
@@ -287,18 +330,18 @@ colnames(JA_dbMEM_FS)
 We can plot the important spatial variables to better understand what spatial patterns they describe.
 
 Large Scale MEM 1, 2, 3 and 4.
-```{r, fig.height= 10, fig.width=10, fig.align='center'}
+```{r, fig.width= 6, fig.height=6,out.width= 800, out.height=800 , fig.align='center', dpi = 200}
 par(mfrow = c(2,2))
-sr_value(Broad_coord, Broad_dbMEM_FS[,1], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(Broad_coord, Broad_dbMEM_FS[,1], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = "LARGE SCALE MEM 1", line = 3, outer = F, adj = 1)
 
-sr_value(Broad_coord, Broad_dbMEM_FS[,2], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(Broad_coord, Broad_dbMEM_FS[,2], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = "LARGE SCALE MEM 2", line = 3, outer = F, adj = 1)
 
-sr_value(Broad_coord, Broad_dbMEM_FS[,3], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(Broad_coord, Broad_dbMEM_FS[,3], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = "LARGE SCALE MEM 3", line = 3, outer = F, adj = 1)
 
-sr_value(Broad_coord, Broad_dbMEM_FS[,4], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(Broad_coord, Broad_dbMEM_FS[,4], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = "LARGE SCALE MEM 4", line = 3, outer = F, adj = 1)
 
 ```
@@ -311,9 +354,9 @@ title(main = "LARGE SCALE MEM 4", line = 3, outer = F, adj = 1)
 
 
 Intermediate Scale DRF MEM 1.
-```{r, fig.height= 5, fig.width=5, fig.align='center'}
+```{r, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
 par(mfrow = c(1,1))
-sr_value(DRF_coord, DRF_dbMEM_FS[,1], ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(DRF_coord, DRF_dbMEM_FS[,1], ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "DRF MEM 1", line = 3, outer = F, adj = 1)
 
 ```
@@ -326,8 +369,8 @@ title(main = "DRF MEM 1", line = 3, outer = F, adj = 1)
 
 
 Intermediate Scale SSF MEM 1.
-```{r, fig.height= 5, fig.width=5, fig.align='center'}
-sr_value(SSF_coord, SSF_dbMEM_FS[,1], ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```{r, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+sr_value(SSF_coord, SSF_dbMEM_FS[,1], ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "SSF MEM 1", line = 3, outer = F, adj = 1)
 
 ```
@@ -339,8 +382,8 @@ title(main = "SSF MEM 1", line = 3, outer = F, adj = 1)
 
 
 Small Extent DRF - Ubatuba MEM 1
-```{r, fig.height= 5, fig.width=5, fig.align='center'}
-sr_value(UBA_coord, UBA_dbMEM_FS[,1], ylim = c(-23.37694,-23.33123), xlim = c(-44.95004, -44.80492), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```{r, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+sr_value(UBA_coord, UBA_dbMEM_FS[,1], ylim = c(-23.37694,-23.33123), xlim = c(-44.95004, -44.80492), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "Ubatuba MEM 1", line = 3, outer = F, adj = 1)
 
 
@@ -351,8 +394,8 @@ title(main = "Ubatuba MEM 1", line = 3, outer = F, adj = 1)
 
 
 Small Extent DRF - Bertioga MEM 1
-```{r, fig.height= 5, fig.width=5, fig.align='center'}
-sr_value(BER_coord, BER_dbMEM_FS[,1], ylim = c(-23.76198,-23.71684), xlim = c(-45.94223, -45.73709), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```{r, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+sr_value(BER_coord, BER_dbMEM_FS[,1], ylim = c(-23.76198,-23.71684), xlim = c(-45.94223, -45.73709), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "Bertioga MEM 1", line = 3, outer = F, adj = 1)
 
 ```
@@ -364,14 +407,14 @@ title(main = "Bertioga MEM 1", line = 3, outer = F, adj = 1)
 
 
 Small Extent DRF - Itanhaém MEM 1 and 2.
-```{r, fig.height= 5, fig.width=10, fig.align='center'}
+```{r, fig.height= 3,fig.width=6,out.width= 800, out.height=400 , fig.align='center', dpi = 200}
 par(mfrow = c(1,2))
 
-sr_value(ITA_coord, ITA_dbMEM_FS[,1], ylim = c(-24.6527,-24.1786), xlim = c(-47.31181, -46.89443), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(ITA_coord, ITA_dbMEM_FS[,1], ylim = c(-24.6527,-24.1786), xlim = c(-47.31181, -46.89443), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "Itanhaém MEM 1", line = 3, outer = F, adj = 1)
 
 
-sr_value(ITA_coord, ITA_dbMEM_FS[,2], ylim = c(-24.6527,-24.1786), xlim = c(-47.31181, -46.89443), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(ITA_coord, ITA_dbMEM_FS[,2], ylim = c(-24.6527,-24.1786), xlim = c(-47.31181, -46.89443), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "Itanhaém MEM 2", line = 3, outer = F, adj = 1)
 
 ```
@@ -384,14 +427,14 @@ title(main = "Itanhaém MEM 2", line = 3, outer = F, adj = 1)
 
 
 Small Extent DRF - Santa Fé do Sul MEM 1 and 2.
-```{r, fig.height= 5, fig.width=10, fig.align='center'}
+```{r, fig.height= 3,fig.width=6,out.width= 800, out.height=400 , fig.align='center', dpi = 200}
 par(mfrow = c(1,2))
 
-sr_value(ST_coord, ST_dbMEM_FS[,1], ylim = c(-20.18789,-20.17733), xlim = c(-50.89639, -50.89056), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(ST_coord, ST_dbMEM_FS[,1], ylim = c(-20.18789,-20.17733), xlim = c(-50.89639, -50.89056), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "Santa Fé do Sul MEM 1", line = 3, outer = F, adj = 1)
 
 
-sr_value(ST_coord, ST_dbMEM_FS[,2], ylim = c(-20.18789,-20.17733), xlim = c(-50.89639, -50.89056), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(ST_coord, ST_dbMEM_FS[,2], ylim = c(-20.18789,-20.17733), xlim = c(-50.89639, -50.89056), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "Santa Fé do Sul MEM 2", line = 3, outer = F, adj = 1)
 
 ```
@@ -404,14 +447,14 @@ title(main = "Santa Fé do Sul MEM 2", line = 3, outer = F, adj = 1)
 
 
 Small Extent DRF - Icém MEM 1 and 2.
-```{r, fig.height= 5, fig.width=10, fig.align='center'}
+```{r, fig.height= 3,fig.width=6,out.width= 800, out.height=400 , fig.align='center', dpi = 200}
 par(mfrow = c(1,2))
 
-sr_value(IC_coord, IC_dbMEM_FS[,1], ylim = c(-20.375,-20.355), xlim = c(-49.28556, -49.18333), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(IC_coord, IC_dbMEM_FS[,1], ylim = c(-20.375,-20.355), xlim = c(-49.28556, -49.18333), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "Icém MEM 1", line = 3, outer = F, adj = 1)
 
 
-sr_value(IC_coord, IC_dbMEM_FS[,2], ylim = c(-20.375,-20.355), xlim = c(-49.28556, -49.18333), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+sr_value(IC_coord, IC_dbMEM_FS[,2], ylim = c(-20.375,-20.355), xlim = c(-49.28556, -49.18333), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "Icém MEM 2", line = 3, outer = F, adj = 1)
 
 ```
@@ -426,8 +469,8 @@ title(main = "Icém MEM 2", line = 3, outer = F, adj = 1)
 
 
 Small Extent DRF - Nova Itapirema MEM 1.
-```{r, fig.height= 5, fig.width=5, fig.align='center'}
-sr_value(NI_coord, NI_dbMEM_FS[,1], ylim = c(-21.08111,-21.07333), xlim = c(-49.54072, -49.51689), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```{r, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+sr_value(NI_coord, NI_dbMEM_FS[,1], ylim = c(-21.08111,-21.07333), xlim = c(-49.54072, -49.51689), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "Nova Itapirema MEM 1", line = 3, outer = F, adj = 1)
 
 ```
@@ -441,8 +484,8 @@ title(main = "Nova Itapirema MEM 1", line = 3, outer = F, adj = 1)
 
 
 Small Extent DRF - Morro do Diabo MEM 1.
-```{r, fig.height= 5, fig.width=5, fig.align='center'}
-sr_value(MD_coord, MD_dbMEM_FS[,1], ylim = c(-22.65958, -22.34950), xlim = c(-52.34536, -52.16550), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```{r, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+sr_value(MD_coord, MD_dbMEM_FS[,1], ylim = c(-22.65958, -22.34950), xlim = c(-52.34536, -52.16550), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "Morro do Diabo MEM 1", line = 3, outer = F, adj = 1)
 
 ```
@@ -455,8 +498,8 @@ title(main = "Morro do Diabo MEM 1", line = 3, outer = F, adj = 1)
 
 
 Small Extent DRF - Jataí MEM 1.
-```{r, fig.height= 5, fig.width=5, fig.align='center'}
-sr_value(JA_coord, JA_dbMEM_FS[,1], ylim = c(-21.58556, -21.56376), xlim = c(-47.79086, -47.72289), grid=F, csize = 0.8, clegend = 1.5, xax = 2, yax = 1, method = "bubble")
+```{r, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+sr_value(JA_coord, JA_dbMEM_FS[,1], ylim = c(-21.58556, -21.56376), xlim = c(-47.79086, -47.72289), grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
 title(main = "Jataí MEM 1", line = 3, outer = F, adj = 1)
 
 ```
@@ -601,7 +644,7 @@ Varpart_barplot
   
 
 Plotting the Variation Partioning as barplots.
-```{r, fig.height= 10, fig.width=10, fig.align='center'}
+```{r, fig.height= 7,fig.width=8,out.width= 800, out.height=700 , fig.align='center', dpi = 200}
 library(plotrix)
 
 Varpart_barplot <- Varpart_barplot[-c(1:4),]
@@ -639,3 +682,397 @@ text(c(3.5,3.5,5.5),c(0.04,0.155,0.035), labels =c("*","*","*"), adj = 0.5, col 
 
 ```
 The asterisks represent significant fractions.
+
+\  
+\    
+\  
+\      
+
+To better understand what are the environmental variables that are important in each fraction, we looked at the RDA plots of environmental variables (local Environment and Climate) both unconstrained alone and constrained by spatial variables, that is, with and without the importance spatially structured variables.
+
+Because here we are not looking at p or R2 values, we are not woried about multicolinearity or overfitting, so we are using all climate and environmental variables.
+
+### Intermediate Extent
+
+```{r, fig.height= 6,fig.width=12,out.width= 800, out.height=400 , fig.align='center', dpi = 200}
+RDA_clim_SSF <- rda(SSF_pa, data.frame(SSF_clim_st, SSF_env_st))
+
+species_scores_SSF <- scores(RDA_clim_SSF, display = c( "species"), scaling = 2, hill = T)
+loadings_SSF <- 0.45*scores(RDA_clim_SSF, display = c( "bp"), scaling = 0, hill = T)
+
+rownames(loadings_SSF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
+col_SSF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+dists_SSF <- as.matrix(dist(rbind(loadings_SSF,c(0,0))))[10,-10]
+dists_SSF_prop <- dists_SSF/max(dists_SSF)
+
+par(mfrow = c(1,2),mar = c(5, 5, 4, 2))
+plot(RDA_clim_SSF, type="n", scaling = 2, xlim = c(-0.5,0.5), ylim = c(-0.5,0.5), cex.lab = 2, cex.axis = 1.5, main = "SSF - Unconstrained")
+for(i in 1:length(species_scores_SSF[,1])){
+  points(species_scores_SSF[i,1], species_scores_SSF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_SSF[i,1], species_scores_SSF[i,2], labels = rownames(species_scores_SSF)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_SSF[,1])),
+              y0 = rep(0, length(loadings_SSF[,1])),
+              x1 = loadings_SSF[,1],
+              y1 = loadings_SSF[,2], col = col_SSF, lwd = 2, arr.type="triangle", arr.length = 0.1, arr.width = 0.1)
+
+for(i in 1:length(loadings_SSF[,1])){
+  points(loadings_SSF[i,1], loadings_SSF[i,2], col = col_SSF[i], pch = 21, cex = ((7*dists_SSF_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_SSF[i,1], loadings_SSF[i,2], labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
+}
+
+
+
+
+RDA_clim_SSF <- rda(SSF_pa, data.frame(SSF_clim_st, SSF_env_st), data.frame(SSF_dbMEM_FS))
+
+species_scores_SSF <- scores(RDA_clim_SSF, display = c( "species"), scaling = 2, hill = T)
+loadings_SSF <- 0.45*scores(RDA_clim_SSF, display = c( "bp"), scaling = 0, hill = T)
+
+rownames(loadings_SSF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
+col_SSF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+dists_SSF <- as.matrix(dist(rbind(loadings_SSF,c(0,0))))[10,-10]
+dists_SSF_prop <- dists_SSF/max(dists_SSF)
+
+
+plot(RDA_clim_SSF, type="n", scaling = 2, xlim = c(-0.65,0.35), ylim = c(-0.65,0.35), cex.lab = 2, cex.axis = 1.5, main = "SSF - Constrained")
+for(i in 1:length(species_scores_SSF[,1])){
+  points(species_scores_SSF[i,1], species_scores_SSF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_SSF[i,1], species_scores_SSF[i,2], labels = rownames(species_scores_SSF)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_SSF[,1])),
+              y0 = rep(0, length(loadings_SSF[,1])),
+              x1 = loadings_SSF[,1],
+              y1 = loadings_SSF[,2], col = col_SSF, lwd = 2, arr.type="triangle", arr.length = 0.1, arr.width = 0.1)
+
+for(i in 1:length(loadings_SSF[,1])){
+  points(loadings_SSF[i,1], loadings_SSF[i,2], col = col_SSF[i], pch = 21, cex = ((7*dists_SSF_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_SSF[i,1], loadings_SSF[i,2], labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
+}
+```
+
+
+
+```{r, fig.height= 6,fig.width=12,out.width= 800, out.height=400 , fig.align='center', dpi = 200}
+RDA_clim_DRF <- rda(DRF_pa, data.frame(DRF_clim_st,DRF_env_st))
+
+species_scores_DRF <- scores(RDA_clim_DRF, display = c( "species"), scaling = 2, hill = T)
+loadings_DRF <- 0.45*scores(RDA_clim_DRF, display = c( "bp"), scaling = 0, hill = T)
+
+
+rownames(loadings_DRF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
+col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+
+dists_DRF <- as.matrix(dist(rbind(loadings_DRF,c(0,0))))[10,-10]
+dists_DRF_prop <- dists_DRF/max(dists_DRF)
+
+
+par(mfrow = c(1,2),mar = c(5, 5, 4, 2))
+plot(RDA_clim_DRF, type="n", scaling = 2, xlim = c(-0.6,0.5), ylim = c(-0.5,0.5), cex.lab = 2, cex.axis = 1.5, main = "DRF - Unconstrained")
+for(i in 1:length(species_scores_DRF[,1])){
+  points(species_scores_DRF[i,1], species_scores_DRF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_DRF[i,1], species_scores_DRF[i,2], labels = rownames(species_scores_DRF)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_DRF[,1])),
+              y0 = rep(0, length(loadings_DRF[,1])),
+              x1 = loadings_DRF[,1],
+              y1 = loadings_DRF[,2], col = col_DRF, lwd = 2, arr.type="triangle", arr.length = 0.1, arr.width = 0.1)
+
+for(i in 1:length(loadings_DRF[,1])){
+  points(loadings_DRF[i,1], loadings_DRF[i,2], col = col_DRF[i], pch = 21, cex = ((7*dists_DRF_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_DRF[i,1], loadings_DRF[i,2], labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
+}
+
+
+
+#########################RDA DRF Constrained
+RDA_clim_DRF <- rda(DRF_pa, data.frame(DRF_clim_st,DRF_env_st), data.frame(DRF_dbMEM_FS))
+
+
+species_scores_DRF <- scores(RDA_clim_DRF, display = c( "species"), scaling = 2, hill = T)
+loadings_DRF <- 0.45*scores(RDA_clim_DRF, display = c( "bp"), scaling = 0, hill = T)
+
+
+rownames(loadings_DRF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
+col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+dists_DRF <- as.matrix(dist(rbind(loadings_DRF,c(0,0))))[10,-10]
+dists_DRF_prop <- dists_DRF/max(dists_DRF)
+
+
+plot(RDA_clim_DRF, type="n", scaling = 2, xlim = c(-0.4,0.5), ylim = c(-0.4,0.4), cex.lab = 2, cex.axis = 1.5, main = "DRF - Constrained")
+for(i in 1:length(species_scores_DRF[,1])){
+  points(species_scores_DRF[i,1], species_scores_DRF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_DRF[i,1], species_scores_DRF[i,2], labels = rownames(species_scores_DRF)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_DRF[,1])),
+              y0 = rep(0, length(loadings_DRF[,1])),
+              x1 = loadings_DRF[,1],
+              y1 = loadings_DRF[,2], col = col_DRF, lwd = 2, arr.type="triangle", arr.length = 0.1, arr.width = 0.1)
+
+for(i in 1:length(loadings_DRF[,1])){
+  points(loadings_DRF[i,1], loadings_DRF[i,2], col = col_DRF[i], pch = 21, cex = ((7*dists_DRF_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_DRF[i,1], loadings_DRF[i,2], labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
+}
+
+```
+
+\  
+\    
+\  
+\     
+
+
+### Small Extent
+
+Because there were no shared fractions between spatial and environmental variables at small spatial extent, we only plotted constrained ordinations.
+
+#### SSF
+
+```{r, fig.height= 6,fig.width=12,out.width= 800, out.height=400 , fig.align='center', dpi = 200, fig.show="hold"}
+#SANTA FÈ DO SUL
+RDA_clim_ST <- rda(ST_pa, data.frame(ST_env_st), data.frame(ST_dbMEM_FS))
+
+species_scores_ST <- scores(RDA_clim_ST, display = c( "species"), scaling = 2, hill = T)
+loadings_ST <- 0.45*scores(RDA_clim_ST, display = c( "bp"), scaling = 0, hill = T)
+
+rownames(loadings_ST) <- c("HYD","ARE","DEP","VH")
+col_ST <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+dists_ST <- as.matrix(dist(rbind(loadings_ST,c(0,0))))[5,-5]
+dists_ST_prop <- dists_ST/max(dists_ST)
+
+par(mfrow = c(1,2),mar = c(5, 5, 4, 2))
+plot(RDA_clim_ST, type="n", scaling = 2 , xlim = c(-0.6,0.6), ylim = c(-0.6,0.6), cex.lab = 2, cex.axis = 1.5, main = "Santa Fé do Sul")
+
+for(i in 1:length(species_scores_ST[,1])){
+  points(species_scores_ST[i,1], species_scores_ST[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_ST[i,1], species_scores_ST[i,2], labels = rownames(species_scores_ST)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_ST[,1])),
+              y0 = rep(0, length(loadings_ST[,1])),
+              x1 = loadings_ST[,1],
+              y1 = loadings_ST[,2], col = col_ST, lwd = 2, arr.type="triangle", arr.length = 0.1, arr.width = 0.1)
+
+for(i in 1:length(loadings_ST[,1])){
+  points(loadings_ST[i,1], loadings_ST[i,2], col = col_ST[i], pch = 21, cex = ((7*dists_ST_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_ST[i,1], loadings_ST[i,2], labels = rownames(loadings_ST)[i],col = col_ST[i], cex = (1.4*dists_ST_prop[i]))
+}
+
+#ICÉM
+RDA_clim_IC <- rda(IC_pa, data.frame(IC_env_st), data.frame(IC_dbMEM_FS))
+
+species_scores_IC <- scores(RDA_clim_IC, display = c( "species"), scaling = 2, hill = T)
+loadings_IC <- 0.45*scores(RDA_clim_IC, display = c( "bp"), scaling = 0, hill = T)
+
+rownames(loadings_IC) <- c("HYD","ARE","DEP","VH")
+col_IC <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+dists_IC <- as.matrix(dist(rbind(loadings_IC,c(0,0))))[5,-5]
+dists_IC_prop <- dists_IC/max(dists_IC)
+
+plot(RDA_clim_IC, type="n", scaling = 2 , xlim = c(-0.6,0.6), ylim = c(-0.6,0.6), cex.lab = 2, cex.axis = 1.5, main = "Icém")
+for(i in 1:length(species_scores_IC[,1])){
+  points(species_scores_IC[i,1], species_scores_IC[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_IC[i,1], species_scores_IC[i,2], labels = rownames(species_scores_IC)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_IC[,1])),
+              y0 = rep(0, length(loadings_IC[,1])),
+              x1 = loadings_IC[,1],
+              y1 = loadings_IC[,2], col = col_IC, lwd = 2, arr.type="triangle", arr.length = 0.1, arr.width = 0.1)
+
+for(i in 1:length(loadings_IC[,1])){
+  points(loadings_IC[i,1], loadings_IC[i,2], col = col_IC[i], pch = 21, cex = ((7*dists_IC_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_IC[i,1], loadings_IC[i,2], labels = rownames(loadings_IC)[i],col = col_IC[i], cex = (1.4*dists_IC_prop[i]))
+}
+
+#NOVA ITAPIREMA
+RDA_clim_NI <- rda(NI_pa, data.frame(NI_env_st), data.frame(NI_dbMEM_FS))
+
+species_scores_NI <- scores(RDA_clim_NI, display = c( "species"), scaling = 2, hill = T)
+loadings_NI <- 0.45*scores(RDA_clim_NI, display = c( "bp"), scaling = 0, hill = T)
+
+rownames(loadings_NI) <- c("HYD","ARE","DEP","VH")
+col_NI <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+dists_NI <- as.matrix(dist(rbind(loadings_NI,c(0,0))))[5,-5]
+dists_NI_prop <- dists_NI/max(dists_NI)
+
+plot(RDA_clim_NI, type="n", scaling = 2 , xlim = c(-0.6,0.6), ylim = c(-0.6,0.6), cex.lab = 2, cex.axis = 1.5, main = "Nova Itapirema")
+for(i in 1:length(species_scores_NI[,1])){
+  points(species_scores_NI[i,1], species_scores_NI[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_NI[i,1], species_scores_NI[i,2], labels = rownames(species_scores_NI)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_NI[,1])),
+              y0 = rep(0, length(loadings_NI[,1])),
+              x1 = loadings_NI[,1],
+              y1 = loadings_NI[,2], col = col_NI, lwd = 2, arr.type="triangle", arr.length = 0.1, arr.width = 0.1)
+
+for(i in 1:length(loadings_NI[,1])){
+  points(loadings_NI[i,1], loadings_NI[i,2], col = col_NI[i], pch = 21, cex = ((7*dists_NI_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_NI[i,1], loadings_NI[i,2], labels = rownames(loadings_NI)[i],col = col_NI[i], cex = (1.4*dists_NI_prop[i]))
+}
+
+
+#MORRO DO DIABO
+RDA_clim_MD <- rda(MD_pa, data.frame(MD_env_st), data.frame(MD_dbMEM_FS))
+
+species_scores_MD <- scores(RDA_clim_MD, display = c( "species"), scaling = 2, hill = T)
+loadings_MD <- 0.45*scores(RDA_clim_MD, display = c( "bp"), scaling = 0, hill = T)
+
+rownames(loadings_MD) <- c("HYD","CC","ARE","DEP","VH")
+col_MD <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+dists_MD <- as.matrix(dist(rbind(loadings_MD,c(0,0))))[6,-6]
+dists_MD_prop <- dists_MD/max(dists_MD)
+
+plot(RDA_clim_MD, type="n", scaling = 2 , xlim = c(-0.5,0.6), ylim = c(-0.5,0.6), cex.lab = 2, cex.axis = 1.5, main = "Morro do Diabo")
+for(i in 1:length(species_scores_MD[,1])){
+  points(species_scores_MD[i,1], species_scores_MD[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_MD[i,1], species_scores_MD[i,2], labels = rownames(species_scores_MD)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_MD[,1])),
+              y0 = rep(0, length(loadings_MD[,1])),
+              x1 = loadings_MD[,1],
+              y1 = loadings_MD[,2], col = col_MD, lwd = 2, arr.type="triangle", arr.length = 0.1, arr.width = 0.1)
+
+for(i in 1:length(loadings_MD[,1])){
+  points(loadings_MD[i,1], loadings_MD[i,2], col = col_MD[i], pch = 21, cex = ((7*dists_MD_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_MD[i,1], loadings_MD[i,2], labels = rownames(loadings_MD)[i],col = col_MD[i], cex = (1.4*dists_MD_prop[i]))
+}
+
+#JATAÍ
+RDA_clim_JA <- rda(JA_pa, data.frame(JA_env_st), data.frame(JA_dbMEM_FS))
+
+species_scores_JA <- scores(RDA_clim_JA, display = c( "species"), scaling = 2, hill = T)
+loadings_JA <- 0.45*scores(RDA_clim_JA, display = c( "bp"), scaling = 0, hill = T)
+
+rownames(loadings_JA) <- c("HYD","CC","ARE","DEP","VH")
+col_JA <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+dists_JA <- as.matrix(dist(rbind(loadings_JA,c(0,0))))[6,-6]
+dists_JA_prop <- dists_JA/max(dists_JA)
+
+
+plot(RDA_clim_JA, type="n", scaling = 2 , xlim = c(-0.5,0.6), ylim = c(-0.5,0.6), cex.lab = 2, cex.axis = 1.5, main = "Jataí")
+for(i in 1:length(species_scores_JA[,1])){
+  points(species_scores_JA[i,1], species_scores_JA[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_JA[i,1], species_scores_JA[i,2], labels = rownames(species_scores_JA)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_JA[,1])),
+              y0 = rep(0, length(loadings_JA[,1])),
+              x1 = loadings_JA[,1],
+              y1 = loadings_JA[,2], col = col_JA, lwd = 2, arr.type="triangle", arr.length = 0.1, arr.width = 0.1)
+
+for(i in 1:length(loadings_JA[,1])){
+  points(loadings_JA[i,1], loadings_JA[i,2], col = col_JA[i], pch = 21, cex = ((7*dists_JA_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_JA[i,1], loadings_JA[i,2], labels = rownames(loadings_JA)[i],col = col_JA[i], cex = (1.4*dists_JA_prop[i]))
+}
+```
+
+\  
+\    
+\  
+\     
+
+#### DRF
+
+```{r, fig.height= 6,fig.width=12,out.width= 800, out.height=400 , fig.align='center', dpi = 200, fig.show="hold"}
+#UBATUBA
+RDA_clim_UBA <- rda(UBA_pa, data.frame(UBA_env_st), data.frame(UBA_dbMEM_FS))
+
+species_scores_UBA <- scores(RDA_clim_UBA, display = c( "species"), scaling = 2, hill = T)
+loadings_UBA <- 0.45*scores(RDA_clim_UBA, display = c( "bp"), scaling = 0, hill = T)
+
+rownames(loadings_UBA) <- c("HYD","CC","ARE","DEP")
+col_UBA <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+dists_UBA <- as.matrix(dist(rbind(loadings_UBA,c(0,0))))[5,-5]
+dists_UBA_prop <- dists_UBA/max(dists_UBA)
+
+par(mfrow = c(1,2),mar = c(5, 5, 4, 2))
+plot(RDA_clim_UBA, type="n", scaling = 2 , xlim = c(-0.6,0.4), ylim = c(-0.5,0.4), cex.lab = 2, cex.axis = 1.5, main = "Ubatuba")
+for(i in 1:length(species_scores_UBA[,1])){
+  points(species_scores_UBA[i,1], species_scores_UBA[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_UBA[i,1], species_scores_UBA[i,2], labels = rownames(species_scores_UBA)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_UBA[,1])),
+              y0 = rep(0, length(loadings_UBA[,1])),
+              x1 = loadings_UBA[,1],
+              y1 = loadings_UBA[,2], col = col_UBA, lwd = 2, arr.type= "triangle", arr.length = 0.1, arr.width = 0.1)
+
+for(i in 1:length(loadings_UBA[,1])){
+  points(loadings_UBA[i,1], loadings_UBA[i,2], col = col_UBA[i], pch = 21, cex = ((7*dists_UBA_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_UBA[i,1], loadings_UBA[i,2], labels = rownames(loadings_UBA)[i],col = col_UBA[i], cex = (1.4*dists_UBA_prop[i]))
+}
+
+#BERTIOGA
+RDA_clim_BER <- rda(BER_pa, data.frame(BER_env_st), data.frame(BER_dbMEM_FS))
+
+species_scores_BER <- scores(RDA_clim_BER, display = c( "species"), scaling = 2, hill = T)
+loadings_BER <- 0.45*scores(RDA_clim_BER, display = c( "bp"), scaling = 0, hill = T)
+
+rownames(loadings_BER) <- c("HYD","CC","ARE","DEP")
+col_BER <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+dists_BER <- as.matrix(dist(rbind(loadings_BER,c(0,0))))[5,-5]
+dists_BER_prop <- dists_BER/max(dists_BER)
+
+plot(RDA_clim_BER, type="n", scaling = 2, xlim = c(-0.7,0.4), ylim = c(-0.3,0.4), cex.lab = 2, cex.axis = 1.5, main = "Bertioga")
+for(i in 1:length(species_scores_BER[,1])){
+  points(species_scores_BER[i,1], species_scores_BER[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_BER[i,1], species_scores_BER[i,2], labels = rownames(species_scores_BER)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_BER[,1])),
+              y0 = rep(0, length(loadings_BER[,1])),
+              x1 = loadings_BER[,1],
+              y1 = loadings_BER[,2], col = col_BER, lwd = 2, arr.type= "triangle", arr.length = 0.1, arr.width = 0.1)
+
+for(i in 1:length(loadings_BER[,1])){
+  points(loadings_BER[i,1], loadings_BER[i,2], col = col_BER[i], pch = 21, cex = ((7*dists_BER_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_BER[i,1], loadings_BER[i,2], labels = rownames(loadings_BER)[i],col = col_BER[i], cex = (1.4*dists_BER_prop[i]))
+}
+
+#ITANHAÉM
+RDA_clim_ITA <- rda(ITA_pa, data.frame(ITA_env_st), data.frame(ITA_dbMEM_FS))
+
+species_scores_ITA <- scores(RDA_clim_ITA, display = c( "species"), scaling = 2, hill = T)
+loadings_ITA <- 0.45*scores(RDA_clim_ITA, display = c( "bp"), scaling = 0, hill = T)
+
+rownames(loadings_ITA) <- c("HYD","CC","ARE","DEP","VH")
+col_ITA <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+dists_ITA <- as.matrix(dist(rbind(loadings_ITA,c(0,0))))[6,-6]
+dists_ITA_prop <- dists_ITA/max(dists_ITA)
+
+plot(RDA_clim_ITA, type="n", scaling = 2 , xlim = c(-0.7,0.4), ylim = c(-0.3,0.4), cex.lab = 2, cex.axis = 1.5, main = "Itanhaém")
+for(i in 1:length(species_scores_ITA[,1])){
+  points(species_scores_ITA[i,1], species_scores_ITA[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_ITA[i,1], species_scores_ITA[i,2], labels = rownames(species_scores_ITA)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_ITA[,1])),
+              y0 = rep(0, length(loadings_ITA[,1])),
+              x1 = loadings_ITA[,1],
+              y1 = loadings_ITA[,2], col = col_ITA, lwd = 2, arr.type= "triangle", arr.length = 0.1, arr.width = 0.1)
+
+for(i in 1:length(loadings_ITA[,1])){
+  points(loadings_ITA[i,1], loadings_ITA[i,2], col = col_ITA[i], pch = 21, cex = ((7*dists_ITA_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_ITA[i,1], loadings_ITA[i,2], labels = rownames(loadings_ITA)[i],col = col_ITA[i], cex = (1.4*dists_ITA_prop[i]))
+}
+```
+
