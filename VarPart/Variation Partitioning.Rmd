@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 First we have to load the separated data matrices we need. It all comes from the Data.csv file in the Data folder. The data matrices are prepared sourcing the "Loading_data.R" file in the Auxiliary Scripts folder.
 ```{r, echo=TRUE, eval=FALSE}
 source("Loading_data.R")
+library(AtlanticForestMetacommunity)
 ```
 
 
@@ -29,10 +30,17 @@ The used packages to run this analysis are:
 `ade4` version 1.7-15   
 `adespatial` version 0.3-8   
 
+Some packages used to generate plots and tables
+
+`dplyr` version 0.8.5   
+`plotrix` version 3.7-8   
+
 ```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
 library(vegan)
 library(ade4)
 library(adespatial)
+library(dplyr)
+library(plotrix)
 ```
 \  
 \  
@@ -600,7 +608,6 @@ ITA_varpart2
 
 Constructing a matrix with all R2 values 
 ```{r, message=FALSE, warning=FALSE}
-library(dplyr)
 
 Varpart_plot <- full_join(data.frame(rbind(Broad_varpart[,1])),
                           data.frame(rbind(SSF_varpart[,1])),)
@@ -645,8 +652,6 @@ Varpart_barplot
 
 Plotting the Variation Partioning as barplots.
 ```{r, fig.height= 7,fig.width=8,out.width= 800, out.height=700 , fig.align='center', dpi = 200}
-library(plotrix)
-
 Varpart_barplot <- Varpart_barplot[-c(1:4),]
 
 

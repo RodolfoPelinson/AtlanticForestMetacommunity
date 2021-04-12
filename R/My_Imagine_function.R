@@ -1,0 +1,264 @@
+#' @title Plot presence absence matirx with up to five associated environmental gradients.
+#'
+#' @description This function plots the incidence matrix, ordinated or not, with up to five associated environmental gradients associates.
+#' @param comm An incidence matrix.
+#' @param col The colors of absences, true presences and filled presences, respectively.
+#' @param order Logical. Should the matrix be order by reciprocal averaging (CA)? Defaut set is to TRUE.
+#' @param scores Numeric. What axis of the CA should be used for ordination? Defaut is 1.
+#' @param fill Logical. Should embeded absences be filled?
+#' @param xlab X axis Label. Defaut is to "Species".
+#' @param ylab Y axis Label. Defaut is to "Sites".
+#' @param yline Line position of y label. Defaut is 2.
+#' @param xline Line position of x label. Defaut is 2.
+#' @param sitenames A vector of site Names. Defaut is row names.
+#' @param speciesnames A vector of species Names. Defaut is column names.
+#' @param Env1 The first environmental gradient
+#' @param Env.label_1 Name of the first environmental gradient.
+#' @param Env.col_1 The colors of the first Environmental Gradient. If it is a continuous gradient, this should be a vector with the two most extreme colors. If it is a factor, it should be a vector with one color for each of the levels of the factor.
+#' @param Env2 The second environmental gradient.
+#' @param Env.label_2 Name of the second environmental gradient.
+#' @param Env.col_2 The colors of the second Environmental Gradient. If it is a continuous gradient, this should be a vector with the two most extreme colors. If it is a factor, it should be a vector with one color for each of the levels of the factor.
+#' @param Env3 The third environmental gradient.
+#' @param Env.label_3 Name of the third environmental gradient.
+#' @param Env.col_3 The colors of the third Environmental Gradient. If it is a continuous gradient, this should be a vector with the two most extreme colors. If it is a factor, it should be a vector with one color for each of the levels of the factor.
+#' @param Env4 The fourth environmental gradient.
+#' @param Env.label_4 Name of the fourth environmental gradient.
+#' @param Env.col_4 The colors of the fourth Environmental Gradient. If it is a continuous gradient, this should be a vector with the two most extreme colors. If it is a factor, it should be a vector with one color for each of the levels of the factor.
+#' @param Env5 The fifth environmental gradient.
+#' @param Env.label_5 Name of the fifth environmental gradient.
+#' @param Env.col_5 The colors of the fifth Environmental Gradient. If it is a continuous gradient, this should be a vector with the two most extreme colors. If it is a factor, it should be a vector with one color for each of the levels of the factor.
+#' @param cex.site The size of the site labels.
+#' @param cex.species The size of the species labels.
+#' @param top_margin The space left in the top of the plot. Useful to fit long species names.
+#' @param left_margin The space left in the left side of the plot. Useful to fit long site names.
+#' @param EigenVal Should the relative eigenvalue of the ordination axis used be plotted?
+#' @param box.lwd The width of the plot box.
+#' @export
+#'
+
+
+My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = TRUE,
+                        xlab = "Species", ylab = "Sites", yline = 2, xline = 2, sitenames = rownames(comm),
+                        speciesnames = colnames(comm),
+                        Env1 = NULL, Env2 = NULL, Env.col_1 = NULL, Env.label_1 = NULL, Env.col_2 = NULL, Env.label_2 = NULL,
+                        cex.site = 1, cex.species = 1, top_margin = 2, left_margin = 2, EigenVal = F, box.lwd = 2,
+                        Env.col_3 = NULL, Env.label_3 = NULL, Env3 = NULL,
+                        Env.col_4 = NULL, Env.label_4 = NULL, Env4 = NULL,
+                        Env.col_5 = NULL, Env.label_5 = NULL, Env5 = NULL)
+{
+  if(isFALSE(is.null(Env1))  & is.null(Env2) & is.null(Env3)& is.null(Env4)& is.null(Env5)){
+    layout(matrix(c(1,2), 1, 2, byrow = TRUE), widths = c(0.95,0.05))
+  }
+  if(isFALSE(is.null(Env1)) & isFALSE(is.null(Env2)) & is.null(Env3)& is.null(Env4)& is.null(Env5)){
+    layout(matrix(c(1,2,3), 1, 3, byrow = TRUE), widths = c(0.9,0.05,0.05))
+  }
+  if(isFALSE(is.null(Env1)) & isFALSE(is.null(Env2)) & isFALSE(is.null(Env3)) & is.null(Env4)& is.null(Env5)){
+    layout(matrix(c(1,2,3,4), 1, 4, byrow = TRUE), widths = c(0.85,0.05,0.05,0.05))
+  }
+  if(isFALSE(is.null(Env1)) & isFALSE(is.null(Env2)) & isFALSE(is.null(Env3)) & isFALSE(is.null(Env4)) & is.null(Env5)){
+    layout(matrix(c(1,2,3,4,5), 1, 5, byrow = TRUE), widths = c(0.868,0.033,0.033,0.033,0.033))
+  }
+  if(isFALSE(is.null(Env1))  & isFALSE(is.null(Env2)) & isFALSE(is.null(Env3)) & isFALSE(is.null(Env4)) & isFALSE(is.null(Env5))){
+    layout(matrix(c(1,2,3,4,5,6), 1, 6, byrow = TRUE), widths = c(0.835,0.033,0.033,0.033,0.033,0.033))
+  }
+
+  require(metacom)
+  if (order == TRUE) {
+    new_scores <- OrderMatrix(comm, binary = TRUE, scores = scores, outputScores = T)
+    if(is.null(sitenames)==FALSE){
+      sitenames <- sitenames[order(new_scores$sitescores)]
+    }
+    if(is.null(speciesnames)==FALSE){
+      speciesnames <- speciesnames[order(new_scores$speciesscores)]
+    }
+    if(is.null(Env1) == FALSE){
+      Env1 <- Env1[order(new_scores$sitescores)]
+    }
+    if(is.null(Env2) == FALSE){
+      Env2 <- Env2[order(new_scores$sitescores)]
+    }
+
+    if(is.null(Env3) == FALSE){
+      Env3 <- Env3[order(new_scores$sitescores)]
+    }
+
+    if(is.null(Env4) == FALSE){
+      Env4 <- Env4[order(new_scores$sitescores)]
+    }
+
+    if(is.null(Env5) == FALSE){
+      Env5 <- Env5[order(new_scores$sitescores)]
+    }
+
+
+
+    EigenValues <- decorana(comm, ira = 1)$evals
+    Relative_EigenValues <- EigenValues/sum(EigenValues)
+    comm <- OrderMatrix(comm, binary = TRUE, scores = scores, outputScores = FALSE)
+
+  }
+
+
+  #Filling embedded absences
+  if (fill == TRUE) {
+    temp1 = comm
+    for (i in 1:dim(comm)[2]) {
+      temp2 = comm[, i]
+      if (sum(temp2) < 2) {
+        comm[, i] = temp2
+      }
+      else {
+        first <- min(which(temp2 > 0))
+        last <- max(which(temp2 > 0))
+        temp1[first:last, i] <- 1
+      }
+    }
+    for (i in 1:dim(comm)[1]){
+      for (j in 1:dim(comm)[2]){
+        if(temp1[i,j] == 1 & comm[i,j] == 0){
+          comm[i,j] <- 2
+        }
+      }
+    }
+  }
+
+  #Reversing the order of rows?
+  reverse <- nrow(comm):1
+  comm <- comm[reverse, ]
+
+  #ploting
+  par(mar = c(3,left_margin, top_margin, 1), cex = 1)
+  image(1:dim(comm)[2], 1:dim(comm)[1], t(comm),  col = col,
+        xlab = "", ylab = "", axes = FALSE)
+  box(lwd = box.lwd)
+  if (length(sitenames) > 1) {
+    axis(2, at = 1:dim(comm)[1], labels = sitenames, las = 1,
+         cex.axis = cex.site, lwd.ticks = 0)
+  }
+  if (length(speciesnames) > 1) {
+    axis(3, at = 1:dim(comm)[2], labels = speciesnames, las = 2,
+         cex.axis = cex.species, lwd.ticks = 0)
+  }
+
+  if(is.null(Env1)==F){
+
+    if(is.numeric(Env1)){
+      Env1_new = findInterval(Env1, sort(Env1))
+      pal <- colorRampPalette(c(Env.col_1[1], Env.col_1[2]), space = "Lab")
+      Env.col_1 <-pal(length(Env1_new))[Env1_new]
+    }
+
+    if(is.factor(Env1)){
+      Env1<-as.numeric(Env1)
+    }
+
+    par(mar = c(3,0, top_margin, 1))
+    image(y = 1:length(Env1),x = 1, z = t(as.matrix(Env1)),
+          col = Env.col_1,
+          axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
+    axis(3, at = 0.4, labels = Env.label_1, las = 2,
+         cex.axis = 1, lwd.ticks = 0)
+    box(lwd = box.lwd)
+  }
+
+  if(is.null(Env2)==F){
+
+    if(is.numeric(Env2)){
+      Env2_new = findInterval(Env2, sort(Env2))
+      pal <- colorRampPalette(c(Env.col_2[1], Env.col_2[2]), space = "Lab")
+      Env.col_2 <-pal(length(Env2_new))[Env2_new]
+    }
+
+    if(is.factor(Env2)){
+      Env2<-as.numeric(Env2)
+    }
+
+    par(mar = c(3,0, top_margin, 1))
+    image(y = 1:length(Env2),x = 1, z = t(as.matrix(Env2)),
+          col = Env.col_2,
+          axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
+    axis(3, at = 0.4, labels = Env.label_2, las = 2,
+         cex.axis = 1, lwd.ticks = 0)
+    box(lwd = box.lwd)
+  }
+
+  if(is.null(Env3)==F){
+
+    if(is.numeric(Env3)){
+      Env3_new = findInterval(Env3, sort(Env3))
+      pal <- colorRampPalette(c(Env.col_3[1], Env.col_3[2]), space = "Lab")
+      Env.col_3 <-pal(length(Env3_new))[Env3_new]
+    }
+
+    if(is.factor(Env3)){
+      Env3<-as.numeric(Env3)
+    }
+
+    par(mar = c(3,0, top_margin, 1))
+    image(y = 1:length(Env3),x = 1, z = t(as.matrix(Env3)),
+          col = Env.col_3,
+          axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
+    axis(3, at = 0.4, labels = Env.label_3, las = 2,
+         cex.axis = 1, lwd.ticks = 0)
+    box(lwd = box.lwd)
+  }
+
+
+  if(is.null(Env4)==F){
+
+    if(is.numeric(Env4)){
+      Env4_new = findInterval(Env4, sort(Env4))
+      pal <- colorRampPalette(c(Env.col_4[1], Env.col_4[2]), space = "Lab")
+      Env.col_4 <-pal(length(Env4_new))[Env4_new]
+    }
+
+    if(is.factor(Env4)){
+      Env4<-as.numeric(Env4)
+    }
+
+    par(mar = c(3,0, top_margin, 1))
+    image(y = 1:length(Env4),x = 1, z = t(as.matrix(Env4)),
+          col = Env.col_4,
+          axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
+    axis(3, at = 0.4, labels = Env.label_4, las = 2,
+         cex.axis = 1, lwd.ticks = 0)
+    box(lwd = box.lwd)
+  }
+
+
+  if(is.null(Env5)==F){
+
+    if(is.numeric(Env5)){
+      Env5_new = findInterval(Env5, sort(Env5))
+      pal <- colorRampPalette(c(Env.col_5[1], Env.col_5[2]), space = "Lab")
+      Env.col_5 <-pal(length(Env5_new))[Env5_new]
+    }
+
+    if(is.factor(Env5)){
+      Env5<-as.numeric(Env5)
+    }
+
+    par(mar = c(3,0, top_margin, 1))
+    image(y = 1:length(Env5),x = 1, z = t(as.matrix(Env5)),
+          col = Env.col_5,
+          axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
+    axis(3, at = 0.4, labels = Env.label_5, las = 2,
+         cex.axis = 1, lwd.ticks = 0)
+    box(lwd = box.lwd)
+  }
+
+
+
+  if(isTRUE(EigenVal)){
+    y <- -((dim(comm)[2]^2)/10000)
+    text(x=(dim(comm)[2]),y=y, labels = paste(round(Relative_EigenValues[scores]*100,2),"%", sep = " "), xpd=NA, adj=c(1,1))
+  }
+
+  if(isTRUE(EigenVal)){
+    y <- -((dim(comm)[2]^2)/10000)
+    text(x=(dim(comm)[2]),y=y, labels = paste(round(Relative_EigenValues[scores]*100,2),"%", sep = " "), xpd=NA, adj=c(1,1))
+  }
+
+  layout(matrix(c(1), 1, 1))
+  par(mar = c(4,4,4,4))
+}

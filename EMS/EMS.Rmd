@@ -1,0 +1,254 @@
+---
+title: "Elements of Metacommunity Structure"
+author: "Rodolfo Pelinson"
+date: "12/04/2021"
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+First we have to load the separated data matrices we need. It all comes from the Data.csv file in the Data folder. The data matrices are prepared sourcing the "Loading_data.R" file in the Auxiliary Scripts folder.
+```{r, echo=TRUE, eval=FALSE}
+source("Loading_data.R")
+library(AtlanticForestMetacommunity)
+```
+
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+source("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Auxiliary Scripts/Loading_data.R")
+library(AtlanticForestMetacommunity)
+```
+
+The used packages to run this analysis are:
+
+`vegan` version 2.5-6   
+`metacom` version 1.5.3   
+
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+library(vegan)
+library(metacom)
+```
+\  
+\  
+\  
+\  
+
+Running the EMS analysis
+```{r, cache = TRUE, warning=FALSE, message=FALSE}
+Metacommunities <- IdentifyStructure(list(Broad_pa,
+                                          DRF_pa,#(Dense Rain Forest)
+                                          UBA_pa,#(Ubatuba)
+                                          BER_pa,#(Bertioga)
+                                          ITA_pa,#(Itanhaém)
+                                          SSF_pa,#(Seasonal Semideciduous Forest)
+                                          ST_pa,#(Santa Fé do Sul)
+                                          IC_pa,#(Icém)
+                                          NI_pa,#(Nova Itapirema)
+                                          MD_pa,#(Morro do Diabo)
+                                          JA_pa),#(Estação Ecológica do Jataí)
+                                     names = c("Broad",
+                                               "DRF",
+                                               "Ubatuba",
+                                               "Bertioga",
+                                               "Itanhaém",
+                                               "SSF",
+                                               "Santa Fé do Sul",
+                                               "Icém",
+                                               "Nova Itapirema",
+                                               "Morro do Diabo",
+                                               "Jataí"),
+                                     CoherenceMethod = "curveball",
+                                     turnoverMethod = "EMS",
+                                     orderNulls = T, seed = 3, sims = 10000)
+Metacommunities
+```
+# Correlation with Environmental Gradients
+
+We only analysed those gradients for metacommunities that exhibited a coherent metacommunity structure.
+\  
+\  
+
+### Broad Spatial Extent
+
+Spearman rank Correlations or Kruskal-Wallis analysis.
+```{r, warning=FALSE, message=FALSE, cache=TRUE}
+pca <- rda(Broad_clim_st)
+relative_eigenvalues <- pca$CA$eig/sum(pca$CA$eig)
+PC1 <- pca$CA$u[,1]
+Broad_env$ecoregion <- as.factor(Broad_env$ecoregion)
+Broad_spearman <- My_spearman(Broad_pa, data.frame(Broad_env, PC1))
+
+round(Broad_spearman,3)
+```
+\  
+\  
+
+Plotting it.
+```{r, fig.height= 7,fig.width=10,out.width= 1000, out.height=700 , fig.align='center', dpi = 200}
+My_Imagine(comm = Broad_pa, col = c("white", "black", "grey50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8,
+           top_margin = 7, left_margin = 4,
+           Env1 = PC1, Env.col_1 = c("white","red"), Env.label_1 = "Climate",
+           Env2 = as.factor(Broad_env$nvt), Env.col_2 = c("chartreuse1", "chartreuse3","chartreuse4"), Env.label_2 = "Vegetation",
+           Env3 = as.factor(Broad_env$canopy_cover), Env.col_3= c("gold","forestgreen"), Env.label_3 = "Canopy Cover",
+           Env4 = as.factor(Broad_env$ecoregion), Env.col_4= c("darkgreen","darkolivegreen1"), Env.label_4 = "Ecoregion")
+```
+
+
+
+### Intermediate Spatial Extent
+
+#### DRF - Dense Rain Forest
+```{r, fig.height= 7,fig.width=10,out.width= 1000, out.height=700 , fig.align='center', dpi = 200}
+My_Imagine(comm = DRF_pa, col = c("white", "black"),
+           order = T, scores = 1, fill = F, cex.site = 0.6, top_margin = 4, left_margin = 4)
+```
+
+
+#### SSF - Seasonal Semideciduous Forest
+```{r, fig.height= 7,fig.width=10,out.width= 1000, out.height=700 , fig.align='center', dpi = 200}
+My_Imagine(comm = SSF_pa, col = c("white", "black"),
+           order = T, scores = 1, fill = F, cex.site = 0.6, top_margin = 4, left_margin = 4)
+```
+\  
+\  
+\  
+\  
+
+
+
+
+
+
+### Intermediate Spatial Extent
+
+#### DRF - Dense Rain Forest
+
+Ubatuba
+```{r, warning=FALSE, message=FALSE, cache=TRUE}
+UBA_spearman <- My_spearman(UBA_pa, UBA_env)
+round(UBA_spearman,3)
+
+```
+
+
+```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
+My_Imagine(comm = UBA_pa, col = c("white", "black","grey50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6,
+           top_margin = 4, left_margin = 4)
+```
+\  
+\  
+
+
+Bertioga
+```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
+My_Imagine(comm = BER_pa, col = c("white", "black"),
+           order = T, scores = 1, fill = F, cex.site = 0.6,
+           top_margin = 4, left_margin = 4)
+```
+
+\  
+\  
+
+
+Itanhaém
+```{r, warning=FALSE, message=FALSE, cache=TRUE}
+ITA_spearman <- My_spearman(ITA_pa, ITA_env)
+round(ITA_spearman,3)
+
+```
+
+
+```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
+My_Imagine(comm = ITA_pa, col = c("white", "black","gray50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4,
+           Env1 = as.factor(ITA_env$hydroperiod), Env.col_1 = c("lightskyblue", "royalblue"), Env.label_1 = "Hydroperiod")
+```
+
+\  
+\  
+
+
+#### SSF - Seasonal Semideciduous Forest
+
+Santa Fé do Sul
+```{r, warning=FALSE, message=FALSE, cache=TRUE}
+ST_spearman <- My_spearman(ST_pa, ST_env)
+round(ST_spearman,3)
+
+```
+
+```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
+My_Imagine(comm = ST_pa, col = c("white", "black"),
+           order = T, scores = 1, fill = F, cex.site = 0.6,
+           top_margin = 4, left_margin = 4)
+```
+\  
+\  
+
+Icém
+```{r, warning=FALSE, message=FALSE, cache=TRUE}
+IC_spearman <- My_spearman(IC_pa, IC_env)
+round(IC_spearman,3)
+
+```
+
+```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
+My_Imagine(comm = IC_pa, col = c("white", "black"),
+           order = T, scores = 1, fill = F, cex.site = 0.6,
+           top_margin = 4, left_margin = 4)
+```
+\  
+\  
+
+Nova Itapirema
+```{r, warning=FALSE, message=FALSE, cache=TRUE}
+NI_spearman <- My_spearman(NI_pa, NI_env)
+round(NI_spearman,3)
+
+```
+
+```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
+My_Imagine(comm = NI_pa, col = c("white", "black"),
+           order = T, scores = 1, fill = F, cex.site = 0.6,
+           top_margin = 4, left_margin = 4)
+```
+\  
+\  
+
+Morro do Diabo
+```{r, warning=FALSE, message=FALSE, cache=TRUE}
+MD_spearman <- My_spearman(MD_pa, MD_env)
+round(MD_spearman,3)
+```
+
+```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
+My_Imagine(comm = MD_pa, col = c("white", "black","gray50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4,
+           Env1 = as.factor(MD_env$canopy_cover), Env.col_1 = c("gold","forestgreen"), Env.label_1 = "Canopy Cover")
+```
+\  
+\  
+
+Jataí
+```{r, warning=FALSE, message=FALSE, cache=TRUE}
+JA_spearman <- My_spearman(JA_pa, JA_env)
+round(JA_spearman,3)
+
+```
+
+```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
+My_Imagine(comm = JA_pa, col = c("white", "black","gray50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4,
+           Env1 = as.factor(JA_env$hydroperiod), Env.col_1 = c("cyan2","blue3"), Env.label_1 = "Hydroperiod",
+           Env2 = as.factor(JA_env$nvt), Env.col_2 = c("chartreuse1", "chartreuse3","chartreuse4"), Env.label_2 = "Vegetation",
+           Env3 = as.factor(JA_env$canopy_cover), Env.col_3 = c("gold","forestgreen"), Env.label_3 = "Canopy Cover")
+```
+\  
+\  
