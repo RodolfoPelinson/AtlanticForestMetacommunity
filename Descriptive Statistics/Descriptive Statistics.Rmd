@@ -282,12 +282,19 @@ data.frame(UBA_mean = apply(UBA_env[,3:5], 2, mean),
 \  
 
 
+
 ### Coefficient of Variation of continuous variables
 
 Intermediate Extent
 ```{r}
-data.frame(DRF_cv = apply(DRF_clim, 2, cv), SSF_cv = apply(SSF_clim, 2, cv))
-data.frame(DRF_cv = apply(DRF_env[,3:5], 2, cv), SSF_cv = apply(SSF_env[,3:5], 2, cv))
+Int_Clim_cv <- data.frame(DRF_cv = apply(DRF_clim, 2, coef_var), SSF_cv = apply(SSF_clim, 2, coef_var))
+Int_Env_cv <- data.frame(DRF_cv = apply(DRF_env[,3:5], 2, coef_var), SSF_cv = apply(SSF_env[,3:5], 2, coef_var))
+
+Int_Clim_cv
+Int_Env_cv
+
+apply(Int_Clim_cv, 2, mean)
+apply(Int_Env_cv, 2, mean)
 ```
 \  
 \  
@@ -295,13 +302,16 @@ data.frame(DRF_cv = apply(DRF_env[,3:5], 2, cv), SSF_cv = apply(SSF_env[,3:5], 2
 
 Small Extent
 ```{r}
-data.frame(UBA_cv = apply(UBA_env[,3:5], 2, cv),
-           BER_cv = apply(BER_env[,3:5], 2, cv),
-           ITA_cv = apply(ITA_env[,3:5], 2, cv),
-           ST_cv = apply(ST_env[,3:5], 2, cv),
-           IC_cv = apply(IC_env[,3:5], 2, cv),
-           NI_cv = apply(NI_env[,3:5], 2, cv),
-           MD_cv = apply(MD_env[,3:5], 2, cv),
-           JA_cv = apply(JA_env[,3:5], 2, cv))
+Sm_Env_cv <- data.frame(UBA_cv = apply(UBA_env[,3:5], 2, coef_var),
+           BER_cv = apply(BER_env[,3:5], 2, coef_var),
+           ITA_cv = apply(ITA_env[,3:5], 2, coef_var),
+           ST_cv = apply(ST_env[,3:5], 2, coef_var),
+           IC_cv = apply(IC_env[,3:5], 2, coef_var),
+           NI_cv = apply(NI_env[,3:5], 2, coef_var),
+           MD_cv = apply(MD_env[,3:5], 2, coef_var),
+           JA_cv = apply(JA_env[,3:5], 2, coef_var))
+
+Sm_Env_cv
+apply(Sm_Env_cv, 2, mean)
 ```
 
