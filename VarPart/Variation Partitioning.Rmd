@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-First we have to load the separated data matrices we need. It all comes from the Data.csv file in the Data folder. The data matrices are prepared sourcing the "Loading_data.R" file in the Auxiliary Scripts folder.
+First we have to load the separated data matrices we need. The data matrices are prepared sourcing the "Loading_data.R" file in the Auxiliary Scripts folder.
 ```{r, echo=TRUE, eval=FALSE}
 source("Loading_data.R")
 library(AtlanticForestMetacommunity)

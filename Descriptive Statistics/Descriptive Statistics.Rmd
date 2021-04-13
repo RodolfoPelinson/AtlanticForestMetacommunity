@@ -1,0 +1,307 @@
+---
+title: "Descriptive Statistics"
+author: "Rodolfo Pelinson"
+date: "13/04/2021"
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+These are just means and variability of the environmental predictors used both in the EMS and Variation partitioning analyses.
+
+First we have to load the separated data matrices we need. The data matrices are prepared sourcing the "Loading_data.R" file in the Auxiliary Scripts folder.
+```{r, echo=TRUE, eval=FALSE}
+library(AtlanticForestMetacommunity)
+source("Loading_data.R")
+```
+
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+library(AtlanticForestMetacommunity)
+source("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Auxiliary Scripts/Loading_data.R")
+```
+
+
+### Number of Species
+
+#### Broad Extent
+```{r}
+ncol(Broad_pa_orig)
+```
+\   
+\  
+
+#### Intermediate Extent
+DRF
+```{r}
+ncol(DRF_pa_orig)
+```
+\  
+\  
+
+SSF
+```{r}
+ncol(SSF_pa_orig)
+
+```
+\  
+\  
+
+Species in commom SSF-DRF
+```{r}
+sp_comm <- na.omit(match(colnames(DRF_pa_orig), colnames(SSF_pa_orig)))
+length(sp_comm)
+colnames(SSF_pa_orig)[sp_comm]
+```
+\  
+\  
+\  
+\  
+
+
+#### Small Extent
+
+DRF - Ubatuba
+```{r}
+ncol(UBA_pa_orig)
+```
+\  
+\  
+
+DRF - Bertioga
+```{r}
+ncol(BER_pa_orig)
+```
+\  
+\  
+
+DRF - Itanhaém
+```{r}
+ncol(ITA_pa_orig)
+```
+\  
+\  
+
+Species in commom UBA-BER
+```{r}
+sp_comm <- na.omit(match(colnames(UBA_pa_orig), colnames(BER_pa_orig)))
+length(sp_comm)
+colnames(BER_pa_orig)[sp_comm]
+```
+\  
+\  
+
+Species in commom UBA-ITA
+```{r}
+sp_comm <- na.omit(match(colnames(UBA_pa_orig), colnames(ITA_pa_orig)))
+length(sp_comm)
+colnames(ITA_pa_orig)[sp_comm]
+```
+\  
+\  
+
+Species in commom ITA-BER
+```{r}
+sp_comm <- na.omit(match(colnames(ITA_pa_orig), colnames(BER_pa_orig)))
+length(sp_comm)
+colnames(BER_pa_orig)[sp_comm]
+```
+\  
+\  
+\ 
+\  
+
+
+SSF - Santa Fé do Sul
+```{r}
+ncol(ST_pa_orig)
+
+```
+\  
+\  
+
+SSF - Icém
+```{r}
+ncol(IC_pa_orig)
+```
+\  
+\  
+
+SSF - Nova Itapirema
+```{r}
+ncol(NI_pa_orig)
+```
+\  
+\  
+
+SSF - Morro do Diabo
+```{r}
+ncol(MD_pa_orig)
+```
+\  
+\  
+
+SSF - Jataí
+```{r}
+ncol(JA_pa_orig)
+```
+\  
+\  
+
+Species in commom ST-IC
+```{r}
+sp_comm <- na.omit(match(colnames(ST_pa_orig), colnames(IC_pa_orig)))
+length(sp_comm)
+colnames(IC_pa_orig)[sp_comm]
+```
+\  
+\  
+
+Species in commom ST-NI
+```{r}
+sp_comm <- na.omit(match(colnames(ST_pa_orig), colnames(NI_pa_orig)))
+length(sp_comm)
+colnames(NI_pa_orig)[sp_comm]
+```
+\  
+\  
+
+
+Species in commom ST-MD
+```{r}
+sp_comm <- na.omit(match(colnames(ST_pa_orig), colnames(MD_pa_orig)))
+length(sp_comm)
+colnames(MD_pa_orig)[sp_comm]
+```
+\  
+\  
+
+
+Species in commom ST-JA
+```{r}
+sp_comm <- na.omit(match(colnames(ST_pa_orig), colnames(JA_pa_orig)))
+length(sp_comm)
+colnames(JA_pa_orig)[sp_comm]
+```
+\  
+\  
+
+Species in commom IC-NI
+```{r}
+sp_comm <- na.omit(match(colnames(IC_pa_orig), colnames(NI_pa_orig)))
+length(sp_comm)
+colnames(NI_pa_orig)[sp_comm]
+```
+\  
+\  
+
+Species in commom IC-MD
+```{r}
+sp_comm <- na.omit(match(colnames(IC_pa_orig), colnames(MD_pa_orig)))
+length(sp_comm)
+colnames(MD_pa_orig)[sp_comm]
+```
+\  
+\  
+
+
+Species in commom IC-JA
+```{r}
+sp_comm <- na.omit(match(colnames(IC_pa_orig), colnames(JA_pa_orig)))
+length(sp_comm)
+colnames(JA_pa_orig)[sp_comm]
+```
+\  
+\  
+
+
+
+Species in commom NI-MD
+```{r}
+sp_comm <- na.omit(match(colnames(NI_pa_orig), colnames(MD_pa_orig)))
+length(sp_comm)
+colnames(MD_pa_orig)[sp_comm]
+```
+\  
+\  
+
+Species in commom NI-MD
+```{r}
+sp_comm <- na.omit(match(colnames(NI_pa_orig), colnames(JA_pa_orig)))
+length(sp_comm)
+colnames(JA_pa_orig)[sp_comm]
+```
+\  
+\  
+
+Species in commom JA-MD
+```{r}
+sp_comm <- na.omit(match(colnames(MD_pa_orig), colnames(JA_pa_orig)))
+length(sp_comm)
+colnames(JA_pa_orig)[sp_comm]
+```
+\  
+\  
+\  
+\  
+\  
+\  
+\  
+\  
+
+
+
+### Means of continuous variables
+Intermediate Extent
+```{r}
+data.frame(DRF_mean = apply(DRF_clim, 2, mean), SSF_mean = apply(SSF_clim, 2, mean))
+data.frame(DRF_mean = apply(DRF_env[,3:5], 2, mean), SSF_mean = apply(SSF_env[,3:5], 2, mean))
+```
+\  
+\  
+
+
+Small Extent
+```{r}
+data.frame(UBA_mean = apply(UBA_env[,3:5], 2, mean),
+           BER_mean = apply(BER_env[,3:5], 2, mean),
+           ITA_mean = apply(ITA_env[,3:5], 2, mean),
+           ST_mean = apply(ST_env[,3:5], 2, mean),
+           IC_mean = apply(IC_env[,3:5], 2, mean),
+           NI_mean = apply(NI_env[,3:5], 2, mean),
+           MD_mean = apply(MD_env[,3:5], 2, mean),
+           JA_mean = apply(JA_env[,3:5], 2, mean))
+```
+\  
+\  
+\  
+\  
+
+
+### Coefficient of Variation of continuous variables
+
+Intermediate Extent
+```{r}
+data.frame(DRF_cv = apply(DRF_clim, 2, cv), SSF_cv = apply(SSF_clim, 2, cv))
+data.frame(DRF_cv = apply(DRF_env[,3:5], 2, cv), SSF_cv = apply(SSF_env[,3:5], 2, cv))
+```
+\  
+\  
+
+
+Small Extent
+```{r}
+data.frame(UBA_cv = apply(UBA_env[,3:5], 2, cv),
+           BER_cv = apply(BER_env[,3:5], 2, cv),
+           ITA_cv = apply(ITA_env[,3:5], 2, cv),
+           ST_cv = apply(ST_env[,3:5], 2, cv),
+           IC_cv = apply(IC_env[,3:5], 2, cv),
+           NI_cv = apply(NI_env[,3:5], 2, cv),
+           MD_cv = apply(MD_env[,3:5], 2, cv),
+           JA_cv = apply(JA_env[,3:5], 2, cv))
+```
+
