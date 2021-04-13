@@ -11,10 +11,11 @@
 #' @param orderNulls Should the null communities be ordered? (default is TRUE)
 #' @param seed seed for simulating the null model. Null matrices should be repeatable.
 #' @param fill should embedded absences be filled before the statistics are calculated? (default is TRUE)
+#' @param round Numeric. Should numeric results be rounded? If so, how many digits? Defaut is set to NULL.
 #' @export
 #'
 
-IdentifyStructure <- function(comm, names = NULL, scores = 1,CoherenceMethod = "curveball", turnoverMethod = "EMS", sims = 1000, order = T, orderNulls = F,  seed = NULL, fill = T){
+IdentifyStructure <- function(comm, names = NULL, scores = 1,CoherenceMethod = "curveball", turnoverMethod = "EMS", sims = 1000, order = T, orderNulls = F,  seed = NULL, fill = T, round = NULL){
 
   if(is.null(names)){names <- c(1:length(comm))}
 
@@ -153,8 +154,12 @@ IdentifyStructure <- function(comm, names = NULL, scores = 1,CoherenceMethod = "
                         I_Index,
                         p_I_Index,
                         N_sites,
-                        N_species,
-                        Structure)
+                        N_species)
+  if(is.null(round) == FALSE){
+    results <- round(results, round)
+  }
+
+  results <- data.frame(results, Structure)
   rownames(results) <- names
   return(results)
 }

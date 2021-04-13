@@ -13,14 +13,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 First we have to load the separated data matrices we need. It all comes from the Data.csv file in the Data folder. The data matrices are prepared sourcing the "Loading_data.R" file in the Auxiliary Scripts folder.
 ```{r, echo=TRUE, eval=FALSE}
-source("Loading_data.R")
 library(AtlanticForestMetacommunity)
+source("Loading_data.R")
 ```
 
 
 ```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
-source("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Auxiliary Scripts/Loading_data.R")
 library(AtlanticForestMetacommunity)
+source("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Auxiliary Scripts/Loading_data.R")
 ```
 
 The used packages to run this analysis are:
@@ -64,7 +64,7 @@ Metacommunities <- IdentifyStructure(list(Broad_pa,
                                                "Jataí"),
                                      CoherenceMethod = "curveball",
                                      turnoverMethod = "EMS",
-                                     orderNulls = T, seed = 3, sims = 10000)
+                                     orderNulls = T, seed = 3, sims = 10000, round = 3)
 Metacommunities
 ```
 # Correlation with Environmental Gradients

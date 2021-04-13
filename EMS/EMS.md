@@ -9,8 +9,8 @@ prepared sourcing the “Loading\_data.R” file in the Auxiliary Scripts
 folder.
 
 ``` r
-source("Loading_data.R")
 library(AtlanticForestMetacommunity)
+source("Loading_data.R")
 ```
 
 The used packages to run this analysis are:
@@ -47,7 +47,7 @@ Metacommunities <- IdentifyStructure(list(Broad_pa,
                                                "Jataí"),
                                      CoherenceMethod = "curveball",
                                      turnoverMethod = "EMS",
-                                     orderNulls = T, seed = 3, sims = 10000)
+                                     orderNulls = T, seed = 3, sims = 10000, round = 3)
 ```
 
     ##   |                                                                              |                                                                      |   0%  |                                                                              |======                                                                |   9%  |                                                                              |=============                                                         |  18%  |                                                                              |===================                                                   |  27%  |                                                                              |=========================                                             |  36%  |                                                                              |================================                                      |  45%  |                                                                              |======================================                                |  55%  |                                                                              |=============================================                         |  64%  |                                                                              |===================================================                   |  73%  |                                                                              |=========================================================             |  82%  |                                                                              |================================================================      |  91%  |                                                                              |======================================================================| 100%
@@ -57,53 +57,53 @@ Metacommunities
 ```
 
     ##                 Embeded_Absences Simulated_Embeded_Absences
-    ## Broad                       1107                  2809.3941
-    ## DRF                          490                   546.3680
-    ## Ubatuba                      105                   152.2589
-    ## Bertioga                      45                    40.6333
-    ## Itanhaém                      33                    60.0516
-    ## SSF                          596                   677.7384
-    ## Santa Fé do Sul                9                    15.8651
-    ## Icém                          54                    61.0686
-    ## Nova Itapirema                16                    21.6285
-    ## Morro do Diabo                16                    24.5500
-    ## Jataí                         11                    25.8129
-    ##                 percent_difference_EmbAbs z_Coherence  p_Coherence Turnover
-    ## Broad                           0.6059649 -11.5483503 7.525099e-31   566973
-    ## DRF                             0.1031686  -1.4655372 1.427744e-01    16547
-    ## Ubatuba                         0.3103851  -2.9761589 2.918836e-03     2976
-    ## Bertioga                       -0.1074660   0.5780797 5.632103e-01      301
-    ## Itanhaém                        0.4504726  -2.3147403 2.062715e-02      682
-    ## SSF                             0.1206046  -1.9277666 5.388416e-02    23810
-    ## Santa Fé do Sul                 0.4327171  -1.9610308 4.987543e-02      147
-    ## Icém                            0.1157485  -1.0743742 2.826550e-01      683
-    ## Nova Itapirema                  0.2602353  -1.8497584 6.434838e-02      151
-    ## Morro do Diabo                  0.3482688  -2.2248147 2.609368e-02      184
-    ## Jataí                           0.5738565  -3.2866369 1.013915e-03      342
+    ## Broad                       1107                   2809.394
+    ## DRF                          490                    546.368
+    ## Ubatuba                      105                    152.259
+    ## Bertioga                      45                     40.633
+    ## Itanhaém                      33                     60.052
+    ## SSF                          596                    677.738
+    ## Santa Fé do Sul                9                     15.865
+    ## Icém                          54                     61.069
+    ## Nova Itapirema                16                     21.628
+    ## Morro do Diabo                16                     24.550
+    ## Jataí                         11                     25.813
+    ##                 percent_difference_EmbAbs z_Coherence p_Coherence Turnover
+    ## Broad                               0.606     -11.548       0.000   566973
+    ## DRF                                 0.103      -1.466       0.143    16547
+    ## Ubatuba                             0.310      -2.976       0.003     2976
+    ## Bertioga                           -0.107       0.578       0.563      301
+    ## Itanhaém                            0.450      -2.315       0.021      682
+    ## SSF                                 0.121      -1.928       0.054    23810
+    ## Santa Fé do Sul                     0.433      -1.961       0.050      147
+    ## Icém                                0.116      -1.074       0.283      683
+    ## Nova Itapirema                      0.260      -1.850       0.064      151
+    ## Morro do Diabo                      0.348      -2.225       0.026      184
+    ## Jataí                               0.574      -3.287       0.001      342
     ##                 Simulated_Turnover percent_difference_Turn z_Turnover
-    ## Broad                  462666.8782             -0.22544541  3.0163399
-    ## DRF                     13330.5955             -0.24127988  1.0065306
-    ## Ubatuba                  3475.5572              0.14373442 -0.8286954
-    ## Bertioga                  220.3879             -0.36577371  1.3121629
-    ## Itanhaém                  747.8519              0.08805473 -0.4315736
-    ## SSF                     18925.4417             -0.25809481  1.2984426
-    ## Santa Fé do Sul           170.6858              0.13876843 -0.5213197
-    ## Icém                      590.7692             -0.15611985  0.6120645
-    ## Nova Itapirema             98.6941             -0.52998001  1.4288721
-    ## Morro do Diabo            173.2692             -0.06193138  0.2799493
-    ## Jataí                     281.8202             -0.21353970  0.7948606
-    ##                  p_Turnover  I_Index    p_I_Index N_sites N_species
-    ## Broad           0.002558463 2.505263 3.352874e-14      96        52
-    ## DRF             0.314160416 3.450317 4.740652e-13      50        24
-    ## Ubatuba         0.407276813 1.466667 1.404999e-02      23        20
-    ## Bertioga        0.189465166 1.794872 2.941613e-02      12        14
-    ## Itanhaém        0.666051331 1.529412 5.038045e-02      15        15
-    ## SSF             0.194135279 2.038418 5.295788e-07      46        32
-    ## Santa Fé do Sul 0.602144091 1.014706 3.878447e-01       8        11
-    ## Icém            0.540495103 1.384615 2.866922e-02      12        18
-    ## Nova Itapirema  0.153040989 1.050000 3.313100e-01       8        18
-    ## Morro do Diabo  0.779516413 1.157895 1.651549e-01       8        14
-    ## Jataí           0.426694603 1.515789 1.873235e-02      10        12
+    ## Broad                   463109.369                  -0.224      3.053
+    ## DRF                      13268.083                  -0.247      1.023
+    ## Ubatuba                   3490.690                   0.147     -0.853
+    ## Bertioga                   219.795                  -0.369      1.327
+    ## Itanhaém                   753.457                   0.095     -0.477
+    ## SSF                      18970.176                  -0.255      1.287
+    ## Santa Fé do Sul            171.422                   0.142     -0.542
+    ## Icém                       591.255                  -0.155      0.595
+    ## Nova Itapirema              99.074                  -0.524      1.417
+    ## Morro do Diabo             173.382                  -0.061      0.278
+    ## Jataí                      281.162                  -0.216      0.806
+    ##                 p_Turnover I_Index p_I_Index N_sites N_species
+    ## Broad                0.002   2.505     0.000      96        52
+    ## DRF                  0.306   3.450     0.000      50        24
+    ## Ubatuba              0.393   1.467     0.014      23        20
+    ## Bertioga             0.184   1.795     0.029      12        14
+    ## Itanhaém             0.634   1.529     0.050      15        15
+    ## SSF                  0.198   2.038     0.000      46        32
+    ## Santa Fé do Sul      0.588   1.015     0.388       8        11
+    ## Icém                 0.552   1.385     0.029      12        18
+    ## Nova Itapirema       0.156   1.050     0.331       8        18
+    ## Morro do Diabo       0.781   1.158     0.165       8        14
+    ## Jataí                0.420   1.516     0.019      10        12
     ##                                              Structure
     ## Broad                                      Clementsian
     ## DRF                                             Random

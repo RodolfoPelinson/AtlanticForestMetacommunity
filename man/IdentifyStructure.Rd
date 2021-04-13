@@ -14,7 +14,8 @@ IdentifyStructure(
   order = T,
   orderNulls = F,
   seed = NULL,
-  fill = T
+  fill = T,
+  round = NULL
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ IdentifyStructure(
 \item{seed}{seed for simulating the null model. Null matrices should be repeatable.}
 
 \item{fill}{should embedded absences be filled before the statistics are calculated? (default is TRUE)}
+
+\item{round}{Numeric. Should numeric results be rounded? If so, how many digits? Defaut is set to NULL.}
 }
 \description{
 This function simply runs the functions Coherence(), Turnover() and BoundaryClump() from package metacom and automaticaly identify the idealizes structure according to Presley et al. 2010 "A comprehensive framework for the evaluation of metacommunity structure". Oikos 119 (6).
