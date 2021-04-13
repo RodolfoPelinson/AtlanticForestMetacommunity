@@ -17,7 +17,7 @@ DOI: [NOT AVAILABLE](link)
 The analyses were divided in three different sections:
 
 [Descriptive
-Statistics](https://github.com/RodolfoPelinson/AtlanticForestMetacommunity/blob/master/Descriptive-Statistics/Descriptive-Statistics.md)
+Statistics](https://github.com/RodolfoPelinson/AtlanticForestMetacommunity/blob/master/Descriptive%20Statistics/Descriptive-Statistics.md)
 
 [Variation
 Partitioning](https://github.com/RodolfoPelinson/AtlanticForestMetacommunity/blob/master/VarPart/Variation-Partitioning.md)
