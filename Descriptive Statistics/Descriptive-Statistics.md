@@ -435,46 +435,72 @@ data.frame(UBA_mean = apply(UBA_env[,3:5], 2, mean),
 Intermediate Extent
 
 ``` r
-data.frame(DRF_cv = apply(DRF_clim, 2, cv), SSF_cv = apply(SSF_clim, 2, cv))
+Int_Clim_cv <- data.frame(DRF_cv = apply(DRF_clim, 2, coef_var), SSF_cv = apply(SSF_clim, 2, coef_var))
+Int_Env_cv <- data.frame(DRF_cv = apply(DRF_env[,3:5], 2, coef_var), SSF_cv = apply(SSF_env[,3:5], 2, coef_var))
+
+Int_Clim_cv
 ```
 
-    ##                   DRF_cv    SSF_cv
-    ## temp_Season     5.233907 10.576190
-    ## range_temp      5.608330  2.396501
-    ## total_prec      9.952700  6.859710
-    ## prec_season     6.714587 18.438093
-    ## prec_wet_quart  6.420671 14.778671
-    ## prec_dry_quart 14.612379 38.828156
+    ##                    DRF_cv     SSF_cv
+    ## temp_Season    0.05233907 0.10576190
+    ## range_temp     0.05608330 0.02396501
+    ## total_prec     0.09952700 0.06859710
+    ## prec_season    0.06714587 0.18438093
+    ## prec_wet_quart 0.06420671 0.14778671
+    ## prec_dry_quart 0.14612379 0.38828156
 
 ``` r
-data.frame(DRF_cv = apply(DRF_env[,3:5], 2, cv), SSF_cv = apply(SSF_env[,3:5], 2, cv))
+Int_Env_cv
 ```
 
     ##           DRF_cv    SSF_cv
-    ## area  398.121316 221.15741
-    ## depth  80.900349  86.67245
-    ## nvt     8.159794  36.51484
+    ## area  3.98121316 2.2115741
+    ## depth 0.80900349 0.8667245
+    ## nvt   0.08159794 0.3651484
+
+``` r
+apply(Int_Clim_cv, 2, mean)
+```
+
+    ##     DRF_cv     SSF_cv 
+    ## 0.08090429 0.15312887
+
+``` r
+apply(Int_Env_cv, 2, mean)
+```
+
+    ##   DRF_cv   SSF_cv 
+    ## 1.623938 1.147816
 
    
 
 Small Extent
 
 ``` r
-data.frame(UBA_cv = apply(UBA_env[,3:5], 2, cv),
-           BER_cv = apply(BER_env[,3:5], 2, cv),
-           ITA_cv = apply(ITA_env[,3:5], 2, cv),
-           ST_cv = apply(ST_env[,3:5], 2, cv),
-           IC_cv = apply(IC_env[,3:5], 2, cv),
-           NI_cv = apply(NI_env[,3:5], 2, cv),
-           MD_cv = apply(MD_env[,3:5], 2, cv),
-           JA_cv = apply(JA_env[,3:5], 2, cv))
+Sm_Env_cv <- data.frame(UBA_cv = apply(UBA_env[,3:5], 2, coef_var),
+           BER_cv = apply(BER_env[,3:5], 2, coef_var),
+           ITA_cv = apply(ITA_env[,3:5], 2, coef_var),
+           ST_cv = apply(ST_env[,3:5], 2, coef_var),
+           IC_cv = apply(IC_env[,3:5], 2, coef_var),
+           NI_cv = apply(NI_env[,3:5], 2, coef_var),
+           MD_cv = apply(MD_env[,3:5], 2, coef_var),
+           JA_cv = apply(JA_env[,3:5], 2, coef_var))
+
+Sm_Env_cv
 ```
 
-    ##          UBA_cv    BER_cv    ITA_cv     ST_cv    IC_cv    NI_cv     MD_cv
-    ## area  392.05225 197.03002 133.93552 123.54847 68.00164 92.18279 143.37193
-    ## depth  83.07725  46.33208  88.37021  83.03653 44.95484 56.76852  77.15253
-    ## nvt     0.00000   0.00000  14.78712  31.84918 46.97409 18.85618  31.42697
+    ##          UBA_cv    BER_cv    ITA_cv     ST_cv     IC_cv     NI_cv     MD_cv
+    ## area  3.9205225 1.9703002 1.3393552 1.2354847 0.6800164 0.9218279 1.4337193
+    ## depth 0.8307725 0.4633208 0.8837021 0.8303653 0.4495484 0.5676852 0.7715253
+    ## nvt   0.0000000 0.0000000 0.1478712 0.3184918 0.4697409 0.1885618 0.3142697
     ##           JA_cv
-    ## area  148.84257
-    ## depth 120.83799
-    ## nvt    35.79446
+    ## area  1.4884257
+    ## depth 1.2083799
+    ## nvt   0.3579446
+
+``` r
+apply(Sm_Env_cv, 2, mean)
+```
+
+    ##    UBA_cv    BER_cv    ITA_cv     ST_cv     IC_cv     NI_cv     MD_cv     JA_cv 
+    ## 1.5837650 0.8112070 0.7903095 0.7947806 0.5331019 0.5593583 0.8398381 1.0182501
