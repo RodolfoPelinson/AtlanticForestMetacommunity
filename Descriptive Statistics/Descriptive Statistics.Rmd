@@ -263,14 +263,14 @@ colnames(JA_pa_orig)[sp_comm]
 DRF
 ```{r}
 data.frame(DRF_min = apply(DRF_clim, 2, min), DRF_mean = apply(DRF_clim, 2, mean), DRF_max = apply(DRF_clim, 2, max))
-data.frame(DRF_min = apply(DRF_env[,3:5], 2, min), DRF_mean = apply(DRF_env[,3:5], 2, mean), DRF_max = apply(DRF_env[,3:5], 2, max))
+data.frame(DRF_min = apply(DRF_env, 2, min), DRF_mean = apply(DRF_env, 2, mean), DRF_max = apply(DRF_env, 2, max))
 ```
 \  
 
 SSF
 ```{r}
 data.frame(SSF_min = apply(SSF_clim, 2, min), SSF_mean = apply(SSF_clim, 2, mean), SSF_max = apply(SSF_clim, 2, max))
-data.frame(SSF_min = apply(SSF_env[,3:5], 2, min), SSF_mean = apply(SSF_env[,3:5], 2, mean), SSF_max = apply(SSF_env[,3:5], 2, max))
+data.frame(SSF_min = apply(SSF_env, 2, min), SSF_mean = apply(SSF_env, 2, mean), SSF_max = apply(SSF_env, 2, max))
 
 ```
 
@@ -283,64 +283,64 @@ data.frame(SSF_min = apply(SSF_env[,3:5], 2, min), SSF_mean = apply(SSF_env[,3:5
 
 Ubatuba
 ```{r}
-data.frame(UBA_min = apply(UBA_env[,3:5], 2, min),
-  UBA_mean = apply(UBA_env[,3:5], 2, mean),
-  UBA_max = apply(UBA_env[,3:5], 2, max))
+data.frame(UBA_min = apply(UBA_env, 2, min),
+  UBA_mean = apply(UBA_env, 2, mean),
+  UBA_max = apply(UBA_env, 2, max))
 ```
 \  
 
 Bertioga
 ```{r}
-data.frame(BER_min = apply(BER_env[,3:5], 2, min),
-  BER_mean = apply(BER_env[,3:5], 2, mean),
-  BER_max = apply(BER_env[,3:5], 2, max))
+data.frame(BER_min = apply(BER_env, 2, min),
+  BER_mean = apply(BER_env, 2, mean),
+  BER_max = apply(BER_env, 2, max))
 ```
 \  
 
 Itanhaém
 ```{r}
-data.frame(ITA_min = apply(ITA_env[,3:5], 2, min),
-  ITA_mean = apply(ITA_env[,3:5], 2, mean),
-  ITA_max = apply(ITA_env[,3:5], 2, max))
+data.frame(ITA_min = apply(ITA_env, 2, min),
+  ITA_mean = apply(ITA_env, 2, mean),
+  ITA_max = apply(ITA_env, 2, max))
 ```
 \  
 
 Santa Fé do Sul
 ```{r}
-data.frame(ST_min = apply(ST_env[,3:5], 2, min),
-  ST_mean = apply(ST_env[,3:5], 2, mean),
-  ST_max = apply(ST_env[,3:5], 2, max))
+data.frame(ST_min = apply(ST_env, 2, min),
+  ST_mean = apply(ST_env, 2, mean),
+  ST_max = apply(ST_env, 2, max))
 ```
 \  
 
 Icém
 ```{r}
-data.frame(IC_min = apply(IC_env[,3:5], 2, min),
-  IC_mean = apply(IC_env[,3:5], 2, mean),
-  IC_max = apply(IC_env[,3:5], 2, max))
+data.frame(IC_min = apply(IC_env, 2, min),
+  IC_mean = apply(IC_env, 2, mean),
+  IC_max = apply(IC_env, 2, max))
 ```
 \  
 
 Nova Itapirema
 ```{r}
-data.frame(NI_min = apply(NI_env[,3:5], 2, min),
-  NI_mean = apply(NI_env[,3:5], 2, mean),
-  NI_max = apply(NI_env[,3:5], 2, max))
+data.frame(NI_min = apply(NI_env, 2, min),
+  NI_mean = apply(NI_env, 2, mean),
+  NI_max = apply(NI_env, 2, max))
 ```
 \  
 
 
 ```{r}
-data.frame(MD_min = apply(MD_env[,3:5], 2, min),
-  MD_mean = apply(MD_env[,3:5], 2, mean),
-  MD_max = apply(MD_env[,3:5], 2, max))
+data.frame(MD_min = apply(MD_env, 2, min),
+  MD_mean = apply(MD_env, 2, mean),
+  MD_max = apply(MD_env, 2, max))
 ```
 \  
 
 ```{r}
-data.frame(JA_min = apply(JA_env[,3:5], 2, min),
-  JA_mean = apply(JA_env[,3:5], 2, mean),
-  JA_max = apply(JA_env[,3:5], 2, max))
+data.frame(JA_min = apply(JA_env, 2, min),
+  JA_mean = apply(JA_env, 2, mean),
+  JA_max = apply(JA_env, 2, max))
 ```
 
 \  
@@ -355,7 +355,7 @@ data.frame(JA_min = apply(JA_env[,3:5], 2, min),
 Intermediate Extent
 ```{r}
 Int_Clim_cv <- data.frame(DRF_cv = apply(DRF_clim, 2, coef_var), SSF_cv = apply(SSF_clim, 2, coef_var))
-Int_Env_cv <- data.frame(DRF_cv = apply(DRF_env[,3:5], 2, coef_var), SSF_cv = apply(SSF_env[,3:5], 2, coef_var))
+Int_Env_cv <- data.frame(DRF_cv = apply(DRF_env, 2, coef_var), SSF_cv = apply(SSF_env, 2, coef_var))
 
 Int_Clim_cv
 Int_Env_cv
@@ -369,14 +369,14 @@ apply(Int_Env_cv, 2, mean)
 
 Small Extent
 ```{r}
-Sm_Env_cv <- data.frame(UBA_cv = apply(UBA_env[,3:5], 2, coef_var),
-           BER_cv = apply(BER_env[,3:5], 2, coef_var),
-           ITA_cv = apply(ITA_env[,3:5], 2, coef_var),
-           ST_cv = apply(ST_env[,3:5], 2, coef_var),
-           IC_cv = apply(IC_env[,3:5], 2, coef_var),
-           NI_cv = apply(NI_env[,3:5], 2, coef_var),
-           MD_cv = apply(MD_env[,3:5], 2, coef_var),
-           JA_cv = apply(JA_env[,3:5], 2, coef_var))
+Sm_Env_cv <- data.frame(UBA_cv = apply(UBA_env, 2, coef_var),
+           BER_cv = apply(BER_env, 2, coef_var),
+           ITA_cv = apply(ITA_env, 2, coef_var),
+           ST_cv = apply(ST_env, 2, coef_var),
+           IC_cv = apply(IC_env, 2, coef_var),
+           NI_cv = apply(NI_env, 2, coef_var),
+           MD_cv = apply(MD_env, 2, coef_var),
+           JA_cv = apply(JA_env, 2, coef_var))
 
 Sm_Env_cv
 apply(Sm_Env_cv, 2, mean)
