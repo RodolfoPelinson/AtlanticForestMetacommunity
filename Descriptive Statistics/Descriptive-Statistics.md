@@ -379,54 +379,177 @@ colnames(JA_pa_orig)[sp_comm]
 
                
 
-### Means of continuous variables
+### Means, maximum and minimum of continuous variables
 
-Intermediate Extent
+ 
 
-``` r
-data.frame(DRF_mean = apply(DRF_clim, 2, mean), SSF_mean = apply(SSF_clim, 2, mean))
-```
+#### Intermediate Extent
 
-    ##                DRF_mean   SSF_mean
-    ## temp_Season     2307.70 2128.65217
-    ## range_temp       161.32  188.97826
-    ## total_prec      2283.88 1263.69565
-    ## prec_season       41.80   67.06522
-    ## prec_wet_quart   878.72  615.91304
-    ## prec_dry_quart   276.76   80.65217
+  DRF
 
 ``` r
-data.frame(DRF_mean = apply(DRF_env[,3:5], 2, mean), SSF_mean = apply(SSF_env[,3:5], 2, mean))
+data.frame(DRF_min = apply(DRF_clim, 2, min), DRF_mean = apply(DRF_clim, 2, mean), DRF_max = apply(DRF_clim, 2, max))
 ```
 
-    ##        DRF_mean    SSF_mean
-    ## area  2397.0658 695.7586957
-    ## depth    0.8704   0.6728261
-    ## nvt      2.9400   2.0000000
+    ##                DRF_min DRF_mean DRF_max
+    ## temp_Season       2194  2307.70    2603
+    ## range_temp         143   161.32     173
+    ## total_prec        1911  2283.88    2747
+    ## prec_season         36    41.80      48
+    ## prec_wet_quart     762   878.72    1001
+    ## prec_dry_quart     219   276.76     369
+
+``` r
+data.frame(DRF_min = apply(DRF_env[,3:5], 2, min), DRF_mean = apply(DRF_env[,3:5], 2, mean), DRF_max = apply(DRF_env[,3:5], 2, max))
+```
+
+    ##       DRF_min  DRF_mean DRF_max
+    ## area     1.15 2397.0658 66803.5
+    ## depth    0.10    0.8704     4.0
+    ## nvt      2.00    2.9400     3.0
+
+ 
+
+SSF
+
+``` r
+data.frame(SSF_min = apply(SSF_clim, 2, min), SSF_mean = apply(SSF_clim, 2, mean), SSF_max = apply(SSF_clim, 2, max))
+```
+
+    ##                SSF_min   SSF_mean SSF_max
+    ## temp_Season       1890 2128.65217    2598
+    ## range_temp         182  188.97826     197
+    ## total_prec        1174 1263.69565    1435
+    ## prec_season         41   67.06522      78
+    ## prec_wet_quart     444  615.91304     717
+    ## prec_dry_quart      50   80.65217     148
+
+``` r
+data.frame(SSF_min = apply(SSF_env[,3:5], 2, min), SSF_mean = apply(SSF_env[,3:5], 2, mean), SSF_max = apply(SSF_env[,3:5], 2, max))
+```
+
+    ##       SSF_min    SSF_mean SSF_max
+    ## area     4.00 695.7586957 10000.0
+    ## depth    0.05   0.6728261     2.4
+    ## nvt      1.00   2.0000000     3.0
 
    
 
-Small Extent
+#### Small Extent
+
+Ubatuba
 
 ``` r
-data.frame(UBA_mean = apply(UBA_env[,3:5], 2, mean),
-           BER_mean = apply(BER_env[,3:5], 2, mean),
-           ITA_mean = apply(ITA_env[,3:5], 2, mean),
-           ST_mean = apply(ST_env[,3:5], 2, mean),
-           IC_mean = apply(IC_env[,3:5], 2, mean),
-           NI_mean = apply(NI_env[,3:5], 2, mean),
-           MD_mean = apply(MD_env[,3:5], 2, mean),
-           JA_mean = apply(JA_env[,3:5], 2, mean))
+data.frame(UBA_min = apply(UBA_env[,3:5], 2, min),
+  UBA_mean = apply(UBA_env[,3:5], 2, mean),
+  UBA_max = apply(UBA_env[,3:5], 2, max))
 ```
 
-    ##           UBA_mean    BER_mean    ITA_mean   ST_mean    IC_mean NI_mean
-    ## area  3530.8978261 1935.707500 1027.610000 270.31250 398.416667 338.550
-    ## depth    0.6217391    1.066667    1.094667   0.86625   0.422500   0.665
-    ## nvt      3.0000000    3.000000    2.800000   1.62500   1.916667   1.875
-    ##         MD_mean JA_mean
-    ## area  2300.2500 395.100
-    ## depth    0.8975   0.645
-    ## nvt      2.2500   2.300
+    ##       UBA_min     UBA_mean UBA_max
+    ## area     1.15 3530.8978261 66803.5
+    ## depth    0.10    0.6217391     2.0
+    ## nvt      3.00    3.0000000     3.0
+
+ 
+
+Bertioga
+
+``` r
+data.frame(BER_min = apply(BER_env[,3:5], 2, min),
+  BER_mean = apply(BER_env[,3:5], 2, mean),
+  BER_max = apply(BER_env[,3:5], 2, max))
+```
+
+    ##       BER_min    BER_mean  BER_max
+    ## area    70.65 1935.707500 12363.75
+    ## depth    0.30    1.066667     2.00
+    ## nvt      3.00    3.000000     3.00
+
+ 
+
+Itanhaém
+
+``` r
+data.frame(ITA_min = apply(ITA_env[,3:5], 2, min),
+  ITA_mean = apply(ITA_env[,3:5], 2, mean),
+  ITA_max = apply(ITA_env[,3:5], 2, max))
+```
+
+    ##       ITA_min    ITA_mean ITA_max
+    ## area    53.44 1027.610000 4592.25
+    ## depth    0.25    1.094667    4.00
+    ## nvt      2.00    2.800000    3.00
+
+ 
+
+Santa Fé do Sul
+
+``` r
+data.frame(ST_min = apply(ST_env[,3:5], 2, min),
+  ST_mean = apply(ST_env[,3:5], 2, mean),
+  ST_max = apply(ST_env[,3:5], 2, max))
+```
+
+    ##       ST_min   ST_mean ST_max
+    ## area    50.0 270.31250    960
+    ## depth    0.1   0.86625      2
+    ## nvt      1.0   1.62500      2
+
+ 
+
+Icém
+
+``` r
+data.frame(IC_min = apply(IC_env[,3:5], 2, min),
+  IC_mean = apply(IC_env[,3:5], 2, mean),
+  IC_max = apply(IC_env[,3:5], 2, max))
+```
+
+    ##       IC_min    IC_mean IC_max
+    ## area    60.0 398.416667  800.0
+    ## depth    0.1   0.422500    0.7
+    ## nvt      1.0   1.916667    3.0
+
+ 
+
+Nova Itapirema
+
+``` r
+data.frame(NI_min = apply(NI_env[,3:5], 2, min),
+  NI_mean = apply(NI_env[,3:5], 2, mean),
+  NI_max = apply(NI_env[,3:5], 2, max))
+```
+
+    ##       NI_min NI_mean NI_max
+    ## area   32.00 338.550  800.0
+    ## depth   0.27   0.665    1.5
+    ## nvt     1.00   1.875    2.0
+
+ 
+
+``` r
+data.frame(MD_min = apply(MD_env[,3:5], 2, min),
+  MD_mean = apply(MD_env[,3:5], 2, mean),
+  MD_max = apply(MD_env[,3:5], 2, max))
+```
+
+    ##       MD_min   MD_mean  MD_max
+    ## area   100.0 2300.2500 10000.0
+    ## depth    0.3    0.8975     2.1
+    ## nvt      1.0    2.2500     3.0
+
+ 
+
+``` r
+data.frame(JA_min = apply(JA_env[,3:5], 2, min),
+  JA_mean = apply(JA_env[,3:5], 2, mean),
+  JA_max = apply(JA_env[,3:5], 2, max))
+```
+
+    ##       JA_min JA_mean JA_max
+    ## area    4.00 395.100 1833.0
+    ## depth   0.05   0.645    2.4
+    ## nvt     1.00   2.300    3.0
 
        
 
