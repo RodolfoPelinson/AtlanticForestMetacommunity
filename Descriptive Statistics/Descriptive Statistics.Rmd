@@ -255,7 +255,7 @@ colnames(JA_pa_orig)[sp_comm]
 
 
 
-### Means, maximum and minimum of continuous variables
+### Means, maximum and minimum of predictor variables
 \  
 
 #### Intermediate Extent
@@ -270,6 +270,7 @@ data.frame(DRF_min = apply(DRF_env, 2, min), DRF_mean = apply(DRF_env, 2, mean),
 SSF
 ```{r}
 data.frame(SSF_min = apply(SSF_clim, 2, min), SSF_mean = apply(SSF_clim, 2, mean), SSF_max = apply(SSF_clim, 2, max))
+data.frame(SSF_min = apply(SSF_env, 2, min), SSF_mean = apply(SSF_env, 2, mean), SSF_max = apply(SSF_env, 2, max))
 data.frame(SSF_min = apply(SSF_env, 2, min), SSF_mean = apply(SSF_env, 2, mean), SSF_max = apply(SSF_env, 2, max))
 
 ```
@@ -350,7 +351,7 @@ data.frame(JA_min = apply(JA_env, 2, min),
 
 
 
-### Coefficient of Variation of continuous variables
+### Coefficient of Variation of predictor variables
 
 Intermediate Extent
 ```{r}

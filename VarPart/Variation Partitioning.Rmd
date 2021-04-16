@@ -599,12 +599,19 @@ NI_varpart2
 MD_varpart2
 JA_varpart2
 
+
 UBA_varpart2
 BER_varpart2
 ITA_varpart2
 ```
 \  
 \  
+
+
+
+
+
+
 
 Constructing a matrix with all R2 values 
 ```{r, message=FALSE, warning=FALSE}
@@ -641,8 +648,18 @@ Varpart_plot <- full_join(Varpart_plot,
 
 rownames(Varpart_plot) <- c("Broad", "SSF", "DRF", "Santa Fé do Sul", "Icém", "Nova Itapirema", "Morro do Diabo", "Jataí", "Ubatuba", "Bertioga", "Itanhaém")
 
-Varpart_barplot <- t(Varpart_plot)
-Varpart_barplot
+Varpart_plot <- t(Varpart_plot)
+for(i in 1:dim(Varpart_plot)[1]){
+  for(j in 1:dim(Varpart_plot)[2]){
+    if(is.na(Varpart_plot[i,j])){Varpart_plot[i,j] <- 0}
+  }
+}
+
+Varpart_plot[12,2:3] <- Varpart_plot[12,2:3] + Varpart_plot[8,2:3]
+Varpart_plot[8,2:3] <- 0 
+Varpart_plot[5,c(4,5,6,7,9,10,11)] <- Varpart_plot[2,c(4,5,6,7,9,10,11)]
+Varpart_plot[7,6] <- Varpart_plot[4,6]
+Varpart_plot
 ```
 \  
 \    
@@ -652,18 +669,8 @@ Varpart_barplot
 
 Plotting the Variation Partioning as barplots.
 ```{r, fig.height= 7,fig.width=8,out.width= 800, out.height=700 , fig.align='center', dpi = 200}
-Varpart_barplot <- Varpart_barplot[-c(1:4),]
-
-
-for(i in 1:dim(Varpart_barplot)[1]){
-  for(j in 1:dim(Varpart_barplot)[2]){
-    if(is.na(Varpart_barplot[i,j])){Varpart_barplot[i,j] <- 0}
-  }
-}
-
-
+Varpart_barplot <- Varpart_plot[-c(1:4),]
 Varpart_barplot_break <- Varpart_barplot; Varpart_barplot_break[8,] <- Varpart_barplot_break[8,]-0.3
-
 Varpart_barplot_break <- Varpart_barplot_break[c(1,4,3,6,2,5,7,8),]
 
 barplot(as.matrix(Varpart_barplot_break), axes = F, col = c(Pure_Env = "gold",
@@ -687,6 +694,171 @@ text(c(3.5,3.5,5.5),c(0.04,0.155,0.035), labels =c("*","*","*"), adj = 0.5, col 
 
 ```
 The asterisks represent significant fractions.
+\  
+\  
+\  
+
+
+
+
+Means of fractions in all extents
+```{r}
+se <- function(x){
+  sd(x)/sqrt(length(x))
+}
+
+
+Means_spatial_extent <- data.frame(Broad_Extent = Varpart_plot[,1],
+           Intermediate_Extent = apply(Varpart_plot[,2:3],1,mean),
+           Small_Extent = apply(Varpart_plot[,4:11],1,mean))
+
+se_spatial_extent <- data.frame(Intermediate_Extent = apply(Varpart_plot[,2:3],1,se),
+           Small_Extent = apply(Varpart_plot[,4:11],1,se))
+
+se_spatial_extent_upper <- Means_spatial_extent[,2:3] + se_spatial_extent
+se_spatial_extent_lower <- Means_spatial_extent[,2:3] - se_spatial_extent
+
+Means_spatial_extent
+```
+\  
+
+
+
+```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
+se <- function(x){
+  sd(x)/sqrt(length(x))
+}
+par(mfrow = c(1,3))
+barplot(as.matrix(Means_spatial_extent[2,]), axes = F, col = "gold", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Environment")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[2,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[2,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent[4,]), axes = F, col = "cornflowerblue", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Space")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[4,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[4,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent[3,]), axes = F, col = "brown1", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Climate")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[3,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[3,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+\  
+\ 
+\ 
+
+
+```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
+par(mfrow = c(1,3))
+barplot(as.matrix(Means_spatial_extent[5,]), axes = F, col = "gold", space = c(0,1,1),
+        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Environment")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[5,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[5,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent[7,]), axes = F, col = "cornflowerblue", space = c(0,1,1),
+        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Space")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[7,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[7,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent[6,]), axes = F, col = "brown1", space = c(0,1,1),
+        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Climate")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[6,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[6,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+\  
+\ 
+\ 
+
+
+
+```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
+par(mfrow = c(1,3))
+barplot(as.matrix(Means_spatial_extent[5,] + Means_spatial_extent[9,]), axes = F, col = "gold", space = c(0,1,1),
+        border = "white", ylim = c(0,0.15), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Non-Spatially Structured", line = 2.2)
+title(main = "Local Environment", line = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent[6,] + Means_spatial_extent[9,]), axes = F, col = "brown1", space = c(0,1,1),
+        border = "white", ylim = c(0,0.15), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Non-Spatially Structured", line = 2.2)
+title(main = "Climate", line = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+```
+\  
+\ 
+\ 
+Means of fractions in small extent
+```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
+Means_small_extent <- data.frame(SSF = apply(Varpart_plot[,4:8],1,mean),
+           DRF = apply(Varpart_plot[,9:11],1,mean))
+
+se_small_extent <- data.frame(SSF = apply(Varpart_plot[,4:8],1,se),
+           DRF = apply(Varpart_plot[,9:11],1,se))
+se_small_extent_upper <- Means_small_extent + se_small_extent
+se_small_extent_lower <- Means_small_extent - se_small_extent
+
+
+par(mfrow = c(1,3))
+barplot(as.matrix(Means_small_extent[5,]), axes = F, col = "gold", space = c(0,1),
+        border = "white", ylim = c(0,0.25), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Environment")
+arrows(y0 = c(as.matrix(se_small_extent_lower[5,])),
+       y1 = c(as.matrix(se_small_extent_upper[5,])),
+       x1 = c(0.5,2.5),
+       x0 = c(0.5,2.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+
+barplot(as.matrix(Means_small_extent[7,]), axes = F, col = "cornflowerblue", space = c(0,1),
+        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Space")
+arrows(y0 = c(as.matrix(se_small_extent_lower[7,])),
+       y1 = c(as.matrix(se_small_extent_upper[7,])),
+       x1 = c(0.5,2.5),
+       x0 = c(0.5,2.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+```
+\  
+
+
+
+
 
 \  
 \    
@@ -705,16 +877,19 @@ RDA_clim_SSF <- rda(SSF_pa, data.frame(SSF_clim_st,SSF_env_st))
 species_scores_SSF <- scores(RDA_clim_SSF, display = c( "species"), scaling = 0, hill = T)
 loadings_SSF <- scores(RDA_clim_SSF, display = c( "bp"), scaling = 0, hill = T)
 
-species_scores_SSF <- species_scores_SSF[(species_scores_SSF[,1] > 0.3 | species_scores_SSF[,1] < -0.3) | 
-                                         (species_scores_SSF[,2] > 0.3 | species_scores_SSF[,2] < -0.3) ,]
+species_scores_SSF <- species_scores_SSF[(species_scores_SSF[,1] > 0.25 | species_scores_SSF[,1] < -0.25) | 
+                                         (species_scores_SSF[,2] > 0.25 | species_scores_SSF[,2] < -0.25) ,]
 
-species_scores_SSF <- species_scores_SSF*1.5
+#species_scores_SSF <- species_scores_SSF*1.5
 
-xmin <- min(c(species_scores_SSF[,1], loadings_SSF[,1])) -0.2
-xmax <- max(c(species_scores_SSF[,1], loadings_SSF[,1])) +0.2
-
-ymin <- min(c(species_scores_SSF[,2], loadings_SSF[,2])) -0.2
-ymax <- max(c(species_scores_SSF[,2], loadings_SSF[,2])) +0.2
+xmin <- #min(c(species_scores_SSF[,1], loadings_SSF[,1])) -0.2
+ -1
+xmax <- #max(c(species_scores_SSF[,1], loadings_SSF[,1])) +0.2
+ 1
+ymin <- #min(c(species_scores_SSF[,2], loadings_SSF[,2])) -0.2
+  -1
+ymax <- #max(c(species_scores_SSF[,2], loadings_SSF[,2])) +0.2
+  1
 
 rownames(loadings_SSF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
 col_SSF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
@@ -723,9 +898,9 @@ col_SSF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod"
 dists_SSF <- as.matrix(dist(rbind(loadings_SSF,c(0,0))))[10,-10]
 dists_SSF_prop <- dists_SSF/max(dists_SSF)
 
-for(i in 1:length(col_SSF)){
-  col_SSF[i] <- lighten_color((1-dists_SSF_prop[i]),col_SSF[i])
-}
+#for(i in 1:length(col_SSF)){
+#  col_SSF[i] <- lighten_color((1-dists_SSF_prop[i]),col_SSF[i])
+#}
 
 par(mfrow = c(1,2),mar = c(5, 5, 4, 2))
 plot(RDA_clim_SSF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "SSF - Unconstrained")
@@ -741,7 +916,7 @@ shape::Arrows(x0 = rep(0, length(loadings_SSF[,1])),
 
 for(i in 1:length(loadings_SSF[,1])){
   #points(loadings_SSF[i,1], loadings_SSF[i,2], col = col_SSF[i], pch = 21, cex = ((7*dists_SSF_prop[i])+1), bg = "white", lwd = 3)
-  text(loadings_SSF[i,1]*1.25, loadings_SSF[i,2]*1.25, labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
+  text(loadings_SSF[i,1]*1.2, loadings_SSF[i,2]*1.2, labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
 }
 
 
@@ -755,13 +930,17 @@ loadings_SSF <- scores(RDA_clim_SSF, display = c( "bp"), scaling = 0, hill = T)
 species_scores_SSF <- species_scores_SSF[(species_scores_SSF[,1] > 0.25 | species_scores_SSF[,1] < -0.25) | 
                                          (species_scores_SSF[,2] > 0.25 | species_scores_SSF[,2] < -0.25) ,]
 
-species_scores_SSF <- species_scores_SSF*1.5
+#species_scores_SSF <- species_scores_SSF*1.5
 
-xmin <- min(c(species_scores_SSF[,1], loadings_SSF[,1])) -0.2
-xmax <- max(c(species_scores_SSF[,1], loadings_SSF[,1])) +0.2
+xmin <- #min(c(species_scores_SSF[,1], loadings_SSF[,1])) -0.2
+  -1
+xmax <- #max(c(species_scores_SSF[,1], loadings_SSF[,1])) +0.2
+  1
 
-ymin <- min(c(species_scores_SSF[,2], loadings_SSF[,2])) -0.2
-ymax <- max(c(species_scores_SSF[,2], loadings_SSF[,2])) +0.2
+ymin <- #min(c(species_scores_SSF[,2], loadings_SSF[,2])) -0.2
+  -1
+ymax <- #max(c(species_scores_SSF[,2], loadings_SSF[,2])) +0.2
+  1
 
 rownames(loadings_SSF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
 col_SSF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
@@ -769,9 +948,9 @@ col_SSF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod"
 dists_SSF <- as.matrix(dist(rbind(loadings_SSF,c(0,0))))[10,-10]
 dists_SSF_prop <- dists_SSF/max(dists_SSF)
 
-for(i in 1:length(col_SSF)){
-  col_SSF[i] <- lighten_color((1-dists_SSF_prop[i]),col_SSF[i])
-}
+#for(i in 1:length(col_SSF)){
+#  col_SSF[i] <- lighten_color((1-dists_SSF_prop[i]),col_SSF[i])
+#}
 
 
 plot(RDA_clim_SSF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "SSF - Constrained")
@@ -787,7 +966,7 @@ shape::Arrows(x0 = rep(0, length(loadings_SSF[,1])),
 
 for(i in 1:length(loadings_SSF[,1])){
   #points(loadings_SSF[i,1], loadings_SSF[i,2], col = col_SSF[i], pch = 21, cex = ((7*dists_SSF_prop[i])+1), bg = "white", lwd = 3)
-  text(loadings_SSF[i,1]*1.25, loadings_SSF[i,2]*1.25, labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
+  text(loadings_SSF[i,1]*1.2, loadings_SSF[i,2]*1.2, labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
 }
 
 ```
@@ -803,13 +982,17 @@ loadings_DRF <- scores(RDA_clim_DRF, display = c( "bp"), scaling = 0, hill = T)
 species_scores_DRF <- species_scores_DRF[(species_scores_DRF[,1] > 0.25 | species_scores_DRF[,1] < -0.25) | 
                                          (species_scores_DRF[,2] > 0.25 | species_scores_DRF[,2] < -0.25) ,]
 
-species_scores_DRF <- species_scores_DRF*1.5
+#species_scores_DRF <- species_scores_DRF*1.5
 
-xmin <- min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
-xmax <- max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
+xmin <- #min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
+  -1
+xmax <- #max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
+  1
 
-ymin <- min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
-ymax <- max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
+ymin <- #min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
+  -1
+ymax <- #max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
+  1
 
 rownames(loadings_DRF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
 col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
@@ -818,9 +1001,9 @@ col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod"
 dists_DRF <- as.matrix(dist(rbind(loadings_DRF,c(0,0))))[10,-10]
 dists_DRF_prop <- dists_DRF/max(dists_DRF)
 
-for(i in 1:length(col_DRF)){
-  col_DRF[i] <- lighten_color((1-dists_DRF_prop[i]),col_DRF[i])
-}
+#for(i in 1:length(col_DRF)){
+#  col_DRF[i] <- lighten_color((1-dists_DRF_prop[i]),col_DRF[i])
+#}
 
 par(mfrow = c(1,2),mar = c(5, 5, 4, 2))
 plot(RDA_clim_DRF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "DRF - Unconstrained")
@@ -836,7 +1019,7 @@ shape::Arrows(x0 = rep(0, length(loadings_DRF[,1])),
 
 for(i in 1:length(loadings_DRF[,1])){
   #points(loadings_DRF[i,1], loadings_DRF[i,2], col = col_DRF[i], pch = 21, cex = ((7*dists_DRF_prop[i])+1), bg = "white", lwd = 3)
-  text(loadings_DRF[i,1]*1.25, loadings_DRF[i,2]*1.25, labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
+  text(loadings_DRF[i,1]*1.2, loadings_DRF[i,2]*1.2, labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
 }
 
 
@@ -850,13 +1033,18 @@ loadings_DRF <- scores(RDA_clim_DRF, display = c( "bp"), scaling = 0, hill = T)
 species_scores_DRF <- species_scores_DRF[(species_scores_DRF[,1] > 0.25 | species_scores_DRF[,1] < -0.25) | 
                                          (species_scores_DRF[,2] > 0.25 | species_scores_DRF[,2] < -0.25) ,]
 
-species_scores_DRF <- species_scores_DRF*1.5
+#species_scores_DRF <- species_scores_DRF*1.5
 
-xmin <- min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
-xmax <- max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
+xmin <- #min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
+  -1
+xmax <- #max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
+  1
 
-ymin <- min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
-ymax <- max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
+ymin <- #min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
+  -1
+ymax <- #max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
+  1
+
 
 rownames(loadings_DRF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
 col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
@@ -864,9 +1052,9 @@ col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod"
 dists_DRF <- as.matrix(dist(rbind(loadings_DRF,c(0,0))))[10,-10]
 dists_DRF_prop <- dists_DRF/max(dists_DRF)
 
-for(i in 1:length(col_DRF)){
-  col_DRF[i] <- lighten_color((1-dists_DRF_prop[i]),col_DRF[i])
-}
+#for(i in 1:length(col_DRF)){
+#  col_DRF[i] <- lighten_color((1-dists_DRF_prop[i]),col_DRF[i])
+#}
 
 
 plot(RDA_clim_DRF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "DRF - Constrained")
@@ -882,7 +1070,7 @@ shape::Arrows(x0 = rep(0, length(loadings_DRF[,1])),
 
 for(i in 1:length(loadings_DRF[,1])){
   #points(loadings_DRF[i,1], loadings_DRF[i,2], col = col_DRF[i], pch = 21, cex = ((7*dists_DRF_prop[i])+1), bg = "white", lwd = 3)
-  text(loadings_DRF[i,1]*1.25, loadings_DRF[i,2]*1.25, labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
+  text(loadings_DRF[i,1]*1.2, loadings_DRF[i,2]*1.2, labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
 }
 
 ```

@@ -69,7 +69,7 @@ Broad_dbMEM <- dbmem(dist(Broad_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 2.740265 
-    ## Time to compute dbMEMs = 0.040000  sec
+    ## Time to compute dbMEMs = 0.030000  sec
 
 ``` r
 SSF_dbMEM <- dbmem(dist(SSF_coord), silent = F, thresh = NULL)
@@ -83,21 +83,21 @@ ST_dbMEM <- dbmem(dist(ST_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 0.006243823 
-    ## Time to compute dbMEMs = 0.020000  sec
+    ## Time to compute dbMEMs = 0.000000  sec
 
 ``` r
 IC_dbMEM <- dbmem(dist(IC_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 0.03260922 
-    ## Time to compute dbMEMs = 0.010000  sec
+    ## Time to compute dbMEMs = 0.000000  sec
 
 ``` r
 NI_dbMEM <- dbmem(dist(NI_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 0.01866376 
-    ## Time to compute dbMEMs = 0.000000  sec
+    ## Time to compute dbMEMs = 0.020000  sec
 
 ``` r
 MD_dbMEM <- dbmem(dist(MD_coord), silent = F, thresh = NULL)
@@ -118,21 +118,21 @@ DRF_dbMEM <- dbmem(dist(DRF_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 1.072626 
-    ## Time to compute dbMEMs = 0.000000  sec
+    ## Time to compute dbMEMs = 0.010000  sec
 
 ``` r
 UBA_dbMEM <- dbmem(dist(UBA_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 0.08923115 
-    ## Time to compute dbMEMs = 0.000000  sec
+    ## Time to compute dbMEMs = 0.020000  sec
 
 ``` r
 BER_dbMEM <- dbmem(dist(BER_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 0.09885289 
-    ## Time to compute dbMEMs = 0.000000  sec
+    ## Time to compute dbMEMs = 0.020000  sec
 
 ``` r
 ITA_dbMEM <- dbmem(dist(ITA_coord), silent = F, thresh = NULL)
@@ -957,33 +957,33 @@ ITA_varpart2 <- var_partitioning_2(ITA_pa, ITA_env_FS, ITA_dbMEM_FS, allow_negat
 ST_varpart2
 ```
 
-    ##          Adj_R2 Df        F      p
-    ## Pure_Env  0.087  3 1.222139 0.2982
-    ## Resid     0.913 NA       NA     NA
+    ##       Adj_R2 Df        F      p
+    ## Env    0.087  3 1.222139 0.2982
+    ## Resid  0.913 NA       NA     NA
 
 ``` r
 IC_varpart2
 ```
 
-    ##          Adj_R2 Df        F     p
-    ## Pure_Env  0.195  1 3.658271 0.005
-    ## Resid     0.805 NA       NA    NA
+    ##       Adj_R2 Df        F     p
+    ## Env    0.195  1 3.658271 0.005
+    ## Resid  0.805 NA       NA    NA
 
 ``` r
 NI_varpart2
 ```
 
-    ##          Adj_R2 Df        F      p
-    ## Pure_Spa  0.159  1 2.319742 0.0126
-    ## Resid     0.841 NA       NA     NA
+    ##       Adj_R2 Df        F      p
+    ## Spa    0.159  1 2.319742 0.0126
+    ## Resid  0.841 NA       NA     NA
 
 ``` r
 MD_varpart2
 ```
 
-    ##          Adj_R2 Df        F      p
-    ## Pure_Env  0.139  4 1.281935 0.2617
-    ## Resid     0.861 NA       NA     NA
+    ##       Adj_R2 Df        F      p
+    ## Env    0.139  4 1.281935 0.2617
+    ## Resid  0.861 NA       NA     NA
 
 ``` r
 JA_varpart2
@@ -1002,25 +1002,25 @@ JA_varpart2
 UBA_varpart2
 ```
 
-    ##          Adj_R2 Df       F      p
-    ## Pure_Env  0.064  1 2.49747 0.0105
-    ## Resid     0.936 NA      NA     NA
+    ##       Adj_R2 Df       F      p
+    ## Env    0.064  1 2.49747 0.0105
+    ## Resid  0.936 NA      NA     NA
 
 ``` r
 BER_varpart2
 ```
 
-    ##          Adj_R2 Df        F      p
-    ## Pure_Env  0.021  3 1.077964 0.3726
-    ## Resid     0.979 NA       NA     NA
+    ##       Adj_R2 Df        F      p
+    ## Env    0.021  3 1.077964 0.3726
+    ## Resid  0.979 NA       NA     NA
 
 ``` r
 ITA_varpart2
 ```
 
-    ##          Adj_R2 Df        F      p
-    ## Pure_Env  0.097  5 1.299521 0.2084
-    ## Resid     0.903 NA       NA     NA
+    ##       Adj_R2 Df        F      p
+    ## Env    0.097  5 1.299521 0.2084
+    ## Resid  0.903 NA       NA     NA
 
    
 
@@ -1059,35 +1059,45 @@ Varpart_plot <- full_join(Varpart_plot,
 
 rownames(Varpart_plot) <- c("Broad", "SSF", "DRF", "Santa Fé do Sul", "Icém", "Nova Itapirema", "Morro do Diabo", "Jataí", "Ubatuba", "Bertioga", "Itanhaém")
 
-Varpart_barplot <- t(Varpart_plot)
-Varpart_barplot
+Varpart_plot <- t(Varpart_plot)
+for(i in 1:dim(Varpart_plot)[1]){
+  for(j in 1:dim(Varpart_plot)[2]){
+    if(is.na(Varpart_plot[i,j])){Varpart_plot[i,j] <- 0}
+  }
+}
+
+Varpart_plot[12,2:3] <- Varpart_plot[12,2:3] + Varpart_plot[8,2:3]
+Varpart_plot[8,2:3] <- 0 
+Varpart_plot[5,c(4,5,6,7,9,10,11)] <- Varpart_plot[2,c(4,5,6,7,9,10,11)]
+Varpart_plot[7,6] <- Varpart_plot[4,6]
+Varpart_plot
 ```
 
-    ##              Broad    SSF    DRF Santa Fé do Sul  Icém Nova Itapirema
-    ## All          0.300  0.244  0.125              NA    NA             NA
-    ## Env          0.145  0.107  0.091              NA    NA             NA
-    ## Clim         0.212  0.171  0.049              NA    NA             NA
-    ## Spa          0.260  0.053  0.037              NA    NA             NA
-    ## Pure_Env     0.033  0.071  0.068           0.087 0.195             NA
-    ## Pure_Clim    0.006  0.103  0.012              NA    NA             NA
-    ## Pure_Spa     0.038  0.004  0.011              NA    NA          0.159
-    ## Env_Spa      0.017 -0.002 -0.002              NA    NA             NA
-    ## Env_Clim     0.001  0.017  0.009              NA    NA             NA
-    ## Spa_Clim     0.110  0.029  0.011              NA    NA             NA
-    ## Spa_Clim_Env 0.094  0.021  0.017              NA    NA             NA
-    ## Resid        0.700  0.756  0.875           0.913 0.805          0.841
+    ##              Broad   SSF   DRF Santa Fé do Sul  Icém Nova Itapirema
+    ## All          0.300 0.244 0.125           0.000 0.000          0.000
+    ## Env          0.145 0.107 0.091           0.087 0.195          0.000
+    ## Clim         0.212 0.171 0.049           0.000 0.000          0.000
+    ## Spa          0.260 0.053 0.037           0.000 0.000          0.159
+    ## Pure_Env     0.033 0.071 0.068           0.087 0.195          0.000
+    ## Pure_Clim    0.006 0.103 0.012           0.000 0.000          0.000
+    ## Pure_Spa     0.038 0.004 0.011           0.000 0.000          0.159
+    ## Env_Spa      0.017 0.000 0.000           0.000 0.000          0.000
+    ## Env_Clim     0.001 0.017 0.009           0.000 0.000          0.000
+    ## Spa_Clim     0.110 0.029 0.011           0.000 0.000          0.000
+    ## Spa_Clim_Env 0.094 0.021 0.017           0.000 0.000          0.000
+    ## Resid        0.700 0.754 0.873           0.913 0.805          0.841
     ##              Morro do Diabo Jataí Ubatuba Bertioga Itanhaém
-    ## All                      NA 0.555      NA       NA       NA
-    ## Env                      NA 0.524      NA       NA       NA
-    ## Clim                     NA    NA      NA       NA       NA
-    ## Spa                      NA 0.221      NA       NA       NA
+    ## All                   0.000 0.555   0.000    0.000    0.000
+    ## Env                   0.139 0.524   0.064    0.021    0.097
+    ## Clim                  0.000 0.000   0.000    0.000    0.000
+    ## Spa                   0.000 0.221   0.000    0.000    0.000
     ## Pure_Env              0.139 0.334   0.064    0.021    0.097
-    ## Pure_Clim                NA    NA      NA       NA       NA
-    ## Pure_Spa                 NA 0.030      NA       NA       NA
-    ## Env_Spa                  NA 0.190      NA       NA       NA
-    ## Env_Clim                 NA    NA      NA       NA       NA
-    ## Spa_Clim                 NA    NA      NA       NA       NA
-    ## Spa_Clim_Env             NA    NA      NA       NA       NA
+    ## Pure_Clim             0.000 0.000   0.000    0.000    0.000
+    ## Pure_Spa              0.000 0.030   0.000    0.000    0.000
+    ## Env_Spa               0.000 0.190   0.000    0.000    0.000
+    ## Env_Clim              0.000 0.000   0.000    0.000    0.000
+    ## Spa_Clim              0.000 0.000   0.000    0.000    0.000
+    ## Spa_Clim_Env          0.000 0.000   0.000    0.000    0.000
     ## Resid                 0.861 0.445   0.936    0.979    0.903
 
      
@@ -1096,18 +1106,8 @@ Varpart_barplot
 Plotting the Variation Partioning as barplots.
 
 ``` r
-Varpart_barplot <- Varpart_barplot[-c(1:4),]
-
-
-for(i in 1:dim(Varpart_barplot)[1]){
-  for(j in 1:dim(Varpart_barplot)[2]){
-    if(is.na(Varpart_barplot[i,j])){Varpart_barplot[i,j] <- 0}
-  }
-}
-
-
+Varpart_barplot <- Varpart_plot[-c(1:4),]
 Varpart_barplot_break <- Varpart_barplot; Varpart_barplot_break[8,] <- Varpart_barplot_break[8,]-0.3
-
 Varpart_barplot_break <- Varpart_barplot_break[c(1,4,3,6,2,5,7,8),]
 
 barplot(as.matrix(Varpart_barplot_break), axes = F, col = c(Pure_Env = "gold",
@@ -1131,7 +1131,194 @@ text(c(3.5,3.5,5.5),c(0.04,0.155,0.035), labels =c("*","*","*"), adj = 0.5, col 
 ```
 
 <img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-59-1.png" width="800" height="700" style="display: block; margin: auto;" />
-The asterisks represent significant fractions.
+The asterisks represent significant fractions.      
+
+Means of fractions in all extents
+
+``` r
+se <- function(x){
+  sd(x)/sqrt(length(x))
+}
+
+
+Means_spatial_extent <- data.frame(Broad_Extent = Varpart_plot[,1],
+           Intermediate_Extent = apply(Varpart_plot[,2:3],1,mean),
+           Small_Extent = apply(Varpart_plot[,4:11],1,mean))
+
+se_spatial_extent <- data.frame(Intermediate_Extent = apply(Varpart_plot[,2:3],1,se),
+           Small_Extent = apply(Varpart_plot[,4:11],1,se))
+
+se_spatial_extent_upper <- Means_spatial_extent[,2:3] + se_spatial_extent
+se_spatial_extent_lower <- Means_spatial_extent[,2:3] - se_spatial_extent
+
+Means_spatial_extent
+```
+
+    ##              Broad_Extent Intermediate_Extent Small_Extent
+    ## All                 0.300              0.1845     0.069375
+    ## Env                 0.145              0.0990     0.140875
+    ## Clim                0.212              0.1100     0.000000
+    ## Spa                 0.260              0.0450     0.047500
+    ## Pure_Env            0.033              0.0695     0.117125
+    ## Pure_Clim           0.006              0.0575     0.000000
+    ## Pure_Spa            0.038              0.0075     0.023625
+    ## Env_Spa             0.017              0.0000     0.023750
+    ## Env_Clim            0.001              0.0130     0.000000
+    ## Spa_Clim            0.110              0.0200     0.000000
+    ## Spa_Clim_Env        0.094              0.0190     0.000000
+    ## Resid               0.700              0.8135     0.835375
+
+ 
+
+``` r
+se <- function(x){
+  sd(x)/sqrt(length(x))
+}
+par(mfrow = c(1,3))
+barplot(as.matrix(Means_spatial_extent[2,]), axes = F, col = "gold", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Environment")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[2,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[2,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent[4,]), axes = F, col = "cornflowerblue", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Space")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[4,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[4,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent[3,]), axes = F, col = "brown1", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Climate")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[3,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[3,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+```
+
+    ## Warning in arrows(y0 = c(as.matrix(se_spatial_extent_lower[3, ])), y1 =
+    ## c(as.matrix(se_spatial_extent_upper[3, : zero-length arrow is of indeterminate
+    ## angle and so skipped
+
+``` r
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-61-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+     
+
+``` r
+par(mfrow = c(1,3))
+barplot(as.matrix(Means_spatial_extent[5,]), axes = F, col = "gold", space = c(0,1,1),
+        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Environment")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[5,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[5,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent[7,]), axes = F, col = "cornflowerblue", space = c(0,1,1),
+        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Space")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[7,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[7,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent[6,]), axes = F, col = "brown1", space = c(0,1,1),
+        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Climate")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[6,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[6,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+```
+
+    ## Warning in arrows(y0 = c(as.matrix(se_spatial_extent_lower[6, ])), y1 =
+    ## c(as.matrix(se_spatial_extent_upper[6, : zero-length arrow is of indeterminate
+    ## angle and so skipped
+
+``` r
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-62-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+     
+
+``` r
+par(mfrow = c(1,3))
+barplot(as.matrix(Means_spatial_extent[5,] + Means_spatial_extent[9,]), axes = F, col = "gold", space = c(0,1,1),
+        border = "white", ylim = c(0,0.15), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Non-Spatially Structured", line = 2.2)
+title(main = "Local Environment", line = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent[6,] + Means_spatial_extent[9,]), axes = F, col = "brown1", space = c(0,1,1),
+        border = "white", ylim = c(0,0.15), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Non-Spatially Structured", line = 2.2)
+title(main = "Climate", line = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-63-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+      Means of fractions in small extent
+
+``` r
+Means_small_extent <- data.frame(SSF = apply(Varpart_plot[,4:8],1,mean),
+           DRF = apply(Varpart_plot[,9:11],1,mean))
+
+se_small_extent <- data.frame(SSF = apply(Varpart_plot[,4:8],1,se),
+           DRF = apply(Varpart_plot[,9:11],1,se))
+se_small_extent_upper <- Means_small_extent + se_small_extent
+se_small_extent_lower <- Means_small_extent - se_small_extent
+
+
+par(mfrow = c(1,3))
+barplot(as.matrix(Means_small_extent[5,]), axes = F, col = "gold", space = c(0,1),
+        border = "white", ylim = c(0,0.25), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Environment")
+arrows(y0 = c(as.matrix(se_small_extent_lower[5,])),
+       y1 = c(as.matrix(se_small_extent_upper[5,])),
+       x1 = c(0.5,2.5),
+       x0 = c(0.5,2.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+
+barplot(as.matrix(Means_small_extent[7,]), axes = F, col = "cornflowerblue", space = c(0,1),
+        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Space")
+arrows(y0 = c(as.matrix(se_small_extent_lower[7,])),
+       y1 = c(as.matrix(se_small_extent_upper[7,])),
+       x1 = c(0.5,2.5),
+       x0 = c(0.5,2.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+```
+
+    ## Warning in arrows(y0 = c(as.matrix(se_small_extent_lower[7, ])), y1 =
+    ## c(as.matrix(se_small_extent_upper[7, : zero-length arrow is of indeterminate
+    ## angle and so skipped
+
+``` r
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-64-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+ 
 
      
    
@@ -1154,16 +1341,19 @@ RDA_clim_SSF <- rda(SSF_pa, data.frame(SSF_clim_st,SSF_env_st))
 species_scores_SSF <- scores(RDA_clim_SSF, display = c( "species"), scaling = 0, hill = T)
 loadings_SSF <- scores(RDA_clim_SSF, display = c( "bp"), scaling = 0, hill = T)
 
-species_scores_SSF <- species_scores_SSF[(species_scores_SSF[,1] > 0.3 | species_scores_SSF[,1] < -0.3) | 
-                                         (species_scores_SSF[,2] > 0.3 | species_scores_SSF[,2] < -0.3) ,]
+species_scores_SSF <- species_scores_SSF[(species_scores_SSF[,1] > 0.25 | species_scores_SSF[,1] < -0.25) | 
+                                         (species_scores_SSF[,2] > 0.25 | species_scores_SSF[,2] < -0.25) ,]
 
-species_scores_SSF <- species_scores_SSF*1.5
+#species_scores_SSF <- species_scores_SSF*1.5
 
-xmin <- min(c(species_scores_SSF[,1], loadings_SSF[,1])) -0.2
-xmax <- max(c(species_scores_SSF[,1], loadings_SSF[,1])) +0.2
-
-ymin <- min(c(species_scores_SSF[,2], loadings_SSF[,2])) -0.2
-ymax <- max(c(species_scores_SSF[,2], loadings_SSF[,2])) +0.2
+xmin <- #min(c(species_scores_SSF[,1], loadings_SSF[,1])) -0.2
+ -1
+xmax <- #max(c(species_scores_SSF[,1], loadings_SSF[,1])) +0.2
+ 1
+ymin <- #min(c(species_scores_SSF[,2], loadings_SSF[,2])) -0.2
+  -1
+ymax <- #max(c(species_scores_SSF[,2], loadings_SSF[,2])) +0.2
+  1
 
 rownames(loadings_SSF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
 col_SSF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
@@ -1172,9 +1362,9 @@ col_SSF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod"
 dists_SSF <- as.matrix(dist(rbind(loadings_SSF,c(0,0))))[10,-10]
 dists_SSF_prop <- dists_SSF/max(dists_SSF)
 
-for(i in 1:length(col_SSF)){
-  col_SSF[i] <- lighten_color((1-dists_SSF_prop[i]),col_SSF[i])
-}
+#for(i in 1:length(col_SSF)){
+#  col_SSF[i] <- lighten_color((1-dists_SSF_prop[i]),col_SSF[i])
+#}
 
 par(mfrow = c(1,2),mar = c(5, 5, 4, 2))
 plot(RDA_clim_SSF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "SSF - Unconstrained")
@@ -1190,7 +1380,7 @@ shape::Arrows(x0 = rep(0, length(loadings_SSF[,1])),
 
 for(i in 1:length(loadings_SSF[,1])){
   #points(loadings_SSF[i,1], loadings_SSF[i,2], col = col_SSF[i], pch = 21, cex = ((7*dists_SSF_prop[i])+1), bg = "white", lwd = 3)
-  text(loadings_SSF[i,1]*1.25, loadings_SSF[i,2]*1.25, labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
+  text(loadings_SSF[i,1]*1.2, loadings_SSF[i,2]*1.2, labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
 }
 
 
@@ -1204,13 +1394,17 @@ loadings_SSF <- scores(RDA_clim_SSF, display = c( "bp"), scaling = 0, hill = T)
 species_scores_SSF <- species_scores_SSF[(species_scores_SSF[,1] > 0.25 | species_scores_SSF[,1] < -0.25) | 
                                          (species_scores_SSF[,2] > 0.25 | species_scores_SSF[,2] < -0.25) ,]
 
-species_scores_SSF <- species_scores_SSF*1.5
+#species_scores_SSF <- species_scores_SSF*1.5
 
-xmin <- min(c(species_scores_SSF[,1], loadings_SSF[,1])) -0.2
-xmax <- max(c(species_scores_SSF[,1], loadings_SSF[,1])) +0.2
+xmin <- #min(c(species_scores_SSF[,1], loadings_SSF[,1])) -0.2
+  -1
+xmax <- #max(c(species_scores_SSF[,1], loadings_SSF[,1])) +0.2
+  1
 
-ymin <- min(c(species_scores_SSF[,2], loadings_SSF[,2])) -0.2
-ymax <- max(c(species_scores_SSF[,2], loadings_SSF[,2])) +0.2
+ymin <- #min(c(species_scores_SSF[,2], loadings_SSF[,2])) -0.2
+  -1
+ymax <- #max(c(species_scores_SSF[,2], loadings_SSF[,2])) +0.2
+  1
 
 rownames(loadings_SSF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
 col_SSF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
@@ -1218,9 +1412,9 @@ col_SSF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod"
 dists_SSF <- as.matrix(dist(rbind(loadings_SSF,c(0,0))))[10,-10]
 dists_SSF_prop <- dists_SSF/max(dists_SSF)
 
-for(i in 1:length(col_SSF)){
-  col_SSF[i] <- lighten_color((1-dists_SSF_prop[i]),col_SSF[i])
-}
+#for(i in 1:length(col_SSF)){
+#  col_SSF[i] <- lighten_color((1-dists_SSF_prop[i]),col_SSF[i])
+#}
 
 
 plot(RDA_clim_SSF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "SSF - Constrained")
@@ -1236,11 +1430,11 @@ shape::Arrows(x0 = rep(0, length(loadings_SSF[,1])),
 
 for(i in 1:length(loadings_SSF[,1])){
   #points(loadings_SSF[i,1], loadings_SSF[i,2], col = col_SSF[i], pch = 21, cex = ((7*dists_SSF_prop[i])+1), bg = "white", lwd = 3)
-  text(loadings_SSF[i,1]*1.25, loadings_SSF[i,2]*1.25, labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
+  text(loadings_SSF[i,1]*1.2, loadings_SSF[i,2]*1.2, labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
 }
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-60-1.png" width="800" height="400" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-65-1.png" width="800" height="400" style="display: block; margin: auto;" />
 
 ``` r
 RDA_clim_DRF <- rda(DRF_pa, data.frame(DRF_clim_st,DRF_env_st))
@@ -1251,13 +1445,17 @@ loadings_DRF <- scores(RDA_clim_DRF, display = c( "bp"), scaling = 0, hill = T)
 species_scores_DRF <- species_scores_DRF[(species_scores_DRF[,1] > 0.25 | species_scores_DRF[,1] < -0.25) | 
                                          (species_scores_DRF[,2] > 0.25 | species_scores_DRF[,2] < -0.25) ,]
 
-species_scores_DRF <- species_scores_DRF*1.5
+#species_scores_DRF <- species_scores_DRF*1.5
 
-xmin <- min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
-xmax <- max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
+xmin <- #min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
+  -1
+xmax <- #max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
+  1
 
-ymin <- min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
-ymax <- max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
+ymin <- #min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
+  -1
+ymax <- #max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
+  1
 
 rownames(loadings_DRF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
 col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
@@ -1266,9 +1464,9 @@ col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod"
 dists_DRF <- as.matrix(dist(rbind(loadings_DRF,c(0,0))))[10,-10]
 dists_DRF_prop <- dists_DRF/max(dists_DRF)
 
-for(i in 1:length(col_DRF)){
-  col_DRF[i] <- lighten_color((1-dists_DRF_prop[i]),col_DRF[i])
-}
+#for(i in 1:length(col_DRF)){
+#  col_DRF[i] <- lighten_color((1-dists_DRF_prop[i]),col_DRF[i])
+#}
 
 par(mfrow = c(1,2),mar = c(5, 5, 4, 2))
 plot(RDA_clim_DRF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "DRF - Unconstrained")
@@ -1284,7 +1482,7 @@ shape::Arrows(x0 = rep(0, length(loadings_DRF[,1])),
 
 for(i in 1:length(loadings_DRF[,1])){
   #points(loadings_DRF[i,1], loadings_DRF[i,2], col = col_DRF[i], pch = 21, cex = ((7*dists_DRF_prop[i])+1), bg = "white", lwd = 3)
-  text(loadings_DRF[i,1]*1.25, loadings_DRF[i,2]*1.25, labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
+  text(loadings_DRF[i,1]*1.2, loadings_DRF[i,2]*1.2, labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
 }
 
 
@@ -1298,13 +1496,18 @@ loadings_DRF <- scores(RDA_clim_DRF, display = c( "bp"), scaling = 0, hill = T)
 species_scores_DRF <- species_scores_DRF[(species_scores_DRF[,1] > 0.25 | species_scores_DRF[,1] < -0.25) | 
                                          (species_scores_DRF[,2] > 0.25 | species_scores_DRF[,2] < -0.25) ,]
 
-species_scores_DRF <- species_scores_DRF*1.5
+#species_scores_DRF <- species_scores_DRF*1.5
 
-xmin <- min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
-xmax <- max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
+xmin <- #min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
+  -1
+xmax <- #max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
+  1
 
-ymin <- min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
-ymax <- max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
+ymin <- #min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
+  -1
+ymax <- #max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
+  1
+
 
 rownames(loadings_DRF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
 col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
@@ -1312,9 +1515,9 @@ col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod"
 dists_DRF <- as.matrix(dist(rbind(loadings_DRF,c(0,0))))[10,-10]
 dists_DRF_prop <- dists_DRF/max(dists_DRF)
 
-for(i in 1:length(col_DRF)){
-  col_DRF[i] <- lighten_color((1-dists_DRF_prop[i]),col_DRF[i])
-}
+#for(i in 1:length(col_DRF)){
+#  col_DRF[i] <- lighten_color((1-dists_DRF_prop[i]),col_DRF[i])
+#}
 
 
 plot(RDA_clim_DRF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "DRF - Constrained")
@@ -1330,11 +1533,11 @@ shape::Arrows(x0 = rep(0, length(loadings_DRF[,1])),
 
 for(i in 1:length(loadings_DRF[,1])){
   #points(loadings_DRF[i,1], loadings_DRF[i,2], col = col_DRF[i], pch = 21, cex = ((7*dists_DRF_prop[i])+1), bg = "white", lwd = 3)
-  text(loadings_DRF[i,1]*1.25, loadings_DRF[i,2]*1.25, labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
+  text(loadings_DRF[i,1]*1.2, loadings_DRF[i,2]*1.2, labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
 }
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-61-1.png" width="800" height="400" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-66-1.png" width="800" height="400" style="display: block; margin: auto;" />
 
      
    
@@ -1573,7 +1776,7 @@ for(i in 1:length(loadings_JA[,1])){
 }
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-62-1.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-62-2.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-62-3.png" width="800" height="400" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-67-1.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-67-2.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-67-3.png" width="800" height="400" style="display: block; margin: auto;" />
 
      
    
@@ -1715,4 +1918,4 @@ for(i in 1:length(loadings_ITA[,1])){
 }
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-63-1.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-63-2.png" width="800" height="400" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-68-1.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-68-2.png" width="800" height="400" style="display: block; margin: auto;" />
