@@ -76,14 +76,14 @@ SSF_dbMEM <- dbmem(dist(SSF_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 2.608894 
-    ## Time to compute dbMEMs = 0.020000  sec
+    ## Time to compute dbMEMs = 0.000000  sec
 
 ``` r
 ST_dbMEM <- dbmem(dist(ST_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 0.006243823 
-    ## Time to compute dbMEMs = 0.000000  sec
+    ## Time to compute dbMEMs = 0.020000  sec
 
 ``` r
 IC_dbMEM <- dbmem(dist(IC_coord), silent = F, thresh = NULL)
@@ -97,7 +97,7 @@ NI_dbMEM <- dbmem(dist(NI_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 0.01866376 
-    ## Time to compute dbMEMs = 0.020000  sec
+    ## Time to compute dbMEMs = 0.000000  sec
 
 ``` r
 MD_dbMEM <- dbmem(dist(MD_coord), silent = F, thresh = NULL)
@@ -125,21 +125,21 @@ UBA_dbMEM <- dbmem(dist(UBA_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 0.08923115 
-    ## Time to compute dbMEMs = 0.020000  sec
+    ## Time to compute dbMEMs = 0.000000  sec
 
 ``` r
 BER_dbMEM <- dbmem(dist(BER_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 0.09885289 
-    ## Time to compute dbMEMs = 0.020000  sec
+    ## Time to compute dbMEMs = 0.000000  sec
 
 ``` r
 ITA_dbMEM <- dbmem(dist(ITA_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 0.254218 
-    ## Time to compute dbMEMs = 0.000000  sec
+    ## Time to compute dbMEMs = 0.020000  sec
 
        
 
@@ -1125,8 +1125,8 @@ axis.break(2, 0.65, style = "slash")
 axis(1,at = c(0.5,4.5,16),line = 2, labels =c("Broad","Intermediate","Fine"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 axis(1,at = c(12.5,21.5),line = 0.5, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.1)
 text(c(0.5,   3.5,5.5   ,8.5,10.5,12.5,14.5,16.5,    19.5,21.5,23.5),rep(0.69,11), labels =c("All","SSF","DRF","Santa Fé do Sul","Icém","Nova Itapirema","Morro do Diabo","Jataí","Ubatuba","Bertioga","Itanhaém"), srt = 90, adj = 1, col = "grey45")
-text(c(8.5,14.5,16.5,21.5,23.5),c(0.045,0.07,0.54,0.01,0.05), labels =c("*","*","*","*","*"), adj = 0.5, col = "white", cex = 2)
-text(c(0.5,0.5,0.5),c(0.02,0.07,0.205), labels =c("*","*","*"), adj = 0.5, col = "white", cex = 2)
+text(c(10.5,12.5,16.5,19.5),c(0.1,0.08,0.17,0.03), labels =c("*","*","*","*","*"), adj = 0.5, col = "white", cex = 2)
+text(c(0.5,0.5,0.5),c(0.02,0.07,0.2025), labels =c("*","*","*"), adj = 0.5, col = "white", cex = 2)
 text(c(3.5,3.5,5.5),c(0.04,0.155,0.035), labels =c("*","*","*"), adj = 0.5, col = "white", cex = 2)
 ```
 
