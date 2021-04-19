@@ -691,12 +691,39 @@ text(c(0.5,   3.5,5.5   ,8.5,10.5,12.5,14.5,16.5,    19.5,21.5,23.5),rep(0.69,11
 text(c(10.5,12.5,16.5,19.5),c(0.1,0.08,0.17,0.03), labels =c("*","*","*","*","*"), adj = 0.5, col = "white", cex = 2)
 text(c(0.5,0.5,0.5),c(0.02,0.07,0.2025), labels =c("*","*","*"), adj = 0.5, col = "white", cex = 2)
 text(c(3.5,3.5,5.5),c(0.04,0.155,0.035), labels =c("*","*","*"), adj = 0.5, col = "white", cex = 2)
-
 ```
 The asterisks represent significant fractions.
 \  
 \  
 \  
+
+
+
+
+Creating some new important fractions
+```{r}
+Env_Spatially_Structured <- Varpart_plot["Env_Spa",] + Varpart_plot["Spa_Clim_Env",]
+Env_Non_Spatially_Structured <- Varpart_plot["Pure_Env",] + Varpart_plot["Env_Clim",]
+Clim_Spatially_Structured <- Varpart_plot["Spa_Clim",] + Varpart_plot["Spa_Clim_Env",]
+Clim_Non_Spatially_Structured <- Varpart_plot["Pure_Clim",] + Varpart_plot["Env_Clim",]
+Non_Spatially_Climate_Environment <- Varpart_plot["Pure_Env",] + Varpart_plot["Pure_Clim",] + Varpart_plot["Env_Clim",]
+Spatially_Climate_Environment <- Varpart_plot["Spa_Clim",] + Varpart_plot["Env_Spa",] + Varpart_plot["Spa_Clim_Env",]
+Total_Climate_Environment <- Varpart_plot["All",] - Varpart_plot["Pure_Spa",]
+Total_Climate_Environment["Nova Itapirema"] <- 0
+
+Varpart_plot <- rbind(Varpart_plot,
+                      Env_Spatially_Structured,
+                      Env_Non_Spatially_Structured,
+                      Clim_Spatially_Structured,
+                      Clim_Non_Spatially_Structured,
+                      Non_Spatially_Climate_Environment,
+                      Spatially_Climate_Environment,
+                      Total_Climate_Environment)
+```
+
+
+
+
 
 
 
@@ -725,12 +752,9 @@ Means_spatial_extent
 
 
 ```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
-se <- function(x){
-  sd(x)/sqrt(length(x))
-}
-par(mfrow = c(1,3))
+par(mfrow = c(1,2))
 barplot(as.matrix(Means_spatial_extent[2,]), axes = F, col = "gold", space = c(0,1,1),
-        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Environment")
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Total Local Environment")
 arrows(y0 = c(as.matrix(se_spatial_extent_lower[2,])),
        y1 = c(as.matrix(se_spatial_extent_upper[2,])),
        x1 = c(2.5,4.5),
@@ -739,18 +763,8 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 
 
-barplot(as.matrix(Means_spatial_extent[4,]), axes = F, col = "cornflowerblue", space = c(0,1,1),
-        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Space")
-arrows(y0 = c(as.matrix(se_spatial_extent_lower[4,])),
-       y1 = c(as.matrix(se_spatial_extent_upper[4,])),
-       x1 = c(2.5,4.5),
-       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
-axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
-axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
-
-
 barplot(as.matrix(Means_spatial_extent[3,]), axes = F, col = "brown1", space = c(0,1,1),
-        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Climate")
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Total Climate")
 arrows(y0 = c(as.matrix(se_spatial_extent_lower[3,])),
        y1 = c(as.matrix(se_spatial_extent_upper[3,])),
        x1 = c(2.5,4.5),
@@ -764,9 +778,9 @@ axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), 
 
 
 ```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
-par(mfrow = c(1,3))
+par(mfrow = c(1,2))
 barplot(as.matrix(Means_spatial_extent[5,]), axes = F, col = "gold", space = c(0,1,1),
-        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Environment")
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Local Environment")
 arrows(y0 = c(as.matrix(se_spatial_extent_lower[5,])),
        y1 = c(as.matrix(se_spatial_extent_upper[5,])),
        x1 = c(2.5,4.5),
@@ -775,18 +789,8 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 
 
-barplot(as.matrix(Means_spatial_extent[7,]), axes = F, col = "cornflowerblue", space = c(0,1,1),
-        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Space")
-arrows(y0 = c(as.matrix(se_spatial_extent_lower[7,])),
-       y1 = c(as.matrix(se_spatial_extent_upper[7,])),
-       x1 = c(2.5,4.5),
-       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
-axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
-axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
-
-
 barplot(as.matrix(Means_spatial_extent[6,]), axes = F, col = "brown1", space = c(0,1,1),
-        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Climate")
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Climate")
 arrows(y0 = c(as.matrix(se_spatial_extent_lower[6,])),
        y1 = c(as.matrix(se_spatial_extent_upper[6,])),
        x1 = c(2.5,4.5),
@@ -798,26 +802,135 @@ axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), 
 \ 
 \ 
 
+```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
+par(mfrow = c(1,2))
+barplot(as.matrix(Means_spatial_extent["Env_Non_Spatially_Structured",]), axes = F, col = "gold", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Non-Spatially Structured", line = 2.2)
+title(main = "Local Environment", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Env_Non_Spatially_Structured",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Env_Non_Spatially_Structured",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 
+
+barplot(as.matrix(Means_spatial_extent["Clim_Non_Spatially_Structured",]), axes = F, col = "brown1", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Non-Spatially Structured", line = 2.2)
+title(main = "Climate", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Clim_Non_Spatially_Structured",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Clim_Non_Spatially_Structured",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+\  
+\ 
+\ 
+```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
+par(mfrow = c(1,2))
+barplot(as.matrix(Means_spatial_extent["Env_Spatially_Structured",]), axes = F, col = "gold", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Spatially Structured", line = 2.2)
+title(main = "Local Environment", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Env_Spatially_Structured",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Env_Spatially_Structured",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent["Clim_Spatially_Structured",]), axes = F, col = "brown1", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Spatially Structured", line = 2.2)
+title(main = "Climate", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Clim_Spatially_Structured",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Clim_Spatially_Structured",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+\  
+\ 
+\ 
 
 ```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
 par(mfrow = c(1,3))
-barplot(as.matrix(Means_spatial_extent[5,] + Means_spatial_extent[9,]), axes = F, col = "gold", space = c(0,1,1),
-        border = "white", ylim = c(0,0.15), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+barplot(as.matrix(Means_spatial_extent["Total_Climate_Environment",]), axes = F, col = mix_color(alpha = 0.4,"brown1","gold"), space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Total Local Environment", line = 2.2)
+title(main = "and Climate", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Total_Climate_Environment",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Total_Climate_Environment",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+barplot(as.matrix(Means_spatial_extent["Non_Spatially_Climate_Environment",]), axes = F, col = mix_color(alpha = 0.4,"brown1","gold"), space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
 title(main = "Non-Spatially Structured", line = 2.2)
-title(main = "Local Environment", line = 1)
+title(main = "Local Environment and Climate", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Non_Spatially_Climate_Environment",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Non_Spatially_Climate_Environment",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
 axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 
 
-barplot(as.matrix(Means_spatial_extent[6,] + Means_spatial_extent[9,]), axes = F, col = "brown1", space = c(0,1,1),
-        border = "white", ylim = c(0,0.15), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
-title(main = "Non-Spatially Structured", line = 2.2)
-title(main = "Climate", line = 1)
+barplot(as.matrix(Means_spatial_extent["Spatially_Climate_Environment",]), axes = F, col = mix_color(alpha = 0.4,"brown1","gold"), space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Spatially Structured", line = 2.2)
+title(main = "Local Environment and Climate", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Spatially_Climate_Environment",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Spatially_Climate_Environment",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
 axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+\  
+\ 
+\ 
+
+```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
+par(mfrow = c(1,2))
+
+barplot(as.matrix(Means_spatial_extent[4,]), axes = F, col = "cornflowerblue", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Total Space")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[4,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[4,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+
+barplot(as.matrix(Means_spatial_extent[7,]), axes = F, col = "cornflowerblue", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Space")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[7,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[7,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
 
 ```
+\  
+\ 
+\ 
+
+
+
+Small Extent - Comparison by Ecoregion
 \  
 \ 
 \ 
@@ -830,11 +943,38 @@ se_small_extent <- data.frame(SSF = apply(Varpart_plot[,4:8],1,se),
            DRF = apply(Varpart_plot[,9:11],1,se))
 se_small_extent_upper <- Means_small_extent + se_small_extent
 se_small_extent_lower <- Means_small_extent - se_small_extent
+```
 
 
-par(mfrow = c(1,3))
+```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
+par(mfrow = c(1,2))
+barplot(as.matrix(Means_small_extent["Env",]), axes = F, col = "gold", space = c(0,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Total Environment")
+arrows(y0 = c(as.matrix(se_small_extent_lower["Env",])),
+       y1 = c(as.matrix(se_small_extent_upper["Env",])),
+       x1 = c(0.5,2.5),
+       x0 = c(0.5,2.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+
+barplot(as.matrix(Means_small_extent["Spa",]), axes = F, col = "cornflowerblue", space = c(0,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Total Space")
+arrows(y0 = c(as.matrix(se_small_extent_lower["Spa",])),
+       y1 = c(as.matrix(se_small_extent_upper["Spa",])),
+       x1 = c(0.5,2.5),
+       x0 = c(0.5,2.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+```
+
+
+```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
+par(mfrow = c(1,2))
 barplot(as.matrix(Means_small_extent[5,]), axes = F, col = "gold", space = c(0,1),
-        border = "white", ylim = c(0,0.25), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Environment")
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Environment")
 arrows(y0 = c(as.matrix(se_small_extent_lower[5,])),
        y1 = c(as.matrix(se_small_extent_upper[5,])),
        x1 = c(0.5,2.5),
@@ -845,7 +985,7 @@ axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj 
 
 
 barplot(as.matrix(Means_small_extent[7,]), axes = F, col = "cornflowerblue", space = c(0,1),
-        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Space")
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Space")
 arrows(y0 = c(as.matrix(se_small_extent_lower[7,])),
        y1 = c(as.matrix(se_small_extent_upper[7,])),
        x1 = c(0.5,2.5),

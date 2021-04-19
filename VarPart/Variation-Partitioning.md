@@ -76,14 +76,14 @@ SSF_dbMEM <- dbmem(dist(SSF_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 2.608894 
-    ## Time to compute dbMEMs = 0.000000  sec
+    ## Time to compute dbMEMs = 0.010000  sec
 
 ``` r
 ST_dbMEM <- dbmem(dist(ST_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 0.006243823 
-    ## Time to compute dbMEMs = 0.020000  sec
+    ## Time to compute dbMEMs = 0.000000  sec
 
 ``` r
 IC_dbMEM <- dbmem(dist(IC_coord), silent = F, thresh = NULL)
@@ -118,7 +118,7 @@ DRF_dbMEM <- dbmem(dist(DRF_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 1.072626 
-    ## Time to compute dbMEMs = 0.010000  sec
+    ## Time to compute dbMEMs = 0.000000  sec
 
 ``` r
 UBA_dbMEM <- dbmem(dist(UBA_coord), silent = F, thresh = NULL)
@@ -139,7 +139,7 @@ ITA_dbMEM <- dbmem(dist(ITA_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 0.254218 
-    ## Time to compute dbMEMs = 0.020000  sec
+    ## Time to compute dbMEMs = 0.000000  sec
 
        
 
@@ -1133,6 +1133,28 @@ text(c(3.5,3.5,5.5),c(0.04,0.155,0.035), labels =c("*","*","*"), adj = 0.5, col 
 <img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-59-1.png" width="800" height="700" style="display: block; margin: auto;" />
 The asterisks represent significant fractions.      
 
+Creating some new important fractions
+
+``` r
+Env_Spatially_Structured <- Varpart_plot["Env_Spa",] + Varpart_plot["Spa_Clim_Env",]
+Env_Non_Spatially_Structured <- Varpart_plot["Pure_Env",] + Varpart_plot["Env_Clim",]
+Clim_Spatially_Structured <- Varpart_plot["Spa_Clim",] + Varpart_plot["Spa_Clim_Env",]
+Clim_Non_Spatially_Structured <- Varpart_plot["Pure_Clim",] + Varpart_plot["Env_Clim",]
+Non_Spatially_Climate_Environment <- Varpart_plot["Pure_Env",] + Varpart_plot["Pure_Clim",] + Varpart_plot["Env_Clim",]
+Spatially_Climate_Environment <- Varpart_plot["Spa_Clim",] + Varpart_plot["Env_Spa",] + Varpart_plot["Spa_Clim_Env",]
+Total_Climate_Environment <- Varpart_plot["All",] - Varpart_plot["Pure_Spa",]
+Total_Climate_Environment["Nova Itapirema"] <- 0
+
+Varpart_plot <- rbind(Varpart_plot,
+                      Env_Spatially_Structured,
+                      Env_Non_Spatially_Structured,
+                      Clim_Spatially_Structured,
+                      Clim_Non_Spatially_Structured,
+                      Non_Spatially_Climate_Environment,
+                      Spatially_Climate_Environment,
+                      Total_Climate_Environment)
+```
+
 Means of fractions in all extents
 
 ``` r
@@ -1154,29 +1176,33 @@ se_spatial_extent_lower <- Means_spatial_extent[,2:3] - se_spatial_extent
 Means_spatial_extent
 ```
 
-    ##              Broad_Extent Intermediate_Extent Small_Extent
-    ## All                 0.300              0.1845     0.069375
-    ## Env                 0.145              0.0990     0.140875
-    ## Clim                0.212              0.1100     0.000000
-    ## Spa                 0.260              0.0450     0.047500
-    ## Pure_Env            0.033              0.0695     0.117125
-    ## Pure_Clim           0.006              0.0575     0.000000
-    ## Pure_Spa            0.038              0.0075     0.023625
-    ## Env_Spa             0.017              0.0000     0.023750
-    ## Env_Clim            0.001              0.0130     0.000000
-    ## Spa_Clim            0.110              0.0200     0.000000
-    ## Spa_Clim_Env        0.094              0.0190     0.000000
-    ## Resid               0.700              0.8135     0.835375
+    ##                                   Broad_Extent Intermediate_Extent Small_Extent
+    ## All                                      0.300              0.1845     0.069375
+    ## Env                                      0.145              0.0990     0.140875
+    ## Clim                                     0.212              0.1100     0.000000
+    ## Spa                                      0.260              0.0450     0.047500
+    ## Pure_Env                                 0.033              0.0695     0.117125
+    ## Pure_Clim                                0.006              0.0575     0.000000
+    ## Pure_Spa                                 0.038              0.0075     0.023625
+    ## Env_Spa                                  0.017              0.0000     0.023750
+    ## Env_Clim                                 0.001              0.0130     0.000000
+    ## Spa_Clim                                 0.110              0.0200     0.000000
+    ## Spa_Clim_Env                             0.094              0.0190     0.000000
+    ## Resid                                    0.700              0.8135     0.835375
+    ## Env_Spatially_Structured                 0.111              0.0190     0.023750
+    ## Env_Non_Spatially_Structured             0.034              0.0825     0.117125
+    ## Clim_Spatially_Structured                0.204              0.0390     0.000000
+    ## Clim_Non_Spatially_Structured            0.007              0.0705     0.000000
+    ## Non_Spatially_Climate_Environment        0.040              0.1400     0.117125
+    ## Spatially_Climate_Environment            0.221              0.0390     0.023750
+    ## Total_Climate_Environment                0.262              0.1770     0.065625
 
  
 
 ``` r
-se <- function(x){
-  sd(x)/sqrt(length(x))
-}
-par(mfrow = c(1,3))
+par(mfrow = c(1,2))
 barplot(as.matrix(Means_spatial_extent[2,]), axes = F, col = "gold", space = c(0,1,1),
-        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Environment")
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Total Local Environment")
 arrows(y0 = c(as.matrix(se_spatial_extent_lower[2,])),
        y1 = c(as.matrix(se_spatial_extent_upper[2,])),
        x1 = c(2.5,4.5),
@@ -1185,18 +1211,8 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 
 
-barplot(as.matrix(Means_spatial_extent[4,]), axes = F, col = "cornflowerblue", space = c(0,1,1),
-        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Space")
-arrows(y0 = c(as.matrix(se_spatial_extent_lower[4,])),
-       y1 = c(as.matrix(se_spatial_extent_upper[4,])),
-       x1 = c(2.5,4.5),
-       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
-axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
-axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
-
-
 barplot(as.matrix(Means_spatial_extent[3,]), axes = F, col = "brown1", space = c(0,1,1),
-        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Climate")
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Total Climate")
 arrows(y0 = c(as.matrix(se_spatial_extent_lower[3,])),
        y1 = c(as.matrix(se_spatial_extent_upper[3,])),
        x1 = c(2.5,4.5),
@@ -1212,13 +1228,13 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-61-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-62-1.png" width="1000" height="500" style="display: block; margin: auto;" />
      
 
 ``` r
-par(mfrow = c(1,3))
+par(mfrow = c(1,2))
 barplot(as.matrix(Means_spatial_extent[5,]), axes = F, col = "gold", space = c(0,1,1),
-        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Environment")
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Local Environment")
 arrows(y0 = c(as.matrix(se_spatial_extent_lower[5,])),
        y1 = c(as.matrix(se_spatial_extent_upper[5,])),
        x1 = c(2.5,4.5),
@@ -1227,18 +1243,8 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 
 
-barplot(as.matrix(Means_spatial_extent[7,]), axes = F, col = "cornflowerblue", space = c(0,1,1),
-        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Space")
-arrows(y0 = c(as.matrix(se_spatial_extent_lower[7,])),
-       y1 = c(as.matrix(se_spatial_extent_upper[7,])),
-       x1 = c(2.5,4.5),
-       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
-axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
-axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
-
-
 barplot(as.matrix(Means_spatial_extent[6,]), axes = F, col = "brown1", space = c(0,1,1),
-        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Climate")
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Climate")
 arrows(y0 = c(as.matrix(se_spatial_extent_lower[6,])),
        y1 = c(as.matrix(se_spatial_extent_upper[6,])),
        x1 = c(2.5,4.5),
@@ -1254,29 +1260,150 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-62-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-63-1.png" width="1000" height="500" style="display: block; margin: auto;" />
      
 
 ``` r
-par(mfrow = c(1,3))
-barplot(as.matrix(Means_spatial_extent[5,] + Means_spatial_extent[9,]), axes = F, col = "gold", space = c(0,1,1),
-        border = "white", ylim = c(0,0.15), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+par(mfrow = c(1,2))
+barplot(as.matrix(Means_spatial_extent["Env_Non_Spatially_Structured",]), axes = F, col = "gold", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
 title(main = "Non-Spatially Structured", line = 2.2)
 title(main = "Local Environment", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Env_Non_Spatially_Structured",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Env_Non_Spatially_Structured",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
 axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 
 
-barplot(as.matrix(Means_spatial_extent[6,] + Means_spatial_extent[9,]), axes = F, col = "brown1", space = c(0,1,1),
-        border = "white", ylim = c(0,0.15), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+barplot(as.matrix(Means_spatial_extent["Clim_Non_Spatially_Structured",]), axes = F, col = "brown1", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
 title(main = "Non-Spatially Structured", line = 2.2)
 title(main = "Climate", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Clim_Non_Spatially_Structured",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Clim_Non_Spatially_Structured",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+```
+
+    ## Warning in arrows(y0 =
+    ## c(as.matrix(se_spatial_extent_lower["Clim_Non_Spatially_Structured", : zero-
+    ## length arrow is of indeterminate angle and so skipped
+
+``` r
 axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-63-1.png" width="1000" height="500" style="display: block; margin: auto;" />
-      Means of fractions in small extent
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-64-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+     
+
+``` r
+par(mfrow = c(1,2))
+barplot(as.matrix(Means_spatial_extent["Env_Spatially_Structured",]), axes = F, col = "gold", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Spatially Structured", line = 2.2)
+title(main = "Local Environment", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Env_Spatially_Structured",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Env_Spatially_Structured",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent["Clim_Spatially_Structured",]), axes = F, col = "brown1", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Spatially Structured", line = 2.2)
+title(main = "Climate", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Clim_Spatially_Structured",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Clim_Spatially_Structured",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+```
+
+    ## Warning in arrows(y0 =
+    ## c(as.matrix(se_spatial_extent_lower["Clim_Spatially_Structured", : zero-length
+    ## arrow is of indeterminate angle and so skipped
+
+``` r
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-65-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+     
+
+``` r
+par(mfrow = c(1,3))
+barplot(as.matrix(Means_spatial_extent["Total_Climate_Environment",]), axes = F, col = mix_color(alpha = 0.4,"brown1","gold"), space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Total Local Environment", line = 2.2)
+title(main = "and Climate", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Total_Climate_Environment",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Total_Climate_Environment",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+barplot(as.matrix(Means_spatial_extent["Non_Spatially_Climate_Environment",]), axes = F, col = mix_color(alpha = 0.4,"brown1","gold"), space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Non-Spatially Structured", line = 2.2)
+title(main = "Local Environment and Climate", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Non_Spatially_Climate_Environment",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Non_Spatially_Climate_Environment",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent["Spatially_Climate_Environment",]), axes = F, col = mix_color(alpha = 0.4,"brown1","gold"), space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+title(main = "Spatially Structured", line = 2.2)
+title(main = "Local Environment and Climate", line = 1)
+arrows(y0 = c(as.matrix(se_spatial_extent_lower["Spatially_Climate_Environment",])),
+       y1 = c(as.matrix(se_spatial_extent_upper["Spatially_Climate_Environment",])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-66-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+     
+
+``` r
+par(mfrow = c(1,2))
+
+barplot(as.matrix(Means_spatial_extent[4,]), axes = F, col = "cornflowerblue", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Total Space")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[4,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[4,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+
+barplot(as.matrix(Means_spatial_extent[7,]), axes = F, col = "cornflowerblue", space = c(0,1,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Space")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[7,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[7,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-67-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+     
+
+Small Extent - Comparison by Ecoregion       Means of fractions in small
+extent
 
 ``` r
 Means_small_extent <- data.frame(SSF = apply(Varpart_plot[,4:8],1,mean),
@@ -1286,11 +1413,44 @@ se_small_extent <- data.frame(SSF = apply(Varpart_plot[,4:8],1,se),
            DRF = apply(Varpart_plot[,9:11],1,se))
 se_small_extent_upper <- Means_small_extent + se_small_extent
 se_small_extent_lower <- Means_small_extent - se_small_extent
+```
+
+``` r
+par(mfrow = c(1,2))
+barplot(as.matrix(Means_small_extent["Env",]), axes = F, col = "gold", space = c(0,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Total Environment")
+arrows(y0 = c(as.matrix(se_small_extent_lower["Env",])),
+       y1 = c(as.matrix(se_small_extent_upper["Env",])),
+       x1 = c(0.5,2.5),
+       x0 = c(0.5,2.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 
 
-par(mfrow = c(1,3))
+
+barplot(as.matrix(Means_small_extent["Spa",]), axes = F, col = "cornflowerblue", space = c(0,1),
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Total Space")
+arrows(y0 = c(as.matrix(se_small_extent_lower["Spa",])),
+       y1 = c(as.matrix(se_small_extent_upper["Spa",])),
+       x1 = c(0.5,2.5),
+       x0 = c(0.5,2.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+```
+
+    ## Warning in arrows(y0 = c(as.matrix(se_small_extent_lower["Spa", ])), y1 =
+    ## c(as.matrix(se_small_extent_upper["Spa", : zero-length arrow is of indeterminate
+    ## angle and so skipped
+
+``` r
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %"))
+axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-69-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+
+``` r
+par(mfrow = c(1,2))
 barplot(as.matrix(Means_small_extent[5,]), axes = F, col = "gold", space = c(0,1),
-        border = "white", ylim = c(0,0.25), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Environment")
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Environment")
 arrows(y0 = c(as.matrix(se_small_extent_lower[5,])),
        y1 = c(as.matrix(se_small_extent_upper[5,])),
        x1 = c(0.5,2.5),
@@ -1301,7 +1461,7 @@ axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj 
 
 
 barplot(as.matrix(Means_small_extent[7,]), axes = F, col = "cornflowerblue", space = c(0,1),
-        border = "white", ylim = c(0,0.2), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Space")
+        border = "white", ylim = c(0,0.3), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Pure Space")
 arrows(y0 = c(as.matrix(se_small_extent_lower[7,])),
        y1 = c(as.matrix(se_small_extent_upper[7,])),
        x1 = c(0.5,2.5),
@@ -1317,7 +1477,7 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-64-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-70-1.png" width="1000" height="500" style="display: block; margin: auto;" />
  
 
      
@@ -1434,7 +1594,7 @@ for(i in 1:length(loadings_SSF[,1])){
 }
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-65-1.png" width="800" height="400" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-71-1.png" width="800" height="400" style="display: block; margin: auto;" />
 
 ``` r
 RDA_clim_DRF <- rda(DRF_pa, data.frame(DRF_clim_st,DRF_env_st))
@@ -1537,7 +1697,7 @@ for(i in 1:length(loadings_DRF[,1])){
 }
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-66-1.png" width="800" height="400" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-72-1.png" width="800" height="400" style="display: block; margin: auto;" />
 
      
    
@@ -1776,7 +1936,7 @@ for(i in 1:length(loadings_JA[,1])){
 }
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-67-1.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-67-2.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-67-3.png" width="800" height="400" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-73-1.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-73-2.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-73-3.png" width="800" height="400" style="display: block; margin: auto;" />
 
      
    
@@ -1918,4 +2078,4 @@ for(i in 1:length(loadings_ITA[,1])){
 }
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-68-1.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-68-2.png" width="800" height="400" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-74-1.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-74-2.png" width="800" height="400" style="display: block; margin: auto;" />
