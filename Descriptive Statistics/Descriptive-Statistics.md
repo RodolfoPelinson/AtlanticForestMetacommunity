@@ -379,7 +379,7 @@ colnames(JA_pa_orig)[sp_comm]
 
                
 
-### Means, maximum and minimum of continuous variables
+### Means, maximum and minimum of predictor variables
 
  
 
@@ -391,13 +391,11 @@ colnames(JA_pa_orig)[sp_comm]
 data.frame(DRF_min = apply(DRF_clim, 2, min), DRF_mean = apply(DRF_clim, 2, mean), DRF_max = apply(DRF_clim, 2, max))
 ```
 
-    ##                DRF_min DRF_mean DRF_max
-    ## temp_Season       2194  2307.70    2603
-    ## range_temp         143   161.32     173
-    ## total_prec        1911  2283.88    2747
-    ## prec_season         36    41.80      48
-    ## prec_wet_quart     762   878.72    1001
-    ## prec_dry_quart     219   276.76     369
+    ##             DRF_min DRF_mean DRF_max
+    ## temp_Season    2194  2307.70    2603
+    ## range_temp      143   161.32     173
+    ## total_prec     1911  2283.88    2747
+    ## prec_season      36    41.80      48
 
 ``` r
 data.frame(DRF_min = apply(DRF_env, 2, min), DRF_mean = apply(DRF_env, 2, mean), DRF_max = apply(DRF_env, 2, max))
@@ -418,13 +416,22 @@ SSF
 data.frame(SSF_min = apply(SSF_clim, 2, min), SSF_mean = apply(SSF_clim, 2, mean), SSF_max = apply(SSF_clim, 2, max))
 ```
 
-    ##                SSF_min   SSF_mean SSF_max
-    ## temp_Season       1890 2128.65217    2598
-    ## range_temp         182  188.97826     197
-    ## total_prec        1174 1263.69565    1435
-    ## prec_season         41   67.06522      78
-    ## prec_wet_quart     444  615.91304     717
-    ## prec_dry_quart      50   80.65217     148
+    ##             SSF_min   SSF_mean SSF_max
+    ## temp_Season    1890 2128.65217    2598
+    ## range_temp      182  188.97826     197
+    ## total_prec     1174 1263.69565    1435
+    ## prec_season      41   67.06522      78
+
+``` r
+data.frame(SSF_min = apply(SSF_env, 2, min), SSF_mean = apply(SSF_env, 2, mean), SSF_max = apply(SSF_env, 2, max))
+```
+
+    ##              SSF_min    SSF_mean SSF_max
+    ## hydroperiod     0.00   0.4782609     1.0
+    ## canopy_cover    0.00   0.1086957     1.0
+    ## area            4.00 695.7586957 10000.0
+    ## depth           0.05   0.6728261     2.4
+    ## nvt             1.00   2.0000000     3.0
 
 ``` r
 data.frame(SSF_min = apply(SSF_env, 2, min), SSF_mean = apply(SSF_env, 2, mean), SSF_max = apply(SSF_env, 2, max))
@@ -573,7 +580,7 @@ data.frame(JA_min = apply(JA_env, 2, min),
 
        
 
-### Coefficient of Variation of continuous variables
+### Coefficient of Variation of predictor variables
 
 Intermediate Extent
 
@@ -584,13 +591,11 @@ Int_Env_cv <- data.frame(DRF_cv = apply(DRF_env, 2, coef_var), SSF_cv = apply(SS
 Int_Clim_cv
 ```
 
-    ##                    DRF_cv     SSF_cv
-    ## temp_Season    0.05233907 0.10576190
-    ## range_temp     0.05608330 0.02396501
-    ## total_prec     0.09952700 0.06859710
-    ## prec_season    0.06714587 0.18438093
-    ## prec_wet_quart 0.06420671 0.14778671
-    ## prec_dry_quart 0.14612379 0.38828156
+    ##                 DRF_cv     SSF_cv
+    ## temp_Season 0.05233907 0.10576190
+    ## range_temp  0.05608330 0.02396501
+    ## total_prec  0.09952700 0.06859710
+    ## prec_season 0.06714587 0.18438093
 
 ``` r
 Int_Env_cv
@@ -608,7 +613,7 @@ apply(Int_Clim_cv, 2, mean)
 ```
 
     ##     DRF_cv     SSF_cv 
-    ## 0.08090429 0.15312887
+    ## 0.06877381 0.09567624
 
 ``` r
 apply(Int_Env_cv, 2, mean)

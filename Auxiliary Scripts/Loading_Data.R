@@ -224,6 +224,8 @@ names(r) <- c("temp_Season","range_temp", "total_prec", "prec_season", "prec_wet
 Broad_clim <- extract(r,Broad_coord_plot)
 rownames(Broad_clim) <- rownames(Broad_pa)
 
+Broad_clim<- Broad_clim[,-c(5,6)]
+
 Broad_clim_st<- decostand(Broad_clim[,-c(5,6)], method = "standardize")
 Broad_clim_rank <- apply(Broad_clim[,-c(5,6)], 2, rank)
 

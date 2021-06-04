@@ -76,7 +76,7 @@ SSF_dbMEM <- dbmem(dist(SSF_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 2.608894 
-    ## Time to compute dbMEMs = 0.010000  sec
+    ## Time to compute dbMEMs = 0.000000  sec
 
 ``` r
 ST_dbMEM <- dbmem(dist(ST_coord), silent = F, thresh = NULL)
@@ -118,7 +118,7 @@ DRF_dbMEM <- dbmem(dist(DRF_coord), silent = F, thresh = NULL)
 ```
 
     ## Truncation level = 1.072626 
-    ## Time to compute dbMEMs = 0.000000  sec
+    ## Time to compute dbMEMs = 0.020000  sec
 
 ``` r
 UBA_dbMEM <- dbmem(dist(UBA_coord), silent = F, thresh = NULL)
@@ -1024,7 +1024,151 @@ ITA_varpart2
 
    
 
-Constructing a matrix with all R2 values
+Constructing a matrix with all R2 values (with negative values)
+
+``` r
+Varpart_plot <- full_join(data.frame(rbind(Broad_varpart[,1])),
+                          data.frame(rbind(SSF_varpart[,1])),)
+
+Varpart_plot <- full_join(Varpart_plot,
+                          data.frame(rbind(DRF_varpart[,1])))
+
+Varpart_plot <- full_join(Varpart_plot,
+                          data.frame(rbind(ST_varpart[,1])))
+
+Varpart_plot <- full_join(Varpart_plot,
+                          data.frame(rbind(IC_varpart[,1])))
+
+Varpart_plot <- full_join(Varpart_plot,
+                          data.frame(rbind(NI_varpart[,1])))
+
+Varpart_plot <- full_join(Varpart_plot,
+                          data.frame(rbind(MD_varpart[,1])))
+
+Varpart_plot <- full_join(Varpart_plot,
+                          data.frame(rbind(JA_varpart[,1])))
+                          
+Varpart_plot <- full_join(Varpart_plot,
+                          data.frame(rbind(UBA_varpart[,1])))
+
+Varpart_plot <- full_join(Varpart_plot,
+                          data.frame(rbind(BER_varpart[,1])))
+
+Varpart_plot <- full_join(Varpart_plot,
+                          data.frame(rbind(ITA_varpart[,1])))
+
+rownames(Varpart_plot) <- c("Broad", "SSF", "DRF", "Santa Fé do Sul", "Icém", "Nova Itapirema", "Morro do Diabo", "Jataí", "Ubatuba", "Bertioga", "Itanhaém")
+
+Varpart_plot_neg <- t(Varpart_plot)
+for(i in 1:dim(Varpart_plot_neg)[1]){
+  for(j in 1:dim(Varpart_plot_neg)[2]){
+    if(is.na(Varpart_plot_neg[i,j])){Varpart_plot_neg[i,j] <- 0}
+  }
+}
+
+Varpart_plot_neg
+```
+
+    ##              Broad    SSF    DRF Santa Fé do Sul   Icém Nova Itapirema
+    ## All          0.300  0.244  0.125           0.146  0.165          0.154
+    ## Env          0.145  0.107  0.091           0.087  0.195         -0.010
+    ## Clim         0.212  0.171  0.049           0.000  0.000          0.000
+    ## Spa          0.260  0.053  0.037          -0.085 -0.041          0.159
+    ## Pure_Env     0.033  0.071  0.068           0.231  0.206         -0.005
+    ## Pure_Clim    0.006  0.103  0.012           0.000  0.000          0.000
+    ## Pure_Spa     0.038  0.004  0.011           0.059 -0.030          0.163
+    ## Env_Spa      0.017 -0.002 -0.002          -0.144 -0.011         -0.005
+    ## Env_Clim     0.001  0.017  0.009           0.000  0.000          0.000
+    ## Spa_Clim     0.110  0.029  0.011           0.000  0.000          0.000
+    ## Spa_Clim_Env 0.094  0.021  0.017           0.000  0.000          0.000
+    ## Resid        0.700  0.756  0.875           0.854  0.835          0.846
+    ##              Morro do Diabo Jataí Ubatuba Bertioga Itanhaém
+    ## All                   0.282 0.555   0.068    0.023    0.090
+    ## Env                   0.139 0.524   0.064    0.021    0.097
+    ## Clim                  0.000 0.000   0.000    0.000    0.000
+    ## Spa                  -0.005 0.221  -0.011   -0.012   -0.008
+    ## Pure_Env              0.287 0.334   0.078    0.035    0.098
+    ## Pure_Clim             0.000 0.000   0.000    0.000    0.000
+    ## Pure_Spa              0.143 0.030   0.004    0.002   -0.007
+    ## Env_Spa              -0.148 0.190  -0.014   -0.014   -0.001
+    ## Env_Clim              0.000 0.000   0.000    0.000    0.000
+    ## Spa_Clim              0.000 0.000   0.000    0.000    0.000
+    ## Spa_Clim_Env          0.000 0.000   0.000    0.000    0.000
+    ## Resid                 0.718 0.445   0.932    0.977    0.910
+
+     
+   
+
+Constructing a matrix with all p values (with negative R2 values)
+
+``` r
+Varpart_plot_p <- full_join(data.frame(rbind(Broad_varpart[,4])),
+                          data.frame(rbind(SSF_varpart[,4])),)
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(DRF_varpart[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(ST_varpart[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(IC_varpart[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(NI_varpart[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(MD_varpart[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(JA_varpart[,4])))
+                          
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(UBA_varpart[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(BER_varpart[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(ITA_varpart[,4])))
+
+rownames(Varpart_plot_p) <- c("Broad", "SSF", "DRF", "Santa Fé do Sul", "Icém", "Nova Itapirema", "Morro do Diabo", "Jataí", "Ubatuba", "Bertioga", "Itanhaém")
+
+Varpart_plot_p_neg <- t(Varpart_plot_p)
+Varpart_plot_p_neg
+```
+
+    ##               Broad    SSF    DRF Santa Fé do Sul   Icém Nova Itapirema
+    ## All          0.0001 0.0001 0.0001          0.3187 0.0372         0.1860
+    ## Env          0.0001 0.0001 0.0001          0.2929 0.0049         0.5216
+    ## Clim         0.0001 0.0001 0.0003              NA     NA             NA
+    ## Spa          0.0001 0.0005 0.0031          0.8180 0.7254         0.0153
+    ## Pure_Env     0.0001 0.0001 0.0005          0.2814 0.0164         0.5102
+    ## Pure_Clim    0.0426 0.0001 0.0613              NA     NA             NA
+    ## Pure_Spa     0.0001 0.2460 0.0695          0.4284 0.6686         0.1800
+    ## Env_Spa          NA     NA     NA              NA     NA             NA
+    ## Env_Clim         NA     NA     NA              NA     NA             NA
+    ## Spa_Clim         NA     NA     NA              NA     NA             NA
+    ## Spa_Clim_Env     NA     NA     NA              NA     NA             NA
+    ## Resid            NA     NA     NA              NA     NA             NA
+    ##              Morro do Diabo  Jataí Ubatuba Bertioga Itanhaém
+    ## All                  0.1656 0.0002  0.0339   0.4060   0.2869
+    ## Env                  0.2672 0.0001  0.0119   0.3682   0.2048
+    ## Clim                     NA     NA      NA       NA       NA
+    ## Spa                  0.3659 0.0030  0.6122   0.5779   0.4800
+    ## Pure_Env             0.1670 0.0081  0.0059   0.3442   0.2566
+    ## Pure_Clim                NA     NA      NA       NA       NA
+    ## Pure_Spa             0.2674 0.2512  0.3633   0.4348   0.5247
+    ## Env_Spa                  NA     NA      NA       NA       NA
+    ## Env_Clim                 NA     NA      NA       NA       NA
+    ## Spa_Clim                 NA     NA      NA       NA       NA
+    ## Spa_Clim_Env             NA     NA      NA       NA       NA
+    ## Resid                    NA     NA      NA       NA       NA
+
+     
+   
+
+Constructing a matrix with all R2 values (without negative values)
 
 ``` r
 Varpart_plot <- full_join(data.frame(rbind(Broad_varpart[,1])),
@@ -1103,6 +1247,78 @@ Varpart_plot
      
    
 
+Constructing a matrix with all p values (without negative R2 values)
+
+``` r
+Varpart_plot_p <- full_join(data.frame(rbind(Broad_varpart[,4])),
+                          data.frame(rbind(SSF_varpart[,4])),)
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(DRF_varpart[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(ST_varpart2[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(IC_varpart2[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(NI_varpart2[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(MD_varpart2[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(JA_varpart2[,4])))
+                          
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(UBA_varpart2[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(BER_varpart2[,4])))
+
+Varpart_plot_p <- full_join(Varpart_plot_p,
+                          data.frame(rbind(ITA_varpart2[,4])))
+
+rownames(Varpart_plot_p) <- c("Broad", "SSF", "DRF", "Santa Fé do Sul", "Icém", "Nova Itapirema", "Morro do Diabo", "Jataí", "Ubatuba", "Bertioga", "Itanhaém")
+
+Varpart_plot_p <- t(Varpart_plot_p)
+
+Varpart_plot_p[5,c(4,5,6,7,9,10,11)] <- Varpart_plot_p[2,c(4,5,6,7,9,10,11)]
+Varpart_plot_p[7,6] <- Varpart_plot_p[4,6]
+Varpart_plot_p
+```
+
+    ##               Broad    SSF    DRF Santa Fé do Sul  Icém Nova Itapirema
+    ## All          0.0001 0.0001 0.0001              NA    NA             NA
+    ## Env          0.0001 0.0001 0.0001          0.2982 0.005             NA
+    ## Clim         0.0001 0.0001 0.0003              NA    NA             NA
+    ## Spa          0.0001 0.0005 0.0031              NA    NA         0.0126
+    ## Pure_Env     0.0001 0.0001 0.0005          0.2982 0.005             NA
+    ## Pure_Clim    0.0426 0.0001 0.0613              NA    NA             NA
+    ## Pure_Spa     0.0001 0.2460 0.0695              NA    NA         0.0126
+    ## Env_Spa          NA     NA     NA              NA    NA             NA
+    ## Env_Clim         NA     NA     NA              NA    NA             NA
+    ## Spa_Clim         NA     NA     NA              NA    NA             NA
+    ## Spa_Clim_Env     NA     NA     NA              NA    NA             NA
+    ## Resid            NA     NA     NA              NA    NA             NA
+    ##              Morro do Diabo  Jataí Ubatuba Bertioga Itanhaém
+    ## All                      NA 0.0001      NA       NA       NA
+    ## Env                  0.2617 0.0002  0.0105   0.3726   0.2084
+    ## Clim                     NA     NA      NA       NA       NA
+    ## Spa                      NA 0.0031      NA       NA       NA
+    ## Pure_Env             0.2617 0.0079  0.0105   0.3726   0.2084
+    ## Pure_Clim                NA     NA      NA       NA       NA
+    ## Pure_Spa                 NA 0.2459      NA       NA       NA
+    ## Env_Spa                  NA     NA      NA       NA       NA
+    ## Env_Clim                 NA     NA      NA       NA       NA
+    ## Spa_Clim                 NA     NA      NA       NA       NA
+    ## Spa_Clim_Env             NA     NA      NA       NA       NA
+    ## Resid                    NA     NA      NA       NA       NA
+
+     
+   
+
 Plotting the Variation Partioning as barplots.
 
 ``` r
@@ -1130,7 +1346,7 @@ text(c(0.5,0.5,0.5),c(0.02,0.07,0.2025), labels =c("*","*","*"), adj = 0.5, col 
 text(c(3.5,3.5,5.5),c(0.04,0.155,0.035), labels =c("*","*","*"), adj = 0.5, col = "white", cex = 2)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-59-1.png" width="800" height="700" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-62-1.png" width="800" height="700" style="display: block; margin: auto;" />
 The asterisks represent significant fractions.      
 
 Creating some new important fractions
@@ -1142,8 +1358,8 @@ Clim_Spatially_Structured <- Varpart_plot["Spa_Clim",] + Varpart_plot["Spa_Clim_
 Clim_Non_Spatially_Structured <- Varpart_plot["Pure_Clim",] + Varpart_plot["Env_Clim",]
 Non_Spatially_Climate_Environment <- Varpart_plot["Pure_Env",] + Varpart_plot["Pure_Clim",] + Varpart_plot["Env_Clim",]
 Spatially_Climate_Environment <- Varpart_plot["Spa_Clim",] + Varpart_plot["Env_Spa",] + Varpart_plot["Spa_Clim_Env",]
-Total_Climate_Environment <- Varpart_plot["All",] - Varpart_plot["Pure_Spa",]
-Total_Climate_Environment["Nova Itapirema"] <- 0
+Total_Climate_Environment <- Spatially_Climate_Environment + Non_Spatially_Climate_Environment
+#Total_Climate_Environment["Nova Itapirema"] <- 0
 
 Varpart_plot <- rbind(Varpart_plot,
                       Env_Spatially_Structured,
@@ -1195,7 +1411,7 @@ Means_spatial_extent
     ## Clim_Non_Spatially_Structured            0.007              0.0705     0.000000
     ## Non_Spatially_Climate_Environment        0.040              0.1400     0.117125
     ## Spatially_Climate_Environment            0.221              0.0390     0.023750
-    ## Total_Climate_Environment                0.262              0.1770     0.065625
+    ## Total_Climate_Environment                0.261              0.1790     0.140875
 
  
 
@@ -1228,7 +1444,7 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-62-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-65-1.png" width="1000" height="500" style="display: block; margin: auto;" />
      
 
 ``` r
@@ -1260,7 +1476,7 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-63-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-66-1.png" width="1000" height="500" style="display: block; margin: auto;" />
      
 
 ``` r
@@ -1296,7 +1512,7 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-64-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-67-1.png" width="1000" height="500" style="display: block; margin: auto;" />
      
 
 ``` r
@@ -1332,7 +1548,7 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-65-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-68-1.png" width="1000" height="500" style="display: block; margin: auto;" />
      
 
 ``` r
@@ -1372,7 +1588,7 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-66-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-69-1.png" width="1000" height="500" style="display: block; margin: auto;" />
      
 
 ``` r
@@ -1399,7 +1615,7 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-67-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-70-1.png" width="1000" height="500" style="display: block; margin: auto;" />
      
 
 Small Extent - Comparison by Ecoregion       Means of fractions in small
@@ -1445,7 +1661,7 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-69-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-72-1.png" width="1000" height="500" style="display: block; margin: auto;" />
 
 ``` r
 par(mfrow = c(1,2))
@@ -1477,7 +1693,7 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3), labels = c("0 %","5 %","10 %","15
 axis(1,at = c(0.5,2.5),line = 0, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-70-1.png" width="1000" height="500" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-73-1.png" width="1000" height="500" style="display: block; margin: auto;" />
  
 
      
@@ -1496,10 +1712,210 @@ environmental variables.
 ### Intermediate Extent
 
 ``` r
-RDA_clim_SSF <- rda(SSF_pa, data.frame(SSF_clim_st,SSF_env_st))
+RDA_env_SSF <- rda(SSF_pa, data.frame(SSF_env_st))
+
+species_scores_SSF <- scores(RDA_env_SSF, display = c( "species"), scaling = 0, hill = T)
+loadings_SSF <- scores(RDA_env_SSF, display = c( "bp"), scaling = 0, hill = T)
+
+species_scores_SSF <- species_scores_SSF[(species_scores_SSF[,1] > 0.25 | species_scores_SSF[,1] < -0.25) | 
+                                         (species_scores_SSF[,2] > 0.25 | species_scores_SSF[,2] < -0.25) ,]
+
+#species_scores_SSF <- species_scores_SSF*1.5
+
+xmin <- #min(c(species_scores_SSF[,1], loadings_SSF[,1])) -0.2
+ -1
+xmax <- #max(c(species_scores_SSF[,1], loadings_SSF[,1])) +0.2
+ 1
+ymin <- #min(c(species_scores_SSF[,2], loadings_SSF[,2])) -0.2
+  -1
+ymax <- #max(c(species_scores_SSF[,2], loadings_SSF[,2])) +0.2
+  1
+
+rownames(loadings_SSF) <- c("HYD","CC","ARE","DEP","VH")
+col_SSF <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+
+dists_SSF <- as.matrix(dist(rbind(loadings_SSF,c(0,0))))[6,-6]
+dists_SSF_prop <- dists_SSF/max(dists_SSF)
+
+#for(i in 1:length(col_SSF)){
+#  col_SSF[i] <- lighten_color((1-dists_SSF_prop[i]),col_SSF[i])
+#}
+
+par(mfrow = c(2,2),mar = c(5, 5, 4, 2))
+plot(RDA_env_SSF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "SSF - Local Environment")
+for(i in 1:length(species_scores_SSF[,1])){
+  #points(species_scores_SSF[i,1], species_scores_SSF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_SSF[i,1], species_scores_SSF[i,2], labels = rownames(species_scores_SSF)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_SSF[,1])),
+              y0 = rep(0, length(loadings_SSF[,1])),
+              x1 = loadings_SSF[,1],
+              y1 = loadings_SSF[,2], col = col_SSF, lwd = 2, arr.type="triangle", arr.length = 0.4*(dists_SSF_prop), arr.width = 0.3*(dists_SSF_prop))
+
+for(i in 1:length(loadings_SSF[,1])){
+  #points(loadings_SSF[i,1], loadings_SSF[i,2], col = col_SSF[i], pch = 21, cex = ((7*dists_SSF_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_SSF[i,1]*1.2, loadings_SSF[i,2]*1.2, labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
+}
+
+
+######################################################################################################################################################
+
+
+RDA_env_constrained_SSF <- rda(SSF_pa, data.frame(SSF_env_st), data.frame(SSF_dbMEM_FS))
+
+species_scores_SSF <- scores(RDA_env_constrained_SSF, display = c( "species"), scaling = 0, hill = T)
+loadings_SSF <- scores(RDA_env_constrained_SSF, display = c( "bp"), scaling = 0, hill = T)
+
+species_scores_SSF <- species_scores_SSF[(species_scores_SSF[,1] > 0.25 | species_scores_SSF[,1] < -0.25) | 
+                                         (species_scores_SSF[,2] > 0.25 | species_scores_SSF[,2] < -0.25) ,]
+
+#species_scores_SSF <- species_scores_SSF*1.5
+
+xmin <- #min(c(species_scores_SSF[,1], loadings_SSF[,1])) -0.2
+ -1
+xmax <- #max(c(species_scores_SSF[,1], loadings_SSF[,1])) +0.2
+ 1
+ymin <- #min(c(species_scores_SSF[,2], loadings_SSF[,2])) -0.2
+  -1
+ymax <- #max(c(species_scores_SSF[,2], loadings_SSF[,2])) +0.2
+  1
+
+rownames(loadings_SSF) <- c("HYD","CC","ARE","DEP","VH")
+col_SSF <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+
+dists_SSF <- as.matrix(dist(rbind(loadings_SSF,c(0,0))))[6,-6]
+dists_SSF_prop <- dists_SSF/max(dists_SSF)
+
+#for(i in 1:length(col_SSF)){
+#  col_SSF[i] <- lighten_color((1-dists_SSF_prop[i]),col_SSF[i])
+#}
+
+#par(mfrow = c(2,2),mar = c(5, 5, 4, 2))
+plot(RDA_env_constrained_SSF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "SSF - Non-spatially struc. Local Environment")
+for(i in 1:length(species_scores_SSF[,1])){
+  #points(species_scores_SSF[i,1], species_scores_SSF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_SSF[i,1], species_scores_SSF[i,2], labels = rownames(species_scores_SSF)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_SSF[,1])),
+              y0 = rep(0, length(loadings_SSF[,1])),
+              x1 = loadings_SSF[,1],
+              y1 = loadings_SSF[,2], col = col_SSF, lwd = 2, arr.type="triangle", arr.length = 0.4*(dists_SSF_prop), arr.width = 0.3*(dists_SSF_prop))
+
+for(i in 1:length(loadings_SSF[,1])){
+  #points(loadings_SSF[i,1], loadings_SSF[i,2], col = col_SSF[i], pch = 21, cex = ((7*dists_SSF_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_SSF[i,1]*1.2, loadings_SSF[i,2]*1.2, labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
+}
+
+
+######################################################################################################################################################
+RDA_clim_SSF <- rda(SSF_pa, data.frame(SSF_clim_st))
 
 species_scores_SSF <- scores(RDA_clim_SSF, display = c( "species"), scaling = 0, hill = T)
 loadings_SSF <- scores(RDA_clim_SSF, display = c( "bp"), scaling = 0, hill = T)
+
+species_scores_SSF <- species_scores_SSF[(species_scores_SSF[,1] > 0.25 | species_scores_SSF[,1] < -0.25) | 
+                                         (species_scores_SSF[,2] > 0.25 | species_scores_SSF[,2] < -0.25) ,]
+
+#species_scores_SSF <- species_scores_SSF*1.5
+
+xmin <- #min(c(species_scores_SSF[,1], loadings_SSF[,1])) -0.2
+ -1.2
+xmax <- #max(c(species_scores_SSF[,1], loadings_SSF[,1])) +0.2
+ 1.2
+ymin <- #min(c(species_scores_SSF[,2], loadings_SSF[,2])) -0.2
+  -1.2
+ymax <- #max(c(species_scores_SSF[,2], loadings_SSF[,2])) +0.2
+  1.2
+
+rownames(loadings_SSF) <- c("TS","RT","TP","PS")
+col_SSF <- c("brown1","brown1","brown1","brown1")
+
+
+dists_SSF <- as.matrix(dist(rbind(loadings_SSF,c(0,0))))[5,-5]
+dists_SSF_prop <- dists_SSF/max(dists_SSF)
+
+#for(i in 1:length(col_SSF)){
+#  col_SSF[i] <- lighten_color((1-dists_SSF_prop[i]),col_SSF[i])
+#}
+
+plot(RDA_clim_SSF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "SSF - Climate")
+for(i in 1:length(species_scores_SSF[,1])){
+  #points(species_scores_SSF[i,1], species_scores_SSF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_SSF[i,1], species_scores_SSF[i,2], labels = rownames(species_scores_SSF)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_SSF[,1])),
+              y0 = rep(0, length(loadings_SSF[,1])),
+              x1 = loadings_SSF[,1],
+              y1 = loadings_SSF[,2], col = col_SSF, lwd = 2, arr.type="triangle", arr.length = 0.4*(dists_SSF_prop), arr.width = 0.3*(dists_SSF_prop))
+
+for(i in 1:length(loadings_SSF[,1])){
+  #points(loadings_SSF[i,1], loadings_SSF[i,2], col = col_SSF[i], pch = 21, cex = ((7*dists_SSF_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_SSF[i,1]*1.2, loadings_SSF[i,2]*1.2, labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
+}
+
+
+
+######################################################################################################################################################
+
+RDA_clim_constrained_SSF <- rda(SSF_pa, data.frame(SSF_clim_st), data.frame(SSF_dbMEM_FS))
+
+species_scores_SSF <- scores(RDA_clim_constrained_SSF, display = c( "species"), scaling = 0, hill = T)
+loadings_SSF <- scores(RDA_clim_constrained_SSF, display = c( "bp"), scaling = 0, hill = T)
+
+species_scores_SSF <- species_scores_SSF[(species_scores_SSF[,1] > 0.25 | species_scores_SSF[,1] < -0.25) | 
+                                         (species_scores_SSF[,2] > 0.25 | species_scores_SSF[,2] < -0.25) ,]
+
+#species_scores_SSF <- species_scores_SSF*1.5
+
+xmin <- #min(c(species_scores_SSF[,1], loadings_SSF[,1])) -0.2
+ -1.2
+xmax <- #max(c(species_scores_SSF[,1], loadings_SSF[,1])) +0.2
+ 1.2
+ymin <- #min(c(species_scores_SSF[,2], loadings_SSF[,2])) -0.2
+  -1.2
+ymax <- #max(c(species_scores_SSF[,2], loadings_SSF[,2])) +0.2
+  1.2
+
+rownames(loadings_SSF) <- c("TS","RT","TP","PS")
+col_SSF <- c("brown1","brown1","brown1","brown1")
+
+
+dists_SSF <- as.matrix(dist(rbind(loadings_SSF,c(0,0))))[5,-5]
+dists_SSF_prop <- dists_SSF/max(dists_SSF)
+
+#for(i in 1:length(col_SSF)){
+#  col_SSF[i] <- lighten_color((1-dists_SSF_prop[i]),col_SSF[i])
+#}
+
+plot(RDA_clim_constrained_SSF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "SSF - Non-spatially struc. Climate")
+for(i in 1:length(species_scores_SSF[,1])){
+  #points(species_scores_SSF[i,1], species_scores_SSF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_SSF[i,1], species_scores_SSF[i,2], labels = rownames(species_scores_SSF)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_SSF[,1])),
+              y0 = rep(0, length(loadings_SSF[,1])),
+              x1 = loadings_SSF[,1],
+              y1 = loadings_SSF[,2], col = col_SSF, lwd = 2, arr.type="triangle", arr.length = 0.4*(dists_SSF_prop), arr.width = 0.3*(dists_SSF_prop))
+
+for(i in 1:length(loadings_SSF[,1])){
+  #points(loadings_SSF[i,1], loadings_SSF[i,2], col = col_SSF[i], pch = 21, cex = ((7*dists_SSF_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_SSF[i,1]*1.2, loadings_SSF[i,2]*1.2, labels = rownames(loadings_SSF)[i],col = col_SSF[i], cex = (1.4*dists_SSF_prop[i]))
+}
+```
+
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-74-1.png" width="800" height="800" style="display: block; margin: auto;" />
+
+``` r
+RDA_clim_env_SSF <- rda(SSF_pa, data.frame(SSF_clim_st,SSF_env_st))
+
+species_scores_SSF <- scores(RDA_clim_env_SSF, display = c( "species"), scaling = 0, hill = T)
+loadings_SSF <- scores(RDA_clim_env_SSF, display = c( "bp"), scaling = 0, hill = T)
 
 species_scores_SSF <- species_scores_SSF[(species_scores_SSF[,1] > 0.25 | species_scores_SSF[,1] < -0.25) | 
                                          (species_scores_SSF[,2] > 0.25 | species_scores_SSF[,2] < -0.25) ,]
@@ -1527,7 +1943,7 @@ dists_SSF_prop <- dists_SSF/max(dists_SSF)
 #}
 
 par(mfrow = c(1,2),mar = c(5, 5, 4, 2))
-plot(RDA_clim_SSF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "SSF - Unconstrained")
+plot(RDA_clim_env_SSF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "SSF - L. Envioronment and Climate")
 for(i in 1:length(species_scores_SSF[,1])){
   #points(species_scores_SSF[i,1], species_scores_SSF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
   text(species_scores_SSF[i,1], species_scores_SSF[i,2], labels = rownames(species_scores_SSF)[i],col = "black", cex = 0.8)
@@ -1545,11 +1961,11 @@ for(i in 1:length(loadings_SSF[,1])){
 
 
 #########################RDA SSF Constrained
-RDA_clim_SSF <- rda(SSF_pa, data.frame(SSF_clim_st,SSF_env_st), data.frame(SSF_dbMEM_FS))
+RDA_clim__env_constrained_SSF <- rda(SSF_pa, data.frame(SSF_clim_st,SSF_env_st), data.frame(SSF_dbMEM_FS))
 
 
-species_scores_SSF <- scores(RDA_clim_SSF, display = c( "species"), scaling = 0, hill = T)
-loadings_SSF <- scores(RDA_clim_SSF, display = c( "bp"), scaling = 0, hill = T)
+species_scores_SSF <- scores(RDA_clim__env_constrained_SSF, display = c( "species"), scaling = 0, hill = T)
+loadings_SSF <- scores(RDA_clim__env_constrained_SSF, display = c( "bp"), scaling = 0, hill = T)
 
 species_scores_SSF <- species_scores_SSF[(species_scores_SSF[,1] > 0.25 | species_scores_SSF[,1] < -0.25) | 
                                          (species_scores_SSF[,2] > 0.25 | species_scores_SSF[,2] < -0.25) ,]
@@ -1577,7 +1993,7 @@ dists_SSF_prop <- dists_SSF/max(dists_SSF)
 #}
 
 
-plot(RDA_clim_SSF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "SSF - Constrained")
+plot(RDA_clim__env_constrained_SSF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "SSF - Non-spatially structured")
 for(i in 1:length(species_scores_SSF[,1])){
   #points(species_scores_SSF[i,1], species_scores_SSF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
   text(species_scores_SSF[i,1], species_scores_SSF[i,2], labels = rownames(species_scores_SSF)[i],col = "black", cex = 0.8)
@@ -1594,10 +2010,112 @@ for(i in 1:length(loadings_SSF[,1])){
 }
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-71-1.png" width="800" height="400" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-75-1.png" width="800" height="400" style="display: block; margin: auto;" />
+
+         
 
 ``` r
-RDA_clim_DRF <- rda(DRF_pa, data.frame(DRF_clim_st,DRF_env_st))
+RDA_env_DRF <- rda(DRF_pa, data.frame(DRF_env_st))
+
+species_scores_DRF <- scores(RDA_env_DRF, display = c( "species"), scaling = 0, hill = T)
+loadings_DRF <- scores(RDA_env_DRF, display = c( "bp"), scaling = 0, hill = T)
+
+species_scores_DRF <- species_scores_DRF[(species_scores_DRF[,1] > 0.25 | species_scores_DRF[,1] < -0.25) | 
+                                         (species_scores_DRF[,2] > 0.25 | species_scores_DRF[,2] < -0.25) ,]
+
+#species_scores_DRF <- species_scores_DRF*1.5
+
+xmin <- #min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
+ -1
+xmax <- #max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
+ 1
+ymin <- #min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
+  -1
+ymax <- #max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
+  1
+
+rownames(loadings_DRF) <- c("HYD","CC","ARE","DEP","VH")
+col_DRF <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+
+dists_DRF <- as.matrix(dist(rbind(loadings_DRF,c(0,0))))[6,-6]
+dists_DRF_prop <- dists_DRF/max(dists_DRF)
+
+#for(i in 1:length(col_DRF)){
+#  col_DRF[i] <- lighten_color((1-dists_DRF_prop[i]),col_DRF[i])
+#}
+
+par(mfrow = c(2,2),mar = c(5, 5, 4, 2))
+plot(RDA_env_DRF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "DRF - Local Environment")
+for(i in 1:length(species_scores_DRF[,1])){
+  #points(species_scores_DRF[i,1], species_scores_DRF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_DRF[i,1], species_scores_DRF[i,2], labels = rownames(species_scores_DRF)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_DRF[,1])),
+              y0 = rep(0, length(loadings_DRF[,1])),
+              x1 = loadings_DRF[,1],
+              y1 = loadings_DRF[,2], col = col_DRF, lwd = 2, arr.type="triangle", arr.length = 0.4*(dists_DRF_prop), arr.width = 0.3*(dists_DRF_prop))
+
+for(i in 1:length(loadings_DRF[,1])){
+  #points(loadings_DRF[i,1], loadings_DRF[i,2], col = col_DRF[i], pch = 21, cex = ((7*dists_DRF_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_DRF[i,1]*1.2, loadings_DRF[i,2]*1.2, labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
+}
+
+
+######################################################################################################################################################
+
+
+RDA_env_constrained_DRF <- rda(DRF_pa, data.frame(DRF_env_st), data.frame(DRF_dbMEM_FS))
+
+species_scores_DRF <- scores(RDA_env_constrained_DRF, display = c( "species"), scaling = 0, hill = T)
+loadings_DRF <- scores(RDA_env_constrained_DRF, display = c( "bp"), scaling = 0, hill = T)
+
+species_scores_DRF <- species_scores_DRF[(species_scores_DRF[,1] > 0.25 | species_scores_DRF[,1] < -0.25) | 
+                                         (species_scores_DRF[,2] > 0.25 | species_scores_DRF[,2] < -0.25) ,]
+
+#species_scores_DRF <- species_scores_DRF*1.5
+
+xmin <- #min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
+ -1
+xmax <- #max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
+ 1
+ymin <- #min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
+  -1
+ymax <- #max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
+  1
+
+rownames(loadings_DRF) <- c("HYD","CC","ARE","DEP","VH")
+col_DRF <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+
+
+dists_DRF <- as.matrix(dist(rbind(loadings_DRF,c(0,0))))[6,-6]
+dists_DRF_prop <- dists_DRF/max(dists_DRF)
+
+#for(i in 1:length(col_DRF)){
+#  col_DRF[i] <- lighten_color((1-dists_DRF_prop[i]),col_DRF[i])
+#}
+
+#par(mfrow = c(2,2),mar = c(5, 5, 4, 2))
+plot(RDA_env_constrained_DRF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "DRF - Non-spatially struc. Local Environment")
+for(i in 1:length(species_scores_DRF[,1])){
+  #points(species_scores_DRF[i,1], species_scores_DRF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_DRF[i,1], species_scores_DRF[i,2], labels = rownames(species_scores_DRF)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_DRF[,1])),
+              y0 = rep(0, length(loadings_DRF[,1])),
+              x1 = loadings_DRF[,1],
+              y1 = loadings_DRF[,2], col = col_DRF, lwd = 2, arr.type="triangle", arr.length = 0.4*(dists_DRF_prop), arr.width = 0.3*(dists_DRF_prop))
+
+for(i in 1:length(loadings_DRF[,1])){
+  #points(loadings_DRF[i,1], loadings_DRF[i,2], col = col_DRF[i], pch = 21, cex = ((7*dists_DRF_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_DRF[i,1]*1.2, loadings_DRF[i,2]*1.2, labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
+}
+
+
+######################################################################################################################################################
+RDA_clim_DRF <- rda(DRF_pa, data.frame(DRF_clim_st))
 
 species_scores_DRF <- scores(RDA_clim_DRF, display = c( "species"), scaling = 0, hill = T)
 loadings_DRF <- scores(RDA_clim_DRF, display = c( "bp"), scaling = 0, hill = T)
@@ -1608,10 +2126,109 @@ species_scores_DRF <- species_scores_DRF[(species_scores_DRF[,1] > 0.25 | specie
 #species_scores_DRF <- species_scores_DRF*1.5
 
 xmin <- #min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
-  -1
+ -1.2
 xmax <- #max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
-  1
+ 1.2
+ymin <- #min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
+  -1.2
+ymax <- #max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
+  1.2
 
+rownames(loadings_DRF) <- c("TS","RT","TP","PS")
+col_DRF <- c("brown1","brown1","brown1","brown1")
+
+
+dists_DRF <- as.matrix(dist(rbind(loadings_DRF,c(0,0))))[5,-5]
+dists_DRF_prop <- dists_DRF/max(dists_DRF)
+
+#for(i in 1:length(col_DRF)){
+#  col_DRF[i] <- lighten_color((1-dists_DRF_prop[i]),col_DRF[i])
+#}
+
+plot(RDA_clim_DRF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "DRF - Climate")
+for(i in 1:length(species_scores_DRF[,1])){
+  #points(species_scores_DRF[i,1], species_scores_DRF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_DRF[i,1], species_scores_DRF[i,2], labels = rownames(species_scores_DRF)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_DRF[,1])),
+              y0 = rep(0, length(loadings_DRF[,1])),
+              x1 = loadings_DRF[,1],
+              y1 = loadings_DRF[,2], col = col_DRF, lwd = 2, arr.type="triangle", arr.length = 0.4*(dists_DRF_prop), arr.width = 0.3*(dists_DRF_prop))
+
+for(i in 1:length(loadings_DRF[,1])){
+  #points(loadings_DRF[i,1], loadings_DRF[i,2], col = col_DRF[i], pch = 21, cex = ((7*dists_DRF_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_DRF[i,1]*1.2, loadings_DRF[i,2]*1.2, labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
+}
+
+
+
+######################################################################################################################################################
+
+RDA_clim_constrained_DRF <- rda(DRF_pa, data.frame(DRF_clim_st), data.frame(DRF_dbMEM_FS))
+
+species_scores_DRF <- scores(RDA_clim_constrained_DRF, display = c( "species"), scaling = 0, hill = T)
+loadings_DRF <- scores(RDA_clim_constrained_DRF, display = c( "bp"), scaling = 0, hill = T)
+
+species_scores_DRF <- species_scores_DRF[(species_scores_DRF[,1] > 0.25 | species_scores_DRF[,1] < -0.25) | 
+                                         (species_scores_DRF[,2] > 0.25 | species_scores_DRF[,2] < -0.25) ,]
+
+#species_scores_DRF <- species_scores_DRF*1.5
+
+xmin <- #min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
+ -1.2
+xmax <- #max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
+ 1.2
+ymin <- #min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
+  -1.2
+ymax <- #max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
+  1.2
+
+rownames(loadings_DRF) <- c("TS","RT","TP","PS")
+col_DRF <- c("brown1","brown1","brown1","brown1")
+
+
+dists_DRF <- as.matrix(dist(rbind(loadings_DRF,c(0,0))))[5,-5]
+dists_DRF_prop <- dists_DRF/max(dists_DRF)
+
+#for(i in 1:length(col_DRF)){
+#  col_DRF[i] <- lighten_color((1-dists_DRF_prop[i]),col_DRF[i])
+#}
+
+plot(RDA_clim_constrained_DRF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "DRF - Non-spatially struc. Climate")
+for(i in 1:length(species_scores_DRF[,1])){
+  #points(species_scores_DRF[i,1], species_scores_DRF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
+  text(species_scores_DRF[i,1], species_scores_DRF[i,2], labels = rownames(species_scores_DRF)[i],col = "black", cex = 0.8)
+}
+
+shape::Arrows(x0 = rep(0, length(loadings_DRF[,1])),
+              y0 = rep(0, length(loadings_DRF[,1])),
+              x1 = loadings_DRF[,1],
+              y1 = loadings_DRF[,2], col = col_DRF, lwd = 2, arr.type="triangle", arr.length = 0.4*(dists_DRF_prop), arr.width = 0.3*(dists_DRF_prop))
+
+for(i in 1:length(loadings_DRF[,1])){
+  #points(loadings_DRF[i,1], loadings_DRF[i,2], col = col_DRF[i], pch = 21, cex = ((7*dists_DRF_prop[i])+1), bg = "white", lwd = 3)
+  text(loadings_DRF[i,1]*1.2, loadings_DRF[i,2]*1.2, labels = rownames(loadings_DRF)[i],col = col_DRF[i], cex = (1.4*dists_DRF_prop[i]))
+}
+```
+
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-76-1.png" width="800" height="800" style="display: block; margin: auto;" />
+
+``` r
+RDA_clim_env_DRF <- rda(DRF_pa, data.frame(DRF_clim_st,DRF_env_st))
+
+species_scores_DRF <- scores(RDA_clim_env_DRF, display = c( "species"), scaling = 0, hill = T)
+loadings_DRF <- scores(RDA_clim_env_DRF, display = c( "bp"), scaling = 0, hill = T)
+
+species_scores_DRF <- species_scores_DRF[(species_scores_DRF[,1] > 0.25 | species_scores_DRF[,1] < -0.25) | 
+                                         (species_scores_DRF[,2] > 0.25 | species_scores_DRF[,2] < -0.25) ,]
+
+#species_scores_DRF <- species_scores_DRF*1.5
+
+xmin <- #min(c(species_scores_DRF[,1], loadings_DRF[,1])) -0.2
+ -1
+xmax <- #max(c(species_scores_DRF[,1], loadings_DRF[,1])) +0.2
+ 1
 ymin <- #min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
   -1
 ymax <- #max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
@@ -1629,7 +2246,7 @@ dists_DRF_prop <- dists_DRF/max(dists_DRF)
 #}
 
 par(mfrow = c(1,2),mar = c(5, 5, 4, 2))
-plot(RDA_clim_DRF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "DRF - Unconstrained")
+plot(RDA_clim_env_DRF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "DRF - L. Envioronment and Climate")
 for(i in 1:length(species_scores_DRF[,1])){
   #points(species_scores_DRF[i,1], species_scores_DRF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
   text(species_scores_DRF[i,1], species_scores_DRF[i,2], labels = rownames(species_scores_DRF)[i],col = "black", cex = 0.8)
@@ -1647,11 +2264,11 @@ for(i in 1:length(loadings_DRF[,1])){
 
 
 #########################RDA DRF Constrained
-RDA_clim_DRF <- rda(DRF_pa, data.frame(DRF_clim_st,DRF_env_st), data.frame(DRF_dbMEM_FS))
+RDA_clim__env_constrained_DRF <- rda(DRF_pa, data.frame(DRF_clim_st,DRF_env_st), data.frame(DRF_dbMEM_FS))
 
 
-species_scores_DRF <- scores(RDA_clim_DRF, display = c( "species"), scaling = 0, hill = T)
-loadings_DRF <- scores(RDA_clim_DRF, display = c( "bp"), scaling = 0, hill = T)
+species_scores_DRF <- scores(RDA_clim__env_constrained_DRF, display = c( "species"), scaling = 0, hill = T)
+loadings_DRF <- scores(RDA_clim__env_constrained_DRF, display = c( "bp"), scaling = 0, hill = T)
 
 species_scores_DRF <- species_scores_DRF[(species_scores_DRF[,1] > 0.25 | species_scores_DRF[,1] < -0.25) | 
                                          (species_scores_DRF[,2] > 0.25 | species_scores_DRF[,2] < -0.25) ,]
@@ -1668,7 +2285,6 @@ ymin <- #min(c(species_scores_DRF[,2], loadings_DRF[,2])) -0.2
 ymax <- #max(c(species_scores_DRF[,2], loadings_DRF[,2])) +0.2
   1
 
-
 rownames(loadings_DRF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH")
 col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
 
@@ -1680,7 +2296,7 @@ dists_DRF_prop <- dists_DRF/max(dists_DRF)
 #}
 
 
-plot(RDA_clim_DRF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "DRF - Constrained")
+plot(RDA_clim__env_constrained_DRF, type="n", scaling = 2, xlim = c(xmin,xmax), ylim = c(ymin,ymax), cex.lab = 1.5, cex.axis = 1.5, main = "DRF - Non-spatially structured")
 for(i in 1:length(species_scores_DRF[,1])){
   #points(species_scores_DRF[i,1], species_scores_DRF[i,2], col = "white", pch = 21, cex = 5, bg = "grey80", lwd = 1)
   text(species_scores_DRF[i,1], species_scores_DRF[i,2], labels = rownames(species_scores_DRF)[i],col = "black", cex = 0.8)
@@ -1697,7 +2313,7 @@ for(i in 1:length(loadings_DRF[,1])){
 }
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-72-1.png" width="800" height="400" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-77-1.png" width="800" height="400" style="display: block; margin: auto;" />
 
      
    
@@ -1936,7 +2552,7 @@ for(i in 1:length(loadings_JA[,1])){
 }
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-73-1.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-73-2.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-73-3.png" width="800" height="400" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-78-1.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-78-2.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-78-3.png" width="800" height="400" style="display: block; margin: auto;" />
 
      
    
@@ -2078,4 +2694,4 @@ for(i in 1:length(loadings_ITA[,1])){
 }
 ```
 
-<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-74-1.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-74-2.png" width="800" height="400" style="display: block; margin: auto;" />
+<img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-79-1.png" width="800" height="400" style="display: block; margin: auto;" /><img src="Variation-Partitioning_files/figure-gfm/unnamed-chunk-79-2.png" width="800" height="400" style="display: block; margin: auto;" />
