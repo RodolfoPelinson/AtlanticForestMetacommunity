@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Pelinson et al. 2021
+# Pelinson et al.
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -9,10 +9,10 @@
 The goal of `AtlanticForestMetacommunity` is to walk the user through
 the statistical analysis presented in:
 
-**Pelinson et al 2021. “Disentangling the multiple drivers of amphibian
+**Pelinson et al “Disentangling the multiple drivers of amphibian
 metacommunity structure in the Atlantic Forest at multiple spatial
 scales”**  
-DOI: [NOT AVAILABLE](link)
+DOI: NOT YET AVAILABLE
 
 The analyses were divided in three different sections:
 

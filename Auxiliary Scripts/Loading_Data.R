@@ -2,7 +2,7 @@
 ############################
 
 library("vegan")
-#data = read.csv("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Not Commit/Data.csv",header=TRUE,row.names = 1, encoding = "UTF-8")
+data = read.csv("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Not Commit/Data.csv",header=TRUE,row.names = 1, encoding = "UTF-8")
 data(data)
 
 ##################################################################################################################
