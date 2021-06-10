@@ -271,7 +271,6 @@ SSF
 ```{r}
 data.frame(SSF_min = apply(SSF_clim, 2, min), SSF_mean = apply(SSF_clim, 2, mean), SSF_max = apply(SSF_clim, 2, max))
 data.frame(SSF_min = apply(SSF_env, 2, min), SSF_mean = apply(SSF_env, 2, mean), SSF_max = apply(SSF_env, 2, max))
-data.frame(SSF_min = apply(SSF_env, 2, min), SSF_mean = apply(SSF_env, 2, mean), SSF_max = apply(SSF_env, 2, max))
 
 ```
 
