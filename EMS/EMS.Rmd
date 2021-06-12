@@ -38,8 +38,8 @@ library(metacom)
 \  
 \  
 
-Running the EMS analysis
-```{r, cache = TRUE, warning=FALSE, message=FALSE}
+Running the EMS analysis. The `IdentifyStructure` functin is a function created to run the same analysis for multiple datasets and automatically identify the idealized metacommunity structure.
+```{r, cache = TRUE, warning=FALSE, message=FALSE, comment=FALSE}
 Metacommunities <- IdentifyStructure(list(Broad_pa,
                                           DRF_pa,#(Dense Rain Forest)
                                           UBA_pa,#(Ubatuba)
@@ -64,7 +64,7 @@ Metacommunities <- IdentifyStructure(list(Broad_pa,
                                                "Jataí"),
                                      CoherenceMethod = "curveball",
                                      turnoverMethod = "EMS",
-                                     orderNulls = T, seed = 3, sims = 10000, round = 3)
+                                     orderNulls = T, seed = 2, sims = 10000, round = 3)
 Metacommunities
 ```
 # Correlation with Environmental Gradients

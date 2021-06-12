@@ -3,10 +3,9 @@ Elements of Metacommunity Structure
 Rodolfo Pelinson
 12/04/2021
 
-First we have to load the separated data matrices we need. It all comes
-from the Data.csv file in the Data folder. The data matrices are
-prepared sourcing the “Loading\_data.R” file in the Auxiliary Scripts
-folder.
+First we have to load the separated data matrices we need. The data
+matrices are prepared sourcing the “Loading\_data.R” file in the
+Auxiliary Scripts folder.
 
 ``` r
 library(AtlanticForestMetacommunity)
@@ -20,7 +19,9 @@ The used packages to run this analysis are:
 
        
 
-Running the EMS analysis
+Running the EMS analysis. The `IdentifyStructure` functin is a function
+created to run the same analysis for multiple datasets and automatically
+identify the idealized metacommunity structure.
 
 ``` r
 Metacommunities <- IdentifyStructure(list(Broad_pa,
@@ -47,75 +48,75 @@ Metacommunities <- IdentifyStructure(list(Broad_pa,
                                                "Jataí"),
                                      CoherenceMethod = "curveball",
                                      turnoverMethod = "EMS",
-                                     orderNulls = T, seed = 3, sims = 10000, round = 3)
+                                     orderNulls = T, seed = 2, sims = 10000, round = 3)
 ```
 
-    ##   |                                                                              |                                                                      |   0%  |                                                                              |======                                                                |   9%  |                                                                              |=============                                                         |  18%  |                                                                              |===================                                                   |  27%  |                                                                              |=========================                                             |  36%  |                                                                              |================================                                      |  45%  |                                                                              |======================================                                |  55%  |                                                                              |=============================================                         |  64%  |                                                                              |===================================================                   |  73%  |                                                                              |=========================================================             |  82%  |                                                                              |================================================================      |  91%  |                                                                              |======================================================================| 100%
+    FALSE   |                                                                              |                                                                      |   0%  |                                                                              |======                                                                |   9%  |                                                                              |=============                                                         |  18%  |                                                                              |===================                                                   |  27%  |                                                                              |=========================                                             |  36%  |                                                                              |================================                                      |  45%  |                                                                              |======================================                                |  55%  |                                                                              |=============================================                         |  64%  |                                                                              |===================================================                   |  73%  |                                                                              |=========================================================             |  82%  |                                                                              |================================================================      |  91%  |                                                                              |======================================================================| 100%
 
 ``` r
 Metacommunities
 ```
 
-    ##                 Embeded_Absences Simulated_Embeded_Absences
-    ## Broad                       1107                   2809.394
-    ## DRF                          490                    546.368
-    ## Ubatuba                      105                    152.259
-    ## Bertioga                      45                     40.633
-    ## Itanhaém                      33                     60.052
-    ## SSF                          596                    677.738
-    ## Santa Fé do Sul                9                     15.865
-    ## Icém                          54                     61.069
-    ## Nova Itapirema                16                     21.628
-    ## Morro do Diabo                16                     24.550
-    ## Jataí                         11                     25.813
-    ##                 percent_difference_EmbAbs z_Coherence p_Coherence Turnover
-    ## Broad                               0.606     -11.548       0.000   566973
-    ## DRF                                 0.103      -1.466       0.143    16547
-    ## Ubatuba                             0.310      -2.976       0.003     2976
-    ## Bertioga                           -0.107       0.578       0.563      301
-    ## Itanhaém                            0.450      -2.315       0.021      682
-    ## SSF                                 0.121      -1.928       0.054    23810
-    ## Santa Fé do Sul                     0.433      -1.961       0.050      147
-    ## Icém                                0.116      -1.074       0.283      683
-    ## Nova Itapirema                      0.260      -1.850       0.064      151
-    ## Morro do Diabo                      0.348      -2.225       0.026      184
-    ## Jataí                               0.574      -3.287       0.001      342
-    ##                 Simulated_Turnover percent_difference_Turn z_Turnover
-    ## Broad                   463109.369                  -0.224      3.053
-    ## DRF                      13268.083                  -0.247      1.023
-    ## Ubatuba                   3490.690                   0.147     -0.853
-    ## Bertioga                   219.795                  -0.369      1.327
-    ## Itanhaém                   753.457                   0.095     -0.477
-    ## SSF                      18970.176                  -0.255      1.287
-    ## Santa Fé do Sul            171.422                   0.142     -0.542
-    ## Icém                       591.255                  -0.155      0.595
-    ## Nova Itapirema              99.074                  -0.524      1.417
-    ## Morro do Diabo             173.382                  -0.061      0.278
-    ## Jataí                      281.162                  -0.216      0.806
-    ##                 p_Turnover I_Index p_I_Index N_sites N_species
-    ## Broad                0.002   2.505     0.000      96        52
-    ## DRF                  0.306   3.450     0.000      50        24
-    ## Ubatuba              0.393   1.467     0.014      23        20
-    ## Bertioga             0.184   1.795     0.029      12        14
-    ## Itanhaém             0.634   1.529     0.050      15        15
-    ## SSF                  0.198   2.038     0.000      46        32
-    ## Santa Fé do Sul      0.588   1.015     0.388       8        11
-    ## Icém                 0.552   1.385     0.029      12        18
-    ## Nova Itapirema       0.156   1.050     0.331       8        18
-    ## Morro do Diabo       0.781   1.158     0.165       8        14
-    ## Jataí                0.420   1.516     0.019      10        12
-    ##                                              Structure
-    ## Broad                                      Clementsian
-    ## DRF                                             Random
-    ## Ubatuba         Quasi-Nested with clumped species loss
-    ## Bertioga                                        Random
-    ## Itanhaém         Quasi-Nested with random species loss
-    ## SSF                                             Random
-    ## Santa Fé do Sul  Quasi-Nested with random species loss
-    ## Icém                                            Random
-    ## Nova Itapirema                                  Random
-    ## Morro do Diabo                        Quasi-Gleasonian
-    ## Jataí                                Quasi-Clementsian
+    FALSE                 Embeded_Absences Simulated_Embeded_Absences
+    FALSE Broad                       1107                   2808.635
+    FALSE DRF                          490                    547.387
+    FALSE Ubatuba                      105                    152.446
+    FALSE Bertioga                      45                     41.470
+    FALSE Itanhaém                      33                     60.155
+    FALSE SSF                          596                    675.566
+    FALSE Santa Fé do Sul                9                     15.751
+    FALSE Icém                          54                     61.013
+    FALSE Nova Itapirema                16                     21.450
+    FALSE Morro do Diabo                16                     24.564
+    FALSE Jataí                         11                     25.636
+    FALSE                 percent_difference_EmbAbs z_Coherence p_Coherence Turnover
+    FALSE Broad                               0.606     -10.951       0.000   566973
+    FALSE DRF                                 0.105      -1.600       0.110    16547
+    FALSE Ubatuba                             0.311      -3.043       0.002     2976
+    FALSE Bertioga                           -0.085       0.480       0.631      301
+    FALSE Itanhaém                            0.451      -2.373       0.018      682
+    FALSE SSF                                 0.118      -1.818       0.069    23810
+    FALSE Santa Fé do Sul                     0.429      -1.926       0.054      147
+    FALSE Icém                                0.115      -1.064       0.287      683
+    FALSE Nova Itapirema                      0.254      -1.763       0.078      151
+    FALSE Morro do Diabo                      0.349      -2.203       0.028      184
+    FALSE Jataí                               0.571      -3.290       0.001      342
+    FALSE                 Simulated_Turnover percent_difference_Turn z_Turnover
+    FALSE Broad                   462880.436                  -0.225      3.058
+    FALSE DRF                      13332.898                  -0.241      0.993
+    FALSE Ubatuba                   3475.796                   0.144     -0.834
+    FALSE Bertioga                   219.755                  -0.370      1.312
+    FALSE Itanhaém                   751.828                   0.093     -0.457
+    FALSE SSF                      18951.726                  -0.256      1.308
+    FALSE Santa Fé do Sul            171.332                   0.142     -0.527
+    FALSE Icém                       592.498                  -0.153      0.594
+    FALSE Nova Itapirema              98.568                  -0.532      1.432
+    FALSE Morro do Diabo             173.214                  -0.062      0.283
+    FALSE Jataí                      282.259                  -0.212      0.786
+    FALSE                 p_Turnover I_Index p_I_Index N_sites N_species
+    FALSE Broad                0.002   2.505     0.000      96        52
+    FALSE DRF                  0.321   3.450     0.000      50        24
+    FALSE Ubatuba              0.404   1.467     0.014      23        20
+    FALSE Bertioga             0.190   1.795     0.029      12        14
+    FALSE Itanhaém             0.648   1.529     0.050      15        15
+    FALSE SSF                  0.191   2.038     0.000      46        32
+    FALSE Santa Fé do Sul      0.598   1.015     0.388       8        11
+    FALSE Icém                 0.552   1.385     0.029      12        18
+    FALSE Nova Itapirema       0.152   1.050     0.331       8        18
+    FALSE Morro do Diabo       0.777   1.158     0.165       8        14
+    FALSE Jataí                0.432   1.516     0.019      10        12
+    FALSE                                              Structure
+    FALSE Broad                                      Clementsian
+    FALSE DRF                                             Random
+    FALSE Ubatuba         Quasi-Nested with clumped species loss
+    FALSE Bertioga                                        Random
+    FALSE Itanhaém         Quasi-Nested with random species loss
+    FALSE SSF                                             Random
+    FALSE Santa Fé do Sul                                 Random
+    FALSE Icém                                            Random
+    FALSE Nova Itapirema                                  Random
+    FALSE Morro do Diabo                        Quasi-Gleasonian
+    FALSE Jataí                                Quasi-Clementsian
 
 # Correlation with Environmental Gradients
 
