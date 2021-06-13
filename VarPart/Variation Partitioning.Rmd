@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-First we have to load the separated data matrices we need. The data matrices are prepared sourcing the "Loading_data.R" file in the Auxiliary Scripts folder.
+First we need preparare all data matrices from the main dataset. These are prepared sourcing the "Loading_data.R" file in the Auxiliary Scripts folder.
 ```{r, echo=TRUE, eval=FALSE}
 library(AtlanticForestMetacommunity)
 source("Loading_data.R")

@@ -3,24 +3,24 @@ Elements of Metacommunity Structure
 Rodolfo Pelinson
 12/04/2021
 
-First we have to load the separated data matrices we need. The data
-matrices are prepared sourcing the “Loading\_data.R” file in the
-Auxiliary Scripts folder.
+First we need preparare all data matrices from the main dataset. These
+are prepared sourcing the “Loading\_data.R” file in the Auxiliary
+Scripts folder.
 
 ``` r
 library(AtlanticForestMetacommunity)
 source("Loading_data.R")
 ```
 
-The used packages to run this analysis are:
+The packages used to run this analyses are:
 
 `vegan` version 2.5-6  
 `metacom` version 1.5.3
 
        
 
-Running the EMS analysis. The `IdentifyStructure` functin is a function
-created to run the same analysis for multiple datasets and automatically
+Running the EMS analysis. The `IdentifyStructure` function is a function
+created to run the same analyses for multiple datasets and automatically
 identify the idealized metacommunity structure.
 
 ``` r
@@ -118,10 +118,13 @@ Metacommunities
     FALSE Morro do Diabo                        Quasi-Gleasonian
     FALSE Jataí                                Quasi-Clementsian
 
+   
+
 # Correlation with Environmental Gradients
 
-We only analysed those gradients for metacommunities that exhibited a
-coherent metacommunity structure.    
+We only analyzed the correlation between the underlying gradient with
+true environmental gradients for the metacommunities that exhibited a
+coherent metacommunity structures.    
 
 ### Broad Spatial Extent
 

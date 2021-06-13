@@ -11,9 +11,14 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-These are just means and variability of the environmental predictors used both in the EMS and Variation partitioning analyses.
+Here you can find the number and identity of species at all spatial extents, localities and ecoregions. We also show here which species are shared between ecoregions and localities.
 
-First we have to load the separated data matrices we need. The data matrices are prepared sourcing the "Loading_data.R" file in the Auxiliary Scripts folder.
+We also show maximum, minimum, and mean values of each environmental variable considered in all analyses at all spatial extents, localities and ecoregions.
+\ 
+\ 
+\ 
+
+First we need preparare all data matrices from the main dataset. These are prepared sourcing the "Loading_data.R" file in the Auxiliary Scripts folder.
 ```{r, echo=TRUE, eval=FALSE}
 library(AtlanticForestMetacommunity)
 source("Loading_data.R")
@@ -26,32 +31,92 @@ source("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommu
 ```
 
 
-### Number of Species
+## Number of Species
 
-#### Broad Extent
+### Large Extent
 ```{r}
 ncol(Broad_pa_orig)
 ```
 \   
 \  
 
-#### Intermediate Extent
-DRF
+### Intermediate Extent
+
+#### DRF
 ```{r}
 ncol(DRF_pa_orig)
 ```
 \  
-\  
 
-SSF
+#### SSF
 ```{r}
 ncol(SSF_pa_orig)
 
 ```
 \  
+\ 
+
+
+### Small Extent
+
+#### SSF - Santa Fé do Sul
+```{r}
+ncol(ST_pa_orig)
+
+```
 \  
 
-Species in commom SSF-DRF
+#### SSF - Icém
+```{r}
+ncol(IC_pa_orig)
+```
+\  
+
+#### SSF - Nova Itapirema
+```{r}
+ncol(NI_pa_orig)
+```
+\  
+
+#### SSF - Morro do Diabo
+```{r}
+ncol(MD_pa_orig)
+```
+\  
+
+#### SSF - Jataí
+```{r}
+ncol(JA_pa_orig)
+```
+\  
+
+#### DRF - Ubatuba
+```{r}
+ncol(UBA_pa_orig)
+```
+\  
+
+#### DRF - Bertioga
+```{r}
+ncol(BER_pa_orig)
+```
+\  
+
+#### DRF - Itanhaém
+```{r}
+ncol(ITA_pa_orig)
+```
+\  
+\ 
+\ 
+\ 
+\ 
+
+
+## Species Shared
+
+### Intermediate Extent
+
 ```{r}
 sp_comm <- na.omit(match(colnames(DRF_pa_orig), colnames(SSF_pa_orig)))
 length(sp_comm)
@@ -59,100 +124,11 @@ colnames(SSF_pa_orig)[sp_comm]
 ```
 \  
 \  
-\  
-\  
 
 
-#### Small Extent
+### Small Extent
 
-DRF - Ubatuba
-```{r}
-ncol(UBA_pa_orig)
-```
-\  
-\  
-
-DRF - Bertioga
-```{r}
-ncol(BER_pa_orig)
-```
-\  
-\  
-
-DRF - Itanhaém
-```{r}
-ncol(ITA_pa_orig)
-```
-\  
-\  
-
-Species in commom UBA-BER
-```{r}
-sp_comm <- na.omit(match(colnames(UBA_pa_orig), colnames(BER_pa_orig)))
-length(sp_comm)
-colnames(BER_pa_orig)[sp_comm]
-```
-\  
-\  
-
-Species in commom UBA-ITA
-```{r}
-sp_comm <- na.omit(match(colnames(UBA_pa_orig), colnames(ITA_pa_orig)))
-length(sp_comm)
-colnames(ITA_pa_orig)[sp_comm]
-```
-\  
-\  
-
-Species in commom ITA-BER
-```{r}
-sp_comm <- na.omit(match(colnames(ITA_pa_orig), colnames(BER_pa_orig)))
-length(sp_comm)
-colnames(BER_pa_orig)[sp_comm]
-```
-\  
-\  
-\ 
-\  
-
-
-SSF - Santa Fé do Sul
-```{r}
-ncol(ST_pa_orig)
-
-```
-\  
-\  
-
-SSF - Icém
-```{r}
-ncol(IC_pa_orig)
-```
-\  
-\  
-
-SSF - Nova Itapirema
-```{r}
-ncol(NI_pa_orig)
-```
-\  
-\  
-
-SSF - Morro do Diabo
-```{r}
-ncol(MD_pa_orig)
-```
-\  
-\  
-
-SSF - Jataí
-```{r}
-ncol(JA_pa_orig)
-```
-\  
-\  
-
-Species in commom ST-IC
+#### Santa Fé do Sul - Icém
 ```{r}
 sp_comm <- na.omit(match(colnames(ST_pa_orig), colnames(IC_pa_orig)))
 length(sp_comm)
@@ -161,7 +137,7 @@ colnames(IC_pa_orig)[sp_comm]
 \  
 \  
 
-Species in commom ST-NI
+#### Santa Fé do Sul - Nova Itapirema
 ```{r}
 sp_comm <- na.omit(match(colnames(ST_pa_orig), colnames(NI_pa_orig)))
 length(sp_comm)
@@ -171,7 +147,7 @@ colnames(NI_pa_orig)[sp_comm]
 \  
 
 
-Species in commom ST-MD
+#### Santa Fé do Sul - Morro do Diabo
 ```{r}
 sp_comm <- na.omit(match(colnames(ST_pa_orig), colnames(MD_pa_orig)))
 length(sp_comm)
@@ -181,7 +157,7 @@ colnames(MD_pa_orig)[sp_comm]
 \  
 
 
-Species in commom ST-JA
+#### Santa Fé do Sul - Jataí
 ```{r}
 sp_comm <- na.omit(match(colnames(ST_pa_orig), colnames(JA_pa_orig)))
 length(sp_comm)
@@ -190,7 +166,7 @@ colnames(JA_pa_orig)[sp_comm]
 \  
 \  
 
-Species in commom IC-NI
+#### Icém - Nova Itapirema
 ```{r}
 sp_comm <- na.omit(match(colnames(IC_pa_orig), colnames(NI_pa_orig)))
 length(sp_comm)
@@ -199,7 +175,7 @@ colnames(NI_pa_orig)[sp_comm]
 \  
 \  
 
-Species in commom IC-MD
+#### Icém - Morro do Diabo
 ```{r}
 sp_comm <- na.omit(match(colnames(IC_pa_orig), colnames(MD_pa_orig)))
 length(sp_comm)
@@ -209,7 +185,7 @@ colnames(MD_pa_orig)[sp_comm]
 \  
 
 
-Species in commom IC-JA
+#### Icém - Jataí
 ```{r}
 sp_comm <- na.omit(match(colnames(IC_pa_orig), colnames(JA_pa_orig)))
 length(sp_comm)
@@ -218,9 +194,7 @@ colnames(JA_pa_orig)[sp_comm]
 \  
 \  
 
-
-
-Species in commom NI-MD
+#### Nova Itapirema - Morro do Diabo
 ```{r}
 sp_comm <- na.omit(match(colnames(NI_pa_orig), colnames(MD_pa_orig)))
 length(sp_comm)
@@ -229,7 +203,7 @@ colnames(MD_pa_orig)[sp_comm]
 \  
 \  
 
-Species in commom NI-MD
+#### Nova Itapirema - Jataí
 ```{r}
 sp_comm <- na.omit(match(colnames(NI_pa_orig), colnames(JA_pa_orig)))
 length(sp_comm)
@@ -238,7 +212,7 @@ colnames(JA_pa_orig)[sp_comm]
 \  
 \  
 
-Species in commom JA-MD
+#### Morro do Diabo - Jataí
 ```{r}
 sp_comm <- na.omit(match(colnames(MD_pa_orig), colnames(JA_pa_orig)))
 length(sp_comm)
@@ -246,7 +220,31 @@ colnames(JA_pa_orig)[sp_comm]
 ```
 \  
 \  
+
+#### Ubatuba - Bertioga
+```{r}
+sp_comm <- na.omit(match(colnames(UBA_pa_orig), colnames(BER_pa_orig)))
+length(sp_comm)
+colnames(BER_pa_orig)[sp_comm]
+```
 \  
+\  
+
+#### Ubatuba - Itanhaém
+```{r}
+sp_comm <- na.omit(match(colnames(UBA_pa_orig), colnames(ITA_pa_orig)))
+length(sp_comm)
+colnames(ITA_pa_orig)[sp_comm]
+```
+\  
+\  
+
+#### Itanhaém - Bertioga
+```{r}
+sp_comm <- na.omit(match(colnames(ITA_pa_orig), colnames(BER_pa_orig)))
+length(sp_comm)
+colnames(BER_pa_orig)[sp_comm]
+```
 \  
 \  
 \  
@@ -255,19 +253,19 @@ colnames(JA_pa_orig)[sp_comm]
 
 
 
-### Means, maximum and minimum of predictor variables
+## Means, maximum and minimum of predictor variables
 \  
 
-#### Intermediate Extent
-\  
-DRF
+### Intermediate Extent
+
+#### DRF
 ```{r}
 data.frame(DRF_min = apply(DRF_clim, 2, min), DRF_mean = apply(DRF_clim, 2, mean), DRF_max = apply(DRF_clim, 2, max))
 data.frame(DRF_min = apply(DRF_env, 2, min), DRF_mean = apply(DRF_env, 2, mean), DRF_max = apply(DRF_env, 2, max))
 ```
 \  
 
-SSF
+#### 
 ```{r}
 data.frame(SSF_min = apply(SSF_clim, 2, min), SSF_mean = apply(SSF_clim, 2, mean), SSF_max = apply(SSF_clim, 2, max))
 data.frame(SSF_min = apply(SSF_env, 2, min), SSF_mean = apply(SSF_env, 2, mean), SSF_max = apply(SSF_env, 2, max))
@@ -279,33 +277,9 @@ data.frame(SSF_min = apply(SSF_env, 2, min), SSF_mean = apply(SSF_env, 2, mean),
 \  
 
 
-#### Small Extent
+### Small Extent
 
-Ubatuba
-```{r}
-data.frame(UBA_min = apply(UBA_env, 2, min),
-  UBA_mean = apply(UBA_env, 2, mean),
-  UBA_max = apply(UBA_env, 2, max))
-```
-\  
-
-Bertioga
-```{r}
-data.frame(BER_min = apply(BER_env, 2, min),
-  BER_mean = apply(BER_env, 2, mean),
-  BER_max = apply(BER_env, 2, max))
-```
-\  
-
-Itanhaém
-```{r}
-data.frame(ITA_min = apply(ITA_env, 2, min),
-  ITA_mean = apply(ITA_env, 2, mean),
-  ITA_max = apply(ITA_env, 2, max))
-```
-\  
-
-Santa Fé do Sul
+#### Santa Fé do Sul
 ```{r}
 data.frame(ST_min = apply(ST_env, 2, min),
   ST_mean = apply(ST_env, 2, mean),
@@ -313,7 +287,7 @@ data.frame(ST_min = apply(ST_env, 2, min),
 ```
 \  
 
-Icém
+#### Icém
 ```{r}
 data.frame(IC_min = apply(IC_env, 2, min),
   IC_mean = apply(IC_env, 2, mean),
@@ -321,7 +295,7 @@ data.frame(IC_min = apply(IC_env, 2, min),
 ```
 \  
 
-Nova Itapirema
+#### Nova Itapirema
 ```{r}
 data.frame(NI_min = apply(NI_env, 2, min),
   NI_mean = apply(NI_env, 2, mean),
@@ -329,7 +303,7 @@ data.frame(NI_min = apply(NI_env, 2, min),
 ```
 \  
 
-
+#### Morro do Diabo
 ```{r}
 data.frame(MD_min = apply(MD_env, 2, min),
   MD_mean = apply(MD_env, 2, mean),
@@ -337,22 +311,47 @@ data.frame(MD_min = apply(MD_env, 2, min),
 ```
 \  
 
+#### Jataí
 ```{r}
 data.frame(JA_min = apply(JA_env, 2, min),
   JA_mean = apply(JA_env, 2, mean),
   JA_max = apply(JA_env, 2, max))
 ```
+\ 
 
+#### Ubatuba
+```{r}
+data.frame(UBA_min = apply(UBA_env, 2, min),
+  UBA_mean = apply(UBA_env, 2, mean),
+  UBA_max = apply(UBA_env, 2, max))
+```
+\  
+
+#### Bertioga
+```{r}
+data.frame(BER_min = apply(BER_env, 2, min),
+  BER_mean = apply(BER_env, 2, mean),
+  BER_max = apply(BER_env, 2, max))
+```
+\  
+
+#### Itanhaém
+```{r}
+data.frame(ITA_min = apply(ITA_env, 2, min),
+  ITA_mean = apply(ITA_env, 2, mean),
+  ITA_max = apply(ITA_env, 2, max))
+```
 \  
 \  
 \  
 \  
+\  
 
 
 
-### Coefficient of Variation of predictor variables
+## Coefficient of Variation of predictor variables
 
-Intermediate Extent
+### Intermediate Extent
 ```{r}
 Int_Clim_cv <- data.frame(DRF_cv = apply(DRF_clim, 2, coef_var), SSF_cv = apply(SSF_clim, 2, coef_var))
 Int_Env_cv <- data.frame(DRF_cv = apply(DRF_env, 2, coef_var), SSF_cv = apply(SSF_env, 2, coef_var))
@@ -367,7 +366,7 @@ apply(Int_Env_cv, 2, mean)
 \  
 
 
-Small Extent
+### Small Extent
 ```{r}
 Sm_Env_cv <- data.frame(UBA_cv = apply(UBA_env, 2, coef_var),
            BER_cv = apply(BER_env, 2, coef_var),
