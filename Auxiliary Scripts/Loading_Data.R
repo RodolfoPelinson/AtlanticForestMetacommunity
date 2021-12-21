@@ -2,9 +2,9 @@
 ############################
 
 library("vegan")
-#data = read.csv("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Not Commit/Data.csv",header=TRUE,row.names = 1, encoding = "UTF-8")
-data(Tadpoles_Atlantic_Forest)
-data <- Tadpoles_Atlantic_Forest
+data = read.csv("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Data csv/Data.csv",header=TRUE,row.names = 1, encoding = "UTF-8")
+#data(Tadpoles_Atlantic_Forest)
+#data <- Tadpoles_Atlantic_Forest
 ##################################################################################################################
 ###########################################    SPECIES DATA    ###################################################
 ##################################################################################################################
@@ -91,12 +91,18 @@ ITA_pa=ITA_pa_orig[,which (colSums(ITA_pa_orig)>1)]
 ##################################################################################################################
 ########################################    ENVIRONMENTAL DATA    ################################################
 ##################################################################################################################
+Broad_locality <- data$locality
+
 Broadenv<-data.frame(hydroperiod = data$hydroperiod[2:nrow(data)],
                     canopy_cover = data$canopy_cover[2:nrow(data)],
                     area = data$area[2:nrow(data)],
                     depth = data$depth[2:nrow(data)],
-                    nvt = data$nvt[2:nrow(data)],
+                    #nvt = data$nvt[2:nrow(data)],
+                    arbust_veg = data$arbust_veg[2:nrow(data)],
+                    arbor_veg = data$arbor_veg[2:nrow(data)],
+                    dist_to_forest = data$dist_to_forest[2:nrow(data)],
                     ecoregion = as.factor(data$ecoregion[2:nrow(data)]))
+
 rownames(Broadenv)<- rownames(data)[2:nrow(data)]
 for(i in 1:ncol(Broadenv)){
   Broadenv[,i]<- as.numeric(Broadenv[,i])
@@ -104,11 +110,14 @@ for(i in 1:ncol(Broadenv)){
 
 SSF_locality <- data$locality[2:47]
 
-SSFenv<-data.frame(hydroperiod = data$hydroperiod,
-                   canopy_cover = data$canopy_cover,
-                   area = data$area,
-                   depth = data$depth,
-                   nvt = data$nvt)[2:47,]
+#SSFenv<-data.frame(hydroperiod = data$hydroperiod,
+#                   canopy_cover = data$canopy_cover,
+#                   area = data$area,
+#                   depth = data$depth,
+#                   nvt = data$nvt)[2:47,]
+
+SSFenv<-Broadenv[1:46,-dim(Broadenv)[2]]
+
 rownames(SSFenv)<- rownames(data)[2:47]
 
 for(i in 1:ncol(SSFenv)){
@@ -117,12 +126,13 @@ for(i in 1:ncol(SSFenv)){
 
 DRF_locality <- data$locality[48:nrow(data)]
 
+DRFenv<-Broadenv[47:nrow(Broadenv),-dim(Broadenv)[2]]
 
-DRFenv<-data.frame(hydroperiod = data$hydroperiod,
-                   canopy_cover = data$canopy_cover,
-                   area = data$area,
-                   depth = data$depth,
-                   nvt = data$nvt)[48:nrow(data),]
+#DRFenv<-data.frame(hydroperiod = data$hydroperiod,
+#                   canopy_cover = data$canopy_cover,
+#                   area = data$area,
+#                   depth = data$depth,
+#                   nvt = data$nvt)[48:nrow(data),]
 rownames(DRFenv)<- rownames(data)[48:nrow(data)]
 for(i in 1:ncol(DRFenv)){
   DRFenv[,i]<- as.numeric(DRFenv[,i])
@@ -145,36 +155,42 @@ BER_env=(DRFenv[26:37,])
 ITA_env=(DRFenv[c(1,2,3,4,5,6,7,8,9,20,21,22,23,24,25),])
 
 
-Broad_env_st<- decostand(Broad_env, method = "standardize")
+Broad_env <- Broad_env[,which(apply(na.omit(Broad_env),2,sd) != 0)]
 
-SSF_env_st<- decostand(SSF_env, method = "standardize")
-IC_env_st <- decostand(IC_env, method = "standardize")
-NI_env_st <- decostand(NI_env, method = "standardize")
-ST_env_st <- decostand(ST_env, method = "standardize")
-MD_env_st <- decostand(MD_env, method = "standardize")
-JA_env_st <- decostand(JA_env, method = "standardize")
-
-DRF_env_st <- decostand(DRF_env, method = "standardize")
-UBA_env_st <- decostand(UBA_env, method = "standardize")
-BER_env_st <- decostand(BER_env, method = "standardize")
-ITA_env_st <- decostand(ITA_env, method = "standardize")
+SSF_env <- SSF_env[,which(apply(na.omit(SSF_env),2,sd) != 0)]
+IC_env <- IC_env[,which(apply(na.omit(IC_env),2,sd) != 0)]
+NI_env <- NI_env[,which(apply(na.omit(NI_env),2,sd) != 0)]
+ST_env <- ST_env[,which(apply(na.omit(ST_env),2,sd) != 0)]
+MD_env <- MD_env[,which(apply(na.omit(MD_env),2,sd) != 0)]
+JA_env <- JA_env[,which(apply(na.omit(JA_env),2,sd) != 0)]
 
 
-
-Broad_env <- data.frame(t(na.omit(t(Broad_env))))
-
-SSF_env_st <- data.frame(t(na.omit(t(SSF_env_st))))
-IC_env_st <- data.frame(t(na.omit(t(IC_env_st))))
-NI_env_st <- data.frame(t(na.omit(t(NI_env_st))))
-ST_env_st <- data.frame(t(na.omit(t(ST_env_st))))
-MD_env_st <- data.frame(t(na.omit(t(MD_env_st))))
-JA_env_st <- data.frame(t(na.omit(t(JA_env_st))))
+DRF_env <- DRF_env[,which(apply(na.omit(DRF_env),2,sd) != 0)]
+UBA_env <- UBA_env[,which(apply(na.omit(UBA_env),2,sd) != 0)]
+BER_env <- BER_env[,which(apply(na.omit(BER_env),2,sd) != 0)]
+ITA_env <- ITA_env[,which(apply(na.omit(ITA_env),2,sd) != 0)]
 
 
-DRF_env_st <- data.frame(t(na.omit(t(DRF_env_st))))
-UBA_env_st <- data.frame(t(na.omit(t(UBA_env_st))))
-BER_env_st <- data.frame(t(na.omit(t(BER_env_st))))
-ITA_env_st <- data.frame(t(na.omit(t(ITA_env_st))))
+
+
+Broad_env_st<- decostand(Broad_env, method = "standardize",na.rm=TRUE)
+
+SSF_env_st<- decostand(SSF_env, method = "standardize",na.rm=TRUE)
+IC_env_st <- decostand(IC_env, method = "standardize",na.rm=TRUE)
+NI_env_st <- decostand(NI_env, method = "standardize",na.rm=TRUE)
+ST_env_st <- decostand(ST_env, method = "standardize",na.rm=TRUE)
+MD_env_st <- decostand(MD_env, method = "standardize",na.rm=TRUE)
+JA_env_st <- decostand(JA_env, method = "standardize",na.rm=TRUE)
+
+DRF_env_st <- decostand(DRF_env, method = "standardize",na.rm=TRUE)
+UBA_env_st <- decostand(UBA_env, method = "standardize",na.rm=TRUE)
+BER_env_st <- decostand(BER_env, method = "standardize",na.rm=TRUE)
+ITA_env_st <- decostand(ITA_env, method = "standardize",na.rm=TRUE)
+
+
+
+
+
 
 
 ##################################################################################################################
@@ -183,7 +199,14 @@ ITA_env_st <- data.frame(t(na.omit(t(ITA_env_st))))
 
 Broad_coord <- data.frame(lat = data$lat[2:nrow(data)], long = data$long[2:nrow(data)])
 
+rownames(Broad_coord) <- rownames(data[2:nrow(data),])
+
+Broad_coord[,1] <- jitter(Broad_coord[,1], amount = 0.001)
+Broad_coord[,2] <- jitter(Broad_coord[,2], amount = 0.001)
+
 SSF_coord <- data.frame(lat = data$lat, long = data$long)[2:47,]
+rownames(SSF_coord) <- rownames(data[2:47,])
+
 IC_coord=SSF_coord[9:20,]
 ST_coord=SSF_coord[1:8,]
 NI_coord=SSF_coord[21:28,]
@@ -192,6 +215,8 @@ JA_coord=SSF_coord[37:46,]
 
 
 DRF_coord=data.frame(lat = data$lat, long = data$long)[48:nrow(data),]
+rownames(DRF_coord) <- rownames(data[48:nrow(data),])
+
 UBA_coord=(DRF_coord[c(10,11,12,13,14,15,16,17,18,19,38,39,40,41,42,43,44,45,46,47,48,49,50),])
 BER_coord=(DRF_coord[26:37,])
 ITA_coord=(DRF_coord[c(1,2,3,4,5,6,7,8,9,20,21,22,23,24,25),])

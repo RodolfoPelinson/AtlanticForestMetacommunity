@@ -8,25 +8,31 @@
 #'
 
 forward_selection <- function(Y,X){
-  X_rda <- rda(Y,X)
+
+  New_X <- X[is.na(rowSums(X)) == FALSE,]
+  New_Y <- Y[is.na(rowSums(X)) == FALSE,]
+
+  X_rda <- rda(New_Y,New_X)
   p <- anova.cca(X_rda, permutations = 9999)
   if(na.omit(p$`Pr(>F)`) <= 0.05){
     X.R2 <- RsquareAdj(X_rda)$adj.r.squared
 
-    res <- try(X_forw <- forward.sel(Y, as.matrix(X), adjR2thresh = X.R2, nperm = 9999))
+    res <- try(X_forw <- forward.sel(New_Y, as.matrix(New_X), adjR2thresh = X.R2, nperm = 9999))
     if(inherits(res, "try-error")){
       message("No variables selected")
-      NEW_X <- data.frame(X)
+      New_X_2 <- data.frame(X)
     }else{
-      NEW_X <- data.frame(X[,match(X_forw$variables, colnames(X))])
-      colnames(NEW_X) <- colnames(X)[1:nrow(X_forw)]
+      New_X_2 <- data.frame(X[,match(X_forw$variables, colnames(X))])
+      colnames(New_X_2) <- colnames(X)[1:nrow(X_forw)]
     }
 
   }
   else{
     message("Forward selection NOT performed. p > 0.05")
-    NEW_X <- data.frame(X)
+    New_X_2 <- data.frame(X)
+    X_forw <- p
   }
-  if(is.null(NEW_X)){NEW_X <- data.frame(X)}
-  return(NEW_X)
+  if(is.null(New_X_2)){New_X_2 <- data.frame(X)}
+  result <- list(forward_results = X_forw,selected_variables = New_X_2)
+  return(result)
 }

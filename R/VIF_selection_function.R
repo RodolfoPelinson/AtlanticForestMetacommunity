@@ -7,12 +7,18 @@
 #' @export
 #'
 
+
 VIF_selection <- function(Y,X){
-  New_X <- X
+
+New_X <- X[is.na(rowSums(X)) == FALSE,]
+New_Y <- Y[is.na(rowSums(X)) == FALSE,]
+vifs <- list()
+
   for(i in 1:length(colnames(X))){
-    XVIF <- vif.cca(rda(Y,New_X))
+    XVIF <- vif.cca(rda(New_Y,New_X, na.rm = TRUE))
+    vifs[[i]] <- XVIF
     delete <-NA
-    higher_vif <- max(XVIF)
+    higher_vif <- max(XVIF, na.rm = TRUE)
 
     if(higher_vif>3){
       delete <- match(higher_vif, XVIF)
@@ -20,7 +26,10 @@ VIF_selection <- function(Y,X){
 
     if(is.na(delete)){break}else{
       New_X <- New_X[,-delete]
+      X <- X[,-delete]
+
     }
+    vifs[[i]] <- XVIF
   }
-  return(New_X)
+  return(list(variables = X,VIFs = vifs))
 }
