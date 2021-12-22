@@ -1,0 +1,17 @@
+base
+AtlanticForestMetacommunity
+permute
+lattice
+vegan
+sp
+raster
+dismo
+rgdal
+ade4
+adespatial
+dplyr
+plotrix
+deldir
+spData
+sf
+spdep

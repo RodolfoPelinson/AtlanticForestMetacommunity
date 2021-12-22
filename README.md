@@ -4,6 +4,7 @@
 # Pelinson et al.
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 The goal of `AtlanticForestMetacommunity` is to walk the user through
@@ -20,7 +21,7 @@ The analyses were divided in three different sections:
 Statistics](https://github.com/RodolfoPelinson/AtlanticForestMetacommunity/blob/master/Descriptive%20Statistics/Descriptive-Statistics.md)
 
 [Variation
-Partitioning](https://github.com/RodolfoPelinson/AtlanticForestMetacommunity/blob/master/VarPart/Variation-Partitioning.md)
+Partitioning](https://github.com/RodolfoPelinson/AtlanticForestMetacommunity/blob/master/VarPart/Variation_Partitioning.md)
 
 [RDA
 Plots](https://github.com/RodolfoPelinson/AtlanticForestMetacommunity/blob/master/RDAs/RDAs.md)

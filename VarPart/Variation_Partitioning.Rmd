@@ -1,0 +1,1069 @@
+---
+title: "Variation Partitioning"
+author: "Rodolfo Pelinson"
+date: "07/04/2021"
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+First we need preparare all data matrices from the main dataset. These are prepared sourcing the "Loading_data.R" file in the Auxiliary Scripts folder.
+```{r, echo=TRUE, eval=FALSE}
+library(AtlanticForestMetacommunity)
+source("Loading_data.R")
+```
+
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+devtools::load_all()
+source("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Auxiliary Scripts/Loading_data.R")
+```
+
+The used packages to run this analysis are:
+
+`vegan` version 2.5-6   
+`ade4` version 1.7-15   
+`adespatial` version 0.3-8   
+
+Some packages used to generate plots and tables
+
+`dplyr` version 0.8.5   
+`plotrix` version 3.7-8   
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+library(vegan)
+library(ade4)
+library(adespatial)
+library(dplyr)
+library(plotrix)
+library(deldir)
+library(spdep)
+
+```
+\  
+\  
+\  
+\  
+
+## Reducing Multicolinearity
+
+To remove multicolinear variables from our Environmental Matrix I built a function that removes variables with the variance inflation factor (VIF) higher than 3. The function `VIF_selection()` simply uses the `vif.cca()` from the `vegan` package. 
+```{r}
+Broad_env_VIF <- VIF_selection(Broad_pa,  Broad_env_st[,-6])
+Broad_env_VIF$VIFs
+
+
+SSF_env_VIF <- VIF_selection(SSF_pa,  SSF_env_st)
+SSF_env_VIF$VIFs
+
+ST_env_VIF <- VIF_selection(ST_pa,  ST_env_st)
+ST_env_VIF$VIFs
+
+IC_env_VIF <- VIF_selection(IC_pa,  IC_env_st)
+IC_env_VIF$VIFs
+
+NI_env_VIF <- VIF_selection(NI_pa,  NI_env_st)
+NI_env_VIF$VIFs
+
+MD_env_VIF <- VIF_selection(MD_pa,  MD_env_st)
+MD_env_VIF$VIFs
+
+JA_env_VIF <- VIF_selection(JA_pa,  JA_env_st)
+JA_env_VIF$VIFs
+
+
+DRF_env_VIF <- VIF_selection(DRF_pa,  DRF_env_st)
+DRF_env_VIF$VIFs
+
+UBA_env_VIF <- VIF_selection(UBA_pa,  UBA_env_st)
+UBA_env_VIF$VIFs
+
+BER_env_VIF <- VIF_selection(BER_pa,  BER_env_st)
+BER_env_VIF$VIFs
+
+ITA_env_VIF <- VIF_selection(ITA_pa,  ITA_env_st)
+ITA_env_VIF$VIFs
+
+```
+\  
+\  
+
+
+Same thing for climate variables
+```{r}
+Broad_clim_VIF <- VIF_selection(Broad_pa,  Broad_clim_st[,-6])
+Broad_clim_VIF$VIFs
+
+SSF_clim_VIF <- VIF_selection(SSF_pa,  SSF_clim_st)
+SSF_clim_VIF$VIFs
+
+DRF_clim_VIF <- VIF_selection(DRF_pa,  DRF_clim_st)
+DRF_clim_VIF$VIFs
+
+```
+\  
+\  
+
+## Spatial Variables
+
+Constructing matrices of spatial filters
+```{r, cache = TRUE, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+set.seed(5)
+
+candidates_Broad <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
+                                   weights = c("flin", "fup"), y_fdown = 5, y_fup = 0.5)
+
+Broad_MEM <- listw.select(Broad_pa, candidates = candidates_Broad, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
+
+Broad_MEM_FS <- Broad_MEM$best$MEM.select
+
+adegraphics::s.label(Broad_coord, nb = candidates_Broad[[Broad_MEM$best.id]],
+                     pnb.edge.col = "red", main = paste("Broad - ",names(Broad_MEM$best.id)), plot = TRUE, labels = NULL)
+################################################################################
+
+
+candidates_DRF <- listw.candidates(DRF_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
+                                   weights = c("flin", "fup"), y_fdown = 5, y_fup = 0.25)
+
+DRF_MEM <- listw.select(DRF_pa, candidates = candidates_DRF, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
+
+DRF_MEM_FS <- DRF_MEM$best$MEM.select
+
+
+adegraphics::s.label(DRF_coord, nb = candidates_DRF[[DRF_MEM$best.id]],
+                     pnb.edge.col = "red", main = paste("DRF - ",names(DRF_MEM$best.id)), plot = TRUE, labels = NULL)
+################################################################################
+
+
+candidates_SSF <- listw.candidates(SSF_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
+                                   weights = c("flin", "fup"), y_fdown = 5, y_fup = 0.25)
+
+SSF_MEM <- listw.select(SSF_pa, candidates = candidates_SSF, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
+
+SSF_MEM_FS <- SSF_MEM$best$MEM.select
+
+
+adegraphics::s.label(SSF_coord, nb = candidates_SSF[[SSF_MEM$best.id]],
+                     pnb.edge.col = "red", main = paste("SSF - ",names(SSF_MEM$best.id)), plot = TRUE, labels = NULL)
+################################################################################
+
+
+#We restricted our options for optimization because of the low statistical power (low replication) that we had at our small spatial scale. We only used linear weights as we do not believe that a exponential decay would make sense at this scale (even relative large distances between sites are actually small). Also We restricted our graph conectivity matrix to only three that yields relatively different scenarios of conectance. Those are the Delauney triangulation, the Relative neighbour and the PCNM
+
+################################################################################
+
+
+
+candidates_ITA <- listw.candidates(ITA_coord, style = "B", nb = c("del", "rel", "pcnm"),
+                                   weights = c("flin"))
+
+ITA_MEM <- listw.select(ITA_pa, candidates = candidates_ITA, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
+
+
+ITA_MEM_FS <- dbmem(ITA_coord, MEM.autocor = c("positive"), silent = TRUE)
+################################################################################
+
+
+candidates_BER <- listw.candidates(BER_coord, style = "B", nb = c("del", "rel", "pcnm"),
+                                   weights = c("flin"))
+
+BER_MEM <- listw.select(BER_pa, candidates = candidates_BER, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
+
+BER_MEM_FS <- dbmem(BER_coord, MEM.autocor = c("positive"), silent = TRUE)
+################################################################################
+
+candidates_UBA <- listw.candidates(UBA_coord, style = "B", nb = c("del", "rel", "pcnm"),
+                                   weights = c("flin"))
+
+UBA_MEM <- listw.select(UBA_pa, candidates = candidates_UBA, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
+
+UBA_MEM_FS <- UBA_MEM$best$MEM.select
+
+adegraphics::s.label(UBA_coord, nb = candidates_UBA[[UBA_MEM$best.id]],
+                     pnb.edge.col = "red", main = paste("UBA - ",names(UBA_MEM$best.id)), plot = TRUE, labels = NULL)
+
+
+################################################################################
+
+
+candidates_ST <- listw.candidates(ST_coord, style = "B", nb = c("del", "rel", "pcnm"),
+                                   weights = c("flin"))
+
+ST_MEM <- listw.select(ST_pa, candidates = candidates_ST, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
+
+ST_MEM_FS <- dbmem(ST_coord, MEM.autocor = c("positive"), silent = TRUE)
+
+################################################################################
+
+
+candidates_IC <- listw.candidates(IC_coord, style = "B", nb = c("del", "rel", "pcnm"),
+                                   weights = c("flin"))
+
+IC_MEM <- listw.select(IC_pa, candidates = candidates_IC, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
+
+IC_MEM_FS <- dbmem(IC_coord, MEM.autocor = c("positive"), silent = TRUE)
+
+################################################################################
+
+candidates_NI <- listw.candidates(NI_coord, style = "B", nb = c("del", "rel", "pcnm"),
+                                   weights = c("flin"))
+
+NI_MEM <- listw.select(NI_pa, candidates = candidates_NI, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
+
+
+adegraphics::s.label(NI_coord, nb = candidates_NI[[NI_MEM$best.id]],
+                     pnb.edge.col = "red", main = paste("NI - ",names(NI_MEM$best.id)), plot = TRUE, labels = NULL)
+
+NI_MEM_FS <- dbmem(NI_coord, MEM.autocor = c("positive"), silent = TRUE)
+
+
+################################################################################
+
+candidates_MD <- listw.candidates(MD_coord, style = "B", nb = c("del", "rel", "pcnm"),
+                                   weights = c("flin"))
+
+MD_MEM <- listw.select(MD_pa, candidates = candidates_MD, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
+
+MD_MEM_FS <- dbmem(MD_coord, MEM.autocor = c("positive"), silent = TRUE)
+
+################################################################################
+
+
+candidates_JA <- listw.candidates(JA_coord, style = "B", nb = c("del", "rel", "pcnm"),
+                                   weights = c("flin"))
+
+JA_MEM <- listw.select(JA_pa, candidates = candidates_JA, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
+
+
+JA_MEM_FS <- JA_MEM$best$MEM.select
+
+
+adegraphics::s.label(JA_coord, nb = candidates_JA[[JA_MEM$best.id]],
+                     pnb.edge.col = "red", main = paste("JA - ",names(JA_MEM$best.id)), plot = TRUE, labels = NULL)
+
+################################################################################
+```
+
+
+```{r, eval = FALSE, echo = TRUE}
+###PLOTING WEIGHTS ####
+nb <- chooseCN(coordinates(UBA_coord), type = 1, plot.nb = FALSE)
+
+#Delaunay triangulation (type 1)
+#Gabriel graph (type 2)
+#Relative neighbours (type 3)
+#Minimum spanning tree (type 4)
+#Neighbourhood by distance (type 5)
+#K nearests neighbours (type 6)
+#Inverse distances (type 7)
+
+dist_UBA <- dist(UBA_coord)
+
+distnb <- spdep::nbdists(nb, as.matrix(UBA_coord))
+
+a_fdown <- 5
+a_f_up <- 0.5
+
+fdist <- lapply(distnb, function(x) 1 - x/max(dist_UBA)) #linear
+fdist <- lapply(distnb, function(x) 1 - (x/max(dist_UBA))^a_fdown) #fdown
+fdist <- lapply(distnb, function(x) 1 / x^a_f_up) #fup
+    
+lw <- nb2listw(nb, style = 'B', zero.policy = TRUE, glist = fdist) 
+
+m1 <- as.matrix(dist_UBA)
+m2 <- spdep::listw2mat(lw)
+
+plot(m1[!diag(ncol(m1))], m2[!diag(ncol(m2))], pch = 20, xlab = "distance", ylab = "spatial weights")
+################
+```
+
+\  
+\  
+\  
+\  
+
+
+## Forward Selection
+
+Similarly to removing variables with VIF higher than 3, I built a function to select the most important variables, when they could significantly explain species occurrences. This function mostly rely on the function `fs()` from package `adespatial`. Forward selection is only performed when the whole predictor matrix can significantly explain (p < 0.05) the variation in species occurrences.
+
+
+### Broad Spatial Extent
+```{r, cache = TRUE, warning=FALSE}
+Broad_env_Forward <- forward_selection(Broad_pa, Broad_env_VIF$variables)
+Broad_env_Forward$forward_results
+Broad_env_FS <- Broad_env_Forward$selected_variables
+
+Broad_clim_Forward <- forward_selection(Broad_pa, Broad_clim_VIF$variables)
+Broad_clim_Forward$forward_results
+Broad_clim_FS <- Broad_clim_Forward$selected_variables
+
+#_______________________________________________________________
+SSF_env_Forward <- forward_selection(SSF_pa, SSF_env_VIF$variables)
+SSF_env_Forward$forward_results
+SSF_env_FS <- SSF_env_Forward$selected_variables
+
+SSF_clim_Forward <- forward_selection(SSF_pa, SSF_clim_VIF$variables)
+SSF_clim_Forward$forward_results
+SSF_clim_FS <- SSF_clim_Forward$selected_variables
+
+#_______________________________________________________________
+ST_env_Forward <- forward_selection(ST_pa, ST_env_VIF$variables)
+ST_env_Forward$forward_results
+ST_env_FS <- ST_env_Forward$selected_variables
+
+IC_env_Forward <- forward_selection(IC_pa, IC_env_VIF$variables)
+IC_env_Forward$forward_results
+IC_env_FS <- IC_env_Forward$selected_variables
+
+NI_env_Forward <- forward_selection(NI_pa, NI_env_VIF$variables)
+NI_env_Forward$forward_results
+NI_env_FS <- NI_env_Forward$selected_variables
+
+MD_env_Forward <- forward_selection(MD_pa, MD_env_VIF$variables)
+MD_env_Forward$forward_results
+MD_env_FS <- MD_env_Forward$selected_variables
+
+JA_env_Forward <- forward_selection(JA_pa, JA_env_VIF$variables)
+JA_env_Forward$forward_results
+JA_env_FS <- JA_env_Forward$selected_variables
+
+#______________________________________________________________
+DRF_env_Forward <- forward_selection(DRF_pa, DRF_env_VIF$variables)
+DRF_env_Forward$forward_results
+DRF_env_FS <- DRF_env_Forward$selected_variables
+
+DRF_clim_Forward <- forward_selection(DRF_pa, DRF_clim_VIF$variables)
+DRF_clim_Forward$forward_results
+DRF_clim_FS <- DRF_clim_Forward$selected_variables
+
+#______________________________________________________________
+UBA_env_Forward <- forward_selection(UBA_pa, UBA_env_VIF$variables)
+UBA_env_Forward$forward_results
+UBA_env_FS <- UBA_env_Forward$selected_variables
+
+BER_env_Forward <- forward_selection(BER_pa, BER_env_VIF$variables)
+BER_env_Forward$forward_results
+BER_env_FS <- BER_env_Forward$selected_variables
+
+ITA_env_Forward <- forward_selection(ITA_pa, ITA_env_VIF$variables)
+ITA_env_Forward$forward_results
+ITA_env_FS <- ITA_env_Forward$selected_variables
+```
+
+
+
+
+We can plot the important spatial variables to better understand what spatial patterns they describe.
+
+We are only going to plot the four most important ones
+```{r, fig.width= 6, fig.height=6,out.width= 800, out.height=800 , fig.align='center', dpi = 200}
+par(mfrow = c(2,2))
+
+sr_value(Broad_coord, data.frame(Broad_MEM$best$MEM.select)[,1], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("LARGE SCALE", colnames(data.frame(Broad_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
+
+sr_value(Broad_coord, data.frame(Broad_MEM$best$MEM.select)[,2], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("LARGE SCALE", colnames(data.frame(Broad_MEM$best$MEM.select))[2]), line = 3, outer = F, adj = 1)
+
+sr_value(Broad_coord, data.frame(Broad_MEM$best$MEM.select)[,3], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("LARGE SCALE", colnames(data.frame(Broad_MEM$best$MEM.select))[3]), line = 3, outer = F, adj = 1)
+
+sr_value(Broad_coord, data.frame(Broad_MEM$best$MEM.select)[,4], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("LARGE SCALE", colnames(data.frame(Broad_MEM$best$MEM.select))[4]), line = 3, outer = F, adj = 1)
+
+```
+
+\  
+\  
+\  
+\  
+
+
+
+Intermediate Scale DRF.
+```{r, fig.width= 6, fig.height=6,out.width= 800, out.height=800 , fig.align='center', dpi = 200}
+par(mfrow = c(2,2))
+
+sr_value(DRF_coord, data.frame(DRF_MEM$best$MEM.select)[,1], ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("DRF", colnames(data.frame(DRF_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
+
+sr_value(DRF_coord, data.frame(DRF_MEM$best$MEM.select)[,2], ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("DRF", colnames(data.frame(DRF_MEM$best$MEM.select))[2]), line = 3, outer = F, adj = 1)
+
+sr_value(DRF_coord, data.frame(DRF_MEM$best$MEM.select)[,3], ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("DRF", colnames(data.frame(DRF_MEM$best$MEM.select))[3]), line = 3, outer = F, adj = 1)
+
+sr_value(DRF_coord, data.frame(DRF_MEM$best$MEM.select)[,4], ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("DRF", colnames(data.frame(DRF_MEM$best$MEM.select))[4]), line = 3, outer = F, adj = 1)
+
+```
+\  
+\  
+\  
+\  
+
+
+
+Intermediate Scale SSF.
+```{r, fig.width= 6, fig.height=6,out.width= 800, out.height=800 , fig.align='center', dpi = 200}
+
+par(mfrow = c(2,2))
+
+sr_value(SSF_coord, data.frame(SSF_MEM$best$MEM.select)[,1], ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("SSF", colnames(data.frame(SSF_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
+
+sr_value(SSF_coord, data.frame(SSF_MEM$best$MEM.select)[,2], ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("SSF", colnames(data.frame(SSF_MEM$best$MEM.select))[2]), line = 3, outer = F, adj = 1)
+
+sr_value(SSF_coord, data.frame(SSF_MEM$best$MEM.select)[,3], ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("SSF", colnames(data.frame(SSF_MEM$best$MEM.select))[3]), line = 3, outer = F, adj = 1)
+
+sr_value(SSF_coord, data.frame(SSF_MEM$best$MEM.select)[,4], ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("SSF", colnames(data.frame(SSF_MEM$best$MEM.select))[4]), line = 3, outer = F, adj = 1)
+
+```
+
+\  
+\  
+\  
+\  
+
+
+Small Extent DRF - Ubatuba
+```{r, fig.width= 6, fig.height=3,out.width= 800, out.height=400 , fig.align='center', dpi = 200}
+
+par(mfrow = c(1,2))
+
+sr_value(UBA_coord, data.frame(UBA_MEM$best$MEM.select)[,1], ylim = c(-23.37694,-23.33123), xlim = c(-44.95004, -44.80492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("UBA", colnames(data.frame(UBA_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
+
+sr_value(UBA_coord, data.frame(UBA_MEM$best$MEM.select)[,2], ylim = c(-23.37694,-23.33123), xlim = c(-44.95004, -44.80492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("UBA", colnames(data.frame(UBA_MEM$best$MEM.select))[2]), line = 3, outer = F, adj = 1)
+
+```
+
+\  
+\  
+
+
+
+Small Extent SSF - Nova Itapirema.
+```{r, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+par(mfrow = c(1,1))
+
+sr_value(NI_coord, data.frame(NI_MEM$best$MEM.select)[,1], ylim = c(-21.08111,-21.07333), xlim = c(-49.54072, -49.51689), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("NI", colnames(data.frame(NI_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
+```
+
+
+
+Small Extent SSF - Jataí.
+```{r, fig.width= 6, fig.height=3,out.width= 800, out.height=400 , fig.align='center', dpi = 200}
+
+
+par(mfrow = c(1,2))
+
+sr_value(JA_coord, data.frame(JA_MEM$best$MEM.select)[,1], ylim = c(-21.58556, -21.56376), xlim = c(-47.79086, -47.72289), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("JA", colnames(data.frame(JA_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
+
+sr_value(JA_coord, data.frame(JA_MEM$best$MEM.select)[,2], ylim = c(-21.58556, -21.56376), xlim = c(-47.79086, -47.72289), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("JA", colnames(data.frame(JA_MEM$best$MEM.select))[2]), line = 3, outer = F, adj = 1)
+```
+
+\  
+\  
+\  
+\  
+
+
+## Variation Partitioning
+ 
+ 
+
+#### Large Extent
+```{r, cache = TRUE}
+#Variation partitioning Broad
+
+Broad_varpart <- var_partitioning(Y = Broad_pa, 
+                                       env = Broad_env_FS,
+                                       clim = Broad_clim_FS,
+                                       spa = data.frame(Broad_MEM$best$MEM.select), percent_r2 = F)
+
+
+#Testing significande of spatially structured environment
+candidates_Broad_env <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
+                                   weights = c("flin", "fup","fdown"), y_fdown = 5, y_fup = 0.5)
+
+Broad_MEM_env <- listw.select(Broad_env_FS, candidates = candidates_Broad_env, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
+
+Broad_env_spa_sig <- envspace.test(spe = Broad_pa, env = Broad_env_FS,   coord = Broad_coord,  
+              MEM.spe =  data.frame(Broad_MEM$best$MEM.select), 
+              listw.env = candidates_Broad_env[[Broad_MEM_env$best.id]], MEM.autocor = c("positive"),
+              regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
+Broad_env_spa_sig
+
+#Testing significande of spatially structured climate
+Broad_MEM_clim <- listw.select(Broad_clim_FS, candidates = candidates_Broad_env, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
+
+Broad_clim_spa_sig <- envspace.test(spe = Broad_pa, env = Broad_clim_FS,   coord = Broad_coord,  
+              MEM.spe =  data.frame(Broad_MEM$best$MEM.select), 
+              listw.env = candidates_Broad_env[[Broad_MEM_clim$best.id]], MEM.autocor = c("positive"),
+              regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
+Broad_clim_spa_sig
+```
+\  
+\  
+ 
+#### Intermediate Extent
+```{r, cache = TRUE}
+DRF_varpart <- var_partitioning(Y = DRF_pa, 
+                                      env = DRF_env_FS,
+                                      clim = DRF_clim_FS,
+                                      spa = DRF_MEM_FS, percent_r2 = F)
+
+#Testing significande of spatially structured environment
+candidates_DRF_env <- listw.candidates(DRF_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
+                                   weights = c("flin", "fup","fdown"), y_fdown = 5, y_fup = 0.5)
+
+DRF_MEM_env <- listw.select(DRF_env_FS, candidates = candidates_DRF_env, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
+
+DRF_env_spa_sig <- envspace.test(spe = DRF_pa, env = DRF_env_FS,   coord = DRF_coord,  
+              MEM.spe =  data.frame(DRF_MEM$best$MEM.select), 
+              listw.env = candidates_DRF_env[[DRF_MEM_env$best.id]], MEM.autocor = c("positive"),
+              regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
+
+
+#Testing significande of spatially structured climate
+DRF_MEM_clim <- listw.select(DRF_clim_FS, candidates = candidates_DRF_env, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
+
+DRF_clim_spa_sig <- envspace.test(spe = DRF_pa, env = DRF_clim_FS,   coord = DRF_coord,  
+              MEM.spe =  data.frame(DRF_MEM$best$MEM.select), 
+              listw.env = candidates_DRF_env[[DRF_MEM_clim$best.id]], MEM.autocor = c("positive"),
+              regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
+
+
+
+
+###########################################################################################
+SSF_varpart <- var_partitioning(Y = SSF_pa, 
+                                      env = SSF_env_FS,
+                                      clim = SSF_clim_FS,
+                                      spa = SSF_MEM_FS, percent_r2 = F)
+
+#Testing significande of spatially structured environment
+candidates_SSF_env <- listw.candidates(SSF_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
+                                   weights = c("flin", "fup","fdown"), y_fdown = 5, y_fup = 0.5)
+
+SSF_MEM_env <- listw.select(SSF_env_FS, candidates = candidates_SSF_env, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
+
+SSF_env_spa_sig <- envspace.test(spe = SSF_pa, env = SSF_env_FS,   coord = SSF_coord,  
+              MEM.spe =  data.frame(SSF_MEM$best$MEM.select), 
+              listw.env = candidates_SSF_env[[SSF_MEM_env$best.id]], MEM.autocor = c("positive"),
+              regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
+
+
+#Testing significande of spatially structured climate
+SSF_MEM_clim <- listw.select(SSF_clim_FS, candidates = candidates_SSF_env, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
+
+SSF_clim_spa_sig <- envspace.test(spe = SSF_pa, env = SSF_clim_FS,   coord = SSF_coord,  
+              MEM.spe =  data.frame(SSF_MEM$best$MEM.select), 
+              listw.env = candidates_SSF_env[[SSF_MEM_clim$best.id]], MEM.autocor = c("positive"),
+              regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
+
+
+
+DRF_varpart
+DRF_env_spa_sig
+DRF_clim_spa_sig
+
+SSF_varpart
+SSF_env_spa_sig
+SSF_clim_spa_sig
+```
+\  
+\  
+ 
+#### Small Extent
+
+Small Extent allowing negative fractions
+```{r, cache = TRUE}
+ST_varpart <- var_partitioning(ST_pa, ST_env_FS, spa = ST_MEM_FS, allow_negative_r2 = T, percent_r2 = F)
+IC_varpart <- var_partitioning(IC_pa, IC_env_FS, spa = IC_MEM_FS, allow_negative_r2 = T, percent_r2 = F)
+NI_varpart <- var_partitioning(NI_pa, NI_env_FS, spa = NI_MEM_FS, allow_negative_r2 = T, percent_r2 = F)
+#Testing significande of spatially structured environment
+candidates_NI_env <- listw.candidates(NI_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
+                                   weights = c("flin", "fup","fdown"), y_fdown = 5, y_fup = 0.5)
+
+NI_MEM_env <- listw.select(NI_env_FS, candidates = candidates_NI_env, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.1, p.adjust = FALSE, verbose = FALSE) 
+# We are not adjusting p-values here because we assume that if there was a significant spatial and environmental strucutre in species distributions, we want to find spatial patterns in the environment
+
+#There was no significant spatial structure in the environmental variables
+NI_env_spa_sig <- envspace.test(spe = NI_pa, env = NI_env_FS,   coord = NI_coord,  
+              MEM.spe =  NI_MEM_FS, 
+              listw.env = candidates_NI_env$DBEM_PCNM, MEM.autocor = c("positive"),
+              regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
+
+
+MD_varpart <- var_partitioning(MD_pa, MD_env_FS, spa = MD_MEM_FS, allow_negative_r2 = T, percent_r2 = F)
+JA_varpart <- var_partitioning(JA_pa, JA_env_FS, spa = JA_MEM_FS, allow_negative_r2 = T, percent_r2 = F)
+#Testing significande of spatially structured environment
+candidates_JA_env <- listw.candidates(JA_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
+                                   weights = c("flin", "fup","fdown"), y_fdown = 5, y_fup = 0.5)
+
+JA_MEM_env <- listw.select(JA_env_FS, candidates = candidates_JA_env, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.1, p.adjust = FALSE, verbose = FALSE) # We are not adjusting p-values here because we assume that if there was a significant spatial and environmental strucutre in species distributions, we want to find spatial patterns in the environment
+
+#There was no significant spatial structure in the environmental variables
+JA_env_spa_sig <- envspace.test(spe = JA_pa, env = JA_env_FS,   coord = JA_coord,  
+              MEM.spe =  data.frame(JA_MEM$best$MEM.select), 
+              listw.env = candidates_JA_env[[JA_MEM_env$best.id]], MEM.autocor = c("positive"),
+              regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
+
+
+
+
+UBA_varpart <- var_partitioning(UBA_pa, UBA_env_FS, spa = UBA_MEM_FS, allow_negative_r2 = T, percent_r2 = F)
+
+#Testing significande of spatially structured environment
+candidates_UBA_env <- listw.candidates(UBA_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
+                                   weights = c("flin", "fup","fdown"), y_fdown = 5, y_fup = 0.5)
+
+UBA_MEM_env <- listw.select(UBA_env_FS, candidates = candidates_UBA_env, MEM.autocor = c("positive"), method = c("FWD"),
+             MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
+
+#There was no significant spatial structure in the environmental variables, thus we used the one selected for the species
+UBA_env_spa_sig <- envspace.test(spe = UBA_pa, env = UBA_env_FS,   coord = UBA_coord,  
+              MEM.spe =  data.frame(UBA_MEM$best$MEM.select), 
+              listw.env = candidates_UBA_env[[UBA_MEM$best.id]], MEM.autocor = c("positive"),
+              regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
+
+
+BER_varpart <- var_partitioning(BER_pa, BER_env_FS, spa = BER_MEM_FS, allow_negative_r2 = T, percent_r2 = F)
+ITA_varpart <- var_partitioning(ITA_pa, ITA_env_FS, spa = ITA_MEM_FS, allow_negative_r2 = T, percent_r2 = F)
+
+
+ST_varpart
+
+IC_varpart
+
+NI_varpart
+NI_env_spa_sig
+
+MD_varpart
+
+JA_varpart
+JA_env_spa_sig
+
+UBA_varpart
+UBA_env_spa_sig
+
+BER_varpart
+
+ITA_varpart
+```
+\  
+\  
+  
+  
+
+Small Extent not allowing negative fractions
+```{r, cache = TRUE}
+ST_varpart2 <- var_partitioning(ST_pa, ST_env_FS, spa = ST_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
+IC_varpart2 <- var_partitioning(IC_pa, IC_env_FS, spa = IC_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
+NI_varpart2 <- var_partitioning(NI_pa, NI_env_FS, spa = NI_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
+MD_varpart2 <- var_partitioning(MD_pa, MD_env_FS, spa = MD_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
+JA_varpart2 <- var_partitioning(JA_pa, JA_env_FS, spa = JA_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
+
+UBA_varpart2 <- var_partitioning(UBA_pa, UBA_env_FS, spa = UBA_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
+BER_varpart2 <- var_partitioning(BER_pa, BER_env_FS, spa = BER_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
+ITA_varpart2 <- var_partitioning(ITA_pa, ITA_env_FS, spa = ITA_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
+
+ST_varpart2
+IC_varpart2
+NI_varpart2
+MD_varpart2
+JA_varpart2
+
+UBA_varpart2
+BER_varpart2
+ITA_varpart2
+```
+\  
+\  
+
+
+
+Constructing a matrix with all R2 values (with negative values)
+```{r, message=FALSE, warning=FALSE}
+
+Varpart_plot_neg <- data.frame(Broad_varpart[,1],
+                           SSF_varpart[,1],
+                           DRF_varpart[,1],
+                           ST_varpart[,1],
+                           IC_varpart[,1],
+                           NI_varpart[,1],
+                           MD_varpart[,1],
+                           JA_varpart[,1],
+                           UBA_varpart[,1],
+                           BER_varpart[,1],
+                           ITA_varpart[,1])
+
+colnames(Varpart_plot_neg) <- c("Broad", "SSF", "DRF", "Santa Fé do Sul", "Icém", "Nova Itapirema", "Morro do Diabo", "Jataí", "Ubatuba", "Bertioga", "Itanhaém")
+
+for(i in 1:dim(Varpart_plot_neg)[1]){
+  for(j in 1:dim(Varpart_plot_neg)[2]){
+    if(is.na(Varpart_plot_neg[i,j])){Varpart_plot_neg[i,j] <- 0}
+  }
+}
+
+Varpart_plot_neg
+```
+\  
+\    
+\  
+\      
+
+
+Constructing a matrix with all p values (with negative R2 values)
+```{r, message=FALSE, warning=FALSE}
+
+Varpart_plot_p <- data.frame(Broad_varpart[,4],
+                           SSF_varpart[,4],
+                           DRF_varpart[,4],
+                           ST_varpart[,4],
+                           IC_varpart[,4],
+                           NI_varpart[,4],
+                           MD_varpart[,4],
+                           JA_varpart[,4],
+                           UBA_varpart[,4],
+                           BER_varpart[,4],
+                           ITA_varpart[,4])
+
+colnames(Varpart_plot_p) <- c("Broad", "SSF", "DRF", "Santa Fé do Sul", "Icém", "Nova Itapirema", "Morro do Diabo", "Jataí", "Ubatuba", "Bertioga", "Itanhaém")
+
+Varpart_plot_p
+```
+\  
+\    
+\  
+\      
+
+
+
+
+
+
+Constructing a matrix with all R2 values (without negative values)
+```{r, message=FALSE, warning=FALSE}
+
+Varpart_plot <- data.frame(Broad_varpart[,1],
+                           SSF_varpart[,1],
+                           DRF_varpart[,1],
+                           ST_varpart2[,1],
+                           IC_varpart2[,1],
+                           NI_varpart2[,1],
+                           MD_varpart2[,1],
+                           JA_varpart2[,1],
+                           UBA_varpart2[,1],
+                           BER_varpart2[,1],
+                           ITA_varpart2[,1])
+
+colnames(Varpart_plot) <- c("Broad", "SSF", "DRF", "Santa Fé do Sul", "Icém", "Nova Itapirema", "Morro do Diabo", "Jataí", "Ubatuba", "Bertioga", "Itanhaém")
+
+for(i in 1:dim(Varpart_plot)[1]){
+  for(j in 1:dim(Varpart_plot)[2]){
+    if(is.na(Varpart_plot[i,j])){Varpart_plot[i,j] <- 0}
+  }
+}
+
+Varpart_plot
+```
+\  
+\    
+\  
+\      
+
+
+
+  
+
+Plotting the Variation Partioning as barplots.
+```{r, fig.height= 7,fig.width=8,out.width= 800, out.height=700 , fig.align='center', dpi = 200}
+Varpart_barplot <- Varpart_plot[-c(1:4),]
+Varpart_barplot_break <- Varpart_barplot; Varpart_barplot_break[8,] <- Varpart_barplot_break[8,]-0.2
+Varpart_barplot_break <- Varpart_barplot_break[c(1,4,3,6,2,5,7,8),]
+
+par(mfrow = c(1,1))
+barplot(as.matrix(Varpart_barplot_break), axes = F, col = c(Pure_Env = "gold",
+                                                            Env_Spa = mix_color(alpha = 0.4,"gold","cornflowerblue"),
+                                                            Pure_Spa = "cornflowerblue",
+                                                            Spa_Clim  = mix_color(alpha = 0.4,"brown1","cornflowerblue"),
+                                                            Pure_Clim = "brown1",
+                                                            Env_Clim  = mix_color(alpha = 0.4,"brown1","gold"),
+                                                            Spa_Clim_Env = mix_color(alpha = 0.7,"brown1","grey"),
+                                                            Resid = "grey80"), space = c(0,2,1,2,1,1,1,1,2,1,1), border = "white",
+        legend.text = c("Environment","Environment-Space","Space","Climate-Space","Climate","Climate-Environment","All three","Residual"), ylim = c(0,0.8),
+        args.legend	= list(x = -0.5,y = 0.9, yjust = 1, xjust = 0, horiz = F, ncol = 4, box.col = "transparent",text.width = 5, border = "white"), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
+axis(2, at = c(0,0.1,0.2,0.3,0.4,0.5,0.6, 0.7, 0.8), labels = c("0 %","10 %","20 %","30 %","40 %","50 %","60 %","70%","100%"))
+axis.break(2, 0.75, style = "slash") 
+axis(1,at = c(0.5,4.5,16),line = 2, labels =c("Broad","Intermediate","Fine"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+axis(1,at = c(12.5,21.5),line = 0.5, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.1)
+text(c(0.5,   3.5,5.5   ,8.5,10.5,12.5,14.5,16.5,    19.5,21.5,23.5),rep(0.79,11), labels =c("All","SSF","DRF","Santa Fé do Sul","Icém","Nova Itapirema","Morro do Diabo","Jataí","Ubatuba","Bertioga","Itanhaém"), srt = 90, adj = 1, col = "grey45")
+#text(c(10.5,12.5,16.5,16.5,19.5),c(0.1,0.08,0.17,0.59,0.03), labels =c("*","*","*","*","*","*"), adj = 0.5, col = "white", cex = 2)
+#text(c(0.5,0.5,0.5),c(0.01,0.12,0.299), labels =c("*","*","*"), adj = 0.5, col = "white", cex = 2)
+#text(c(3.5,3.5),c(0.02,0.1), labels =c("*","*","*"), adj = 0.5, col = "white", cex = 2)
+#text(c(5.5,5.5),c(0.01,0.065), labels =c("*","*","*"), adj = 0.5, col = "white", cex = 2)
+
+#text(c(0.5,0.3,0.7,0.5),c(0.24,0.35,0.35,0.035), labels =c("*","*","*","*"), adj = 0.5, col = c("brown1","brown1","gold","gold"), cex = 2)
+
+#text(c(3.5,3.3,3.7),c(0.22,0.3075,0.3075), labels =c("*","*","*"), adj = 0.5, col = c("brown1","brown1","gold"), cex = 2)
+
+#text(c(5.5,5.3, 5.7),c(0.115,0.145,0.145), labels =c("*","*","*"), adj = 0.5, col = c("brown1","brown1","gold"), cex = 2)
+
+
+###Mudar para simbolos
+
+#cada simbolo representa env, clim e spa
+#os shared serão os simbolos de spa com cores dos outros
+```
+The asterisks represent significant fractions.
+\  
+\  
+\  
+
+
+
+
+Creating some new important fractions
+```{r}
+Env_Spatially_Structured <- Varpart_plot["Env_Spa",] + Varpart_plot["Spa_Clim_Env",]
+Env_Non_Spatially_Structured <- Varpart_plot["Pure_Env",] + Varpart_plot["Env_Clim",]
+Clim_Spatially_Structured <- Varpart_plot["Spa_Clim",] + Varpart_plot["Spa_Clim_Env",]
+Clim_Non_Spatially_Structured <- Varpart_plot["Pure_Clim",] + Varpart_plot["Env_Clim",]
+Non_Spatially_Climate_Environment <- Varpart_plot["Pure_Env",] + Varpart_plot["Pure_Clim",] + Varpart_plot["Env_Clim",]
+Spatially_Climate_Environment <- Varpart_plot["Spa_Clim",] + Varpart_plot["Env_Spa",] + Varpart_plot["Spa_Clim_Env",]
+Total_Climate_Environment <- Spatially_Climate_Environment + Non_Spatially_Climate_Environment
+#Total_Climate_Environment["Nova Itapirema"] <- 0
+
+Varpart_plot <- rbind(Varpart_plot,
+                      Env_Spatially_Structured = Env_Spatially_Structured,
+                      Env_Non_Spatially_Structured = Env_Non_Spatially_Structured,
+                      Clim_Spatially_Structured = Clim_Spatially_Structured,
+                      Clim_Non_Spatially_Structured = Clim_Non_Spatially_Structured,
+                      Non_Spatially_Climate_Environment = Non_Spatially_Climate_Environment,
+                      Spatially_Climate_Environment = Spatially_Climate_Environment,
+                      Total_Climate_Environment = Total_Climate_Environment)
+```
+
+
+
+
+
+
+
+
+Means of fractions in all extents
+```{r}
+se <- function(x){
+  sd(x)/sqrt(length(x))
+}
+
+
+Means_spatial_extent <- data.frame(Broad_Extent = Varpart_plot[,1],
+           Intermediate_Extent = apply(Varpart_plot[,2:3],1,mean),
+           Small_Extent = apply(Varpart_plot[,4:11],1,mean))
+
+se_spatial_extent <- data.frame(Intermediate_Extent = apply(Varpart_plot[,2:3],1,se),
+           Small_Extent = apply(Varpart_plot[,4:11],1,se))
+
+se_spatial_extent_upper <- Means_spatial_extent[,2:3] + se_spatial_extent
+se_spatial_extent_lower <- Means_spatial_extent[,2:3] - se_spatial_extent
+
+Means_spatial_extent
+```
+\  
+
+
+
+Means of fractions in small extent
+```{r}
+Means_small_extent <- data.frame(SSF = apply(Varpart_plot[,4:8],1,mean),
+           DRF = apply(Varpart_plot[,9:11],1,mean))
+
+se_small_extent <- data.frame(SSF = apply(Varpart_plot[,4:8],1,se),
+           DRF = apply(Varpart_plot[,9:11],1,se))
+
+se_small_extent_upper <- Means_small_extent + se_small_extent
+se_small_extent_lower <- Means_small_extent - se_small_extent
+
+Means_small_extent
+```
+\  
+
+
+
+
+
+```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
+par(mfrow = c(1,3))
+
+
+barplot(as.matrix(Means_spatial_extent[c(16,15),]), axes = F, col = c("brown1",mix_color(alpha = 0.5,"brown1","grey25")), space = c(0,1,1),
+        border = "white", ylim = c(0,0.4), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Climate")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[3,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[3,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(Means_spatial_extent[c(14,13),]), axes = F, col = c("gold",mix_color(alpha = 0.5,"gold","grey25")), space = c(0,1,1),
+        border = "white", ylim = c(0,0.4), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Local Environment")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[2,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[2,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+
+barplot(as.matrix(Means_spatial_extent[c(7,18),]), axes = F, col = c("cornflowerblue",mix_color(alpha = 0.5,"cornflowerblue","grey25")), space = c(0,1,1),
+        border = "white", ylim = c(0,0.4), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Space")
+arrows(y0 = c(as.matrix(se_spatial_extent_lower[4,])),
+       y1 = c(as.matrix(se_spatial_extent_upper[4,])),
+       x1 = c(2.5,4.5),
+       x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+```
+
+
+```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
+par(mfrow = c(1,3))
+
+barplot(as.matrix(Varpart_plot[c("Clim_Non_Spatially_Structured", "Clim_Spatially_Structured"),c("SSF","DRF")]),
+        axes = F, col = c("brown1",mix_color(alpha = 0.5,"brown1","grey25")), space = c(0,1,2,1),
+        border = "white", ylim = c(0,0.4), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Climate")
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
+axis(1,at = c(1.5,6.5),line = 1, labels =c("Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+axis(1,at = c(0.5,2.5,5.5,7.5),line = -0.5, labels =c("SSF","DRF", "SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+barplot(as.matrix(data.frame(Varpart_plot[c("Env_Non_Spatially_Structured", "Env_Spatially_Structured"),c("SSF","DRF")],
+        Means_small_extent[c("Env_Non_Spatially_Structured","Env_Spatially_Structured"),])),
+        axes = F, col = c("gold",mix_color(alpha = 0.5,"gold","grey25")), space = c(0,1,2,1),
+        border = "white", ylim = c(0,0.4), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Local Environment")
+arrows(y0 = c(as.matrix(se_small_extent_lower["Env",])),
+       y1 = c(as.matrix(se_small_extent_upper["Env",])),
+       x1 = c(5.5,7.5),
+       x0 = c(5.5,7.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
+axis(1,at = c(1.5,6.5),line = 1, labels =c("Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+axis(1,at = c(0.5,2.5,5.5,7.5),line = -0.5, labels =c("SSF","DRF", "SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+
+
+
+barplot(as.matrix(data.frame(Varpart_plot[c("Pure_Spa", "Spatially_Climate_Environment"),c("SSF","DRF")],
+  Means_small_extent[c("Pure_Spa","Spatially_Climate_Environment"),])),
+  axes = F, col = c("cornflowerblue",mix_color(alpha = 0.5,"cornflowerblue","grey25")), space = c(0,1,2,1),
+  border = "white", ylim = c(0,0.4), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Space")
+arrows(y0 = c(as.matrix(se_small_extent_lower["Spa",])),
+       y1 = c(as.matrix(se_small_extent_upper["Spa",])),
+       x1 = c(5.5,7.5),
+       x0 = c(5.5,7.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
+axis(1,at = c(1.5,6.5),line = 1, labels =c("Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+axis(1,at = c(0.5,2.5,5.5,7.5),line = -0.5, labels =c("SSF","DRF", "SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+```
+
+
+
+
+
+```{r, fig.height= 5,fig.width=10,out.width= 1000, out.height=500 , fig.align='center', dpi = 200}
+par(mfrow = c(1,3))
+
+barplot(as.matrix(Varpart_plot[c("Clim_Non_Spatially_Structured", "Clim_Spatially_Structured"),c("Broad","SSF","DRF")]),
+        axes = F, col = c("brown1",mix_color(alpha = 0.5,"brown1","grey25")), space = c(0.75,1.5,0.5,1.5,0.5),
+        border = "white", ylim = c(0,0.4), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Climate", xlim = c(0,9.75) )
+
+arrows(y0 = c(as.matrix(se_small_extent_lower["Clim",])),
+       y1 = c(as.matrix(se_small_extent_upper["Clim",])),
+       x1 = c(7.75,9.25),
+       x0 = c(7.75,9.25),  code = 3, angle = 90, length = 0.1, lwd = 1)
+
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
+
+axis(1,at = c(1.25,4.5,8.5),line = 1, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
+axis(1,at = c(3.75,5.25,7.75,9.25),line = -0.5, labels =c("SSF","DRF", "SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
+
+
+
+barplot(as.matrix(data.frame(Varpart_plot[c("Env_Non_Spatially_Structured", "Env_Spatially_Structured"),c("Broad","SSF","DRF")],
+        Means_small_extent[c("Env_Non_Spatially_Structured","Env_Spatially_Structured"),])),
+        axes = F, col = c("gold",mix_color(alpha = 0.5,"gold","grey25")), space = c(0.75,1.5,0.5,1.5,0.5),
+        border = "white", ylim = c(0,0.4), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "local Environment", xlim = c(0,9.75) )
+
+arrows(y0 = c(as.matrix(se_small_extent_lower["Env",])),
+       y1 = c(as.matrix(se_small_extent_upper["Env",])),
+       x1 = c(7.75,9.25),
+       x0 = c(7.75,9.25),  code = 3, angle = 90, length = 0.1, lwd = 1)
+
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
+
+axis(1,at = c(1.25,4.5,8.5),line = 1, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
+axis(1,at = c(3.75,5.25,7.75,9.25),line = -0.5, labels =c("SSF","DRF", "SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
+
+
+
+
+barplot(as.matrix(data.frame(Varpart_plot[c("Pure_Spa", "Spatially_Climate_Environment"),c("Broad","SSF","DRF")],
+        Means_small_extent[c("Pure_Spa","Spatially_Climate_Environment"),])),
+        axes = F, col = c("cornflowerblue",mix_color(alpha = 0.5,"cornflowerblue","grey25")), space = c(0.75,1.5,0.5,1.5,0.5),
+        border = "white", ylim = c(0,0.4), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Space", xlim = c(0,9.75) )
+
+arrows(y0 = c(as.matrix(se_small_extent_lower["Spa",])),
+       y1 = c(as.matrix(se_small_extent_upper["Spa",])),
+       x1 = c(7.75,9.25),
+       x0 = c(7.75,9.25),  code = 3, angle = 90, length = 0.1, lwd = 1)
+
+axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
+
+axis(1,at = c(1.25,4.5,8.5),line = 1, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
+axis(1,at = c(3.75,5.25,7.75,9.25),line = -0.5, labels =c("SSF","DRF", "SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
+
+
+
+
+
+```
+
+
