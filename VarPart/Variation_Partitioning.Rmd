@@ -54,7 +54,7 @@ library(spdep)
 
 To remove multicolinear variables from our Environmental Matrix I built a function that removes variables with the variance inflation factor (VIF) higher than 3. The function `VIF_selection()` simply uses the `vif.cca()` from the `vegan` package. 
 ```{r}
-Broad_env_VIF <- VIF_selection(Broad_pa,  Broad_env_st[,-6])
+Broad_env_VIF <- VIF_selection(Broad_pa,  Broad_env_st[,-7])
 Broad_env_VIF$VIFs
 
 
@@ -112,7 +112,7 @@ DRF_clim_VIF$VIFs
 ## Spatial Variables
 
 Constructing matrices of spatial filters
-```{r, cache = TRUE, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+```{r, cache = FALSE, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
 set.seed(5)
 
 candidates_Broad <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
@@ -305,7 +305,8 @@ Similarly to removing variables with VIF higher than 3, I built a function to se
 
 
 ### Broad Spatial Extent
-```{r, cache = TRUE, warning=FALSE}
+```{r, cache = FALSE, warning=FALSE}
+set.seed(5)
 Broad_env_Forward <- forward_selection(Broad_pa, Broad_env_VIF$variables)
 Broad_env_Forward$forward_results
 Broad_env_FS <- Broad_env_Forward$selected_variables
@@ -498,14 +499,13 @@ title(main = paste("JA", colnames(data.frame(JA_MEM$best$MEM.select))[2]), line 
  
 
 #### Large Extent
-```{r, cache = TRUE}
+```{r, cache = FALSE}
 #Variation partitioning Broad
 
 Broad_varpart <- var_partitioning(Y = Broad_pa, 
                                        env = Broad_env_FS,
                                        clim = Broad_clim_FS,
                                        spa = data.frame(Broad_MEM$best$MEM.select), percent_r2 = F)
-
 
 #Testing significande of spatially structured environment
 candidates_Broad_env <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
@@ -518,7 +518,6 @@ Broad_env_spa_sig <- envspace.test(spe = Broad_pa, env = Broad_env_FS,   coord =
               MEM.spe =  data.frame(Broad_MEM$best$MEM.select), 
               listw.env = candidates_Broad_env[[Broad_MEM_env$best.id]], MEM.autocor = c("positive"),
               regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
-Broad_env_spa_sig
 
 #Testing significande of spatially structured climate
 Broad_MEM_clim <- listw.select(Broad_clim_FS, candidates = candidates_Broad_env, MEM.autocor = c("positive"), method = c("FWD"),
@@ -528,13 +527,18 @@ Broad_clim_spa_sig <- envspace.test(spe = Broad_pa, env = Broad_clim_FS,   coord
               MEM.spe =  data.frame(Broad_MEM$best$MEM.select), 
               listw.env = candidates_Broad_env[[Broad_MEM_clim$best.id]], MEM.autocor = c("positive"),
               regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
+
+
+
+Broad_varpart
+Broad_env_spa_sig
 Broad_clim_spa_sig
 ```
 \  
 \  
  
 #### Intermediate Extent
-```{r, cache = TRUE}
+```{r, cache = FALSE}
 DRF_varpart <- var_partitioning(Y = DRF_pa, 
                                       env = DRF_env_FS,
                                       clim = DRF_clim_FS,
@@ -609,7 +613,7 @@ SSF_clim_spa_sig
 #### Small Extent
 
 Small Extent allowing negative fractions
-```{r, cache = TRUE}
+```{r, cache = FALSE}
 ST_varpart <- var_partitioning(ST_pa, ST_env_FS, spa = ST_MEM_FS, allow_negative_r2 = T, percent_r2 = F)
 IC_varpart <- var_partitioning(IC_pa, IC_env_FS, spa = IC_MEM_FS, allow_negative_r2 = T, percent_r2 = F)
 NI_varpart <- var_partitioning(NI_pa, NI_env_FS, spa = NI_MEM_FS, allow_negative_r2 = T, percent_r2 = F)
@@ -691,7 +695,24 @@ ITA_varpart
   
 
 Small Extent not allowing negative fractions
-```{r, cache = TRUE}
+```{r, cache = FALSE}
+Broad_varpart2 <- var_partitioning(Y = Broad_pa, 
+                                       env = Broad_env_FS,
+                                       clim = Broad_clim_FS,
+                                       spa = data.frame(Broad_MEM$best$MEM.select), percent_r2 = F, allow_negative_r2 = F)
+
+DRF_varpart2 <- var_partitioning(Y = DRF_pa, 
+                                      env = DRF_env_FS,
+                                      clim = DRF_clim_FS,
+                                      spa = DRF_MEM_FS, percent_r2 = F, allow_negative_r2 = F)
+
+SSF_varpart2 <- var_partitioning(Y = SSF_pa, 
+                                      env = SSF_env_FS,
+                                      clim = SSF_clim_FS,
+                                      spa = SSF_MEM_FS, percent_r2 = F, allow_negative_r2 = F)
+
+
+
 ST_varpart2 <- var_partitioning(ST_pa, ST_env_FS, spa = ST_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
 IC_varpart2 <- var_partitioning(IC_pa, IC_env_FS, spa = IC_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
 NI_varpart2 <- var_partitioning(NI_pa, NI_env_FS, spa = NI_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
@@ -780,9 +801,9 @@ Varpart_plot_p
 Constructing a matrix with all R2 values (without negative values)
 ```{r, message=FALSE, warning=FALSE}
 
-Varpart_plot <- data.frame(Broad_varpart[,1],
-                           SSF_varpart[,1],
-                           DRF_varpart[,1],
+Varpart_plot <- data.frame(Broad_varpart2[,1],
+                           SSF_varpart2[,1],
+                           DRF_varpart2[,1],
                            ST_varpart2[,1],
                            IC_varpart2[,1],
                            NI_varpart2[,1],

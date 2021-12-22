@@ -36,15 +36,15 @@ a function that removes variables with the variance inflation factor
 `vif.cca()` from the `vegan` package.
 
 ``` r
-Broad_env_VIF <- VIF_selection(Broad_pa,  Broad_env_st[,-6])
+Broad_env_VIF <- VIF_selection(Broad_pa,  Broad_env_st[,-7])
 Broad_env_VIF$VIFs
 ```
 
     ## [[1]]
-    ##    hydroperiod   canopy_cover           area          depth     arbust_veg 
-    ##       1.286536       1.451979       1.139009       1.341646       1.319669 
-    ## dist_to_forest      ecoregion 
-    ##       1.357872       1.629874
+    ##    hydroperiod           area          depth   canopy_cover            nvt 
+    ##       1.237565       1.118756       1.340180       1.488527       1.617198 
+    ## dist_to_forest 
+    ##       1.319102
 
 ``` r
 SSF_env_VIF <- VIF_selection(SSF_pa,  SSF_env_st)
@@ -52,10 +52,10 @@ SSF_env_VIF$VIFs
 ```
 
     ## [[1]]
-    ##    hydroperiod   canopy_cover           area          depth     arbust_veg 
-    ##       1.290581       1.421941       1.370161       1.480381       1.266830 
-    ##      arbor_veg dist_to_forest 
-    ##       1.640280       1.143554
+    ##    hydroperiod           area          depth   canopy_cover            nvt 
+    ##       1.287250       1.287689       1.443912       1.293051       1.492950 
+    ## dist_to_forest 
+    ##       1.136891
 
 ``` r
 ST_env_VIF <- VIF_selection(ST_pa,  ST_env_st)
@@ -63,15 +63,15 @@ ST_env_VIF$VIFs
 ```
 
     ## [[1]]
-    ##    hydroperiod           area          depth     arbust_veg dist_to_forest 
+    ##    hydroperiod           area          depth            nvt dist_to_forest 
     ##      27.479904      11.917983       5.386203      20.148713       1.807948 
     ## 
     ## [[2]]
-    ##           area          depth     arbust_veg dist_to_forest 
+    ##           area          depth            nvt dist_to_forest 
     ##       3.533032       2.360081       2.639484       1.668725 
     ## 
     ## [[3]]
-    ##          depth     arbust_veg dist_to_forest 
+    ##          depth            nvt dist_to_forest 
     ##       1.444899       1.301229       1.367747
 
 ``` r
@@ -80,18 +80,12 @@ IC_env_VIF$VIFs
 ```
 
     ## [[1]]
-    ##    hydroperiod           area          depth     arbust_veg      arbor_veg 
-    ##      13.994042       8.475701       3.746172       8.829321       6.070905 
-    ## dist_to_forest 
-    ##       3.751443 
+    ##    hydroperiod           area          depth            nvt dist_to_forest 
+    ##       5.342364       5.518649       3.465826       3.219143       3.331453 
     ## 
     ## [[2]]
-    ##           area          depth     arbust_veg      arbor_veg dist_to_forest 
-    ##       3.025874       3.662616       4.677666       2.363837       1.857459 
-    ## 
-    ## [[3]]
-    ##           area          depth      arbor_veg dist_to_forest 
-    ##       2.431287       1.283145       1.961016       1.419327
+    ##    hydroperiod          depth            nvt dist_to_forest 
+    ##       2.895120       1.516899       1.606162       2.715728
 
 ``` r
 NI_env_VIF <- VIF_selection(NI_pa,  NI_env_st)
@@ -99,11 +93,11 @@ NI_env_VIF$VIFs
 ```
 
     ## [[1]]
-    ##    hydroperiod           area          depth     arbust_veg dist_to_forest 
+    ##    hydroperiod           area          depth            nvt dist_to_forest 
     ##       1.502173       4.868245       4.697667       1.834039       2.256836 
     ## 
     ## [[2]]
-    ##    hydroperiod          depth     arbust_veg dist_to_forest 
+    ##    hydroperiod          depth            nvt dist_to_forest 
     ##       1.487856       1.157613       1.493676       1.441587
 
 ``` r
@@ -112,22 +106,18 @@ MD_env_VIF$VIFs
 ```
 
     ## [[1]]
-    ##    hydroperiod   canopy_cover           area          depth     arbust_veg 
-    ##       8.498641      88.204089      23.930816      11.021950       4.384440 
-    ##      arbor_veg dist_to_forest 
-    ##       4.538795      99.155716 
+    ##    hydroperiod           area          depth   canopy_cover            nvt 
+    ##       6.123821      15.263901       3.075865      36.928117       3.436439 
+    ## dist_to_forest 
+    ##      43.153516 
     ## 
     ## [[2]]
-    ##  hydroperiod canopy_cover         area        depth   arbust_veg    arbor_veg 
-    ##     4.305173     1.952042     8.327303     6.938457     3.759482     3.795006 
+    ##  hydroperiod         area        depth canopy_cover          nvt 
+    ##     3.843659     5.706331     2.499002     1.637214     3.434896 
     ## 
     ## [[3]]
-    ##  hydroperiod canopy_cover        depth   arbust_veg    arbor_veg 
-    ##     3.651985     1.438614     3.580236     3.611676     1.119540 
-    ## 
-    ## [[4]]
-    ## canopy_cover        depth   arbust_veg    arbor_veg 
-    ##     1.438399     1.554905     1.443346     1.100250
+    ##  hydroperiod        depth canopy_cover          nvt 
+    ##     1.770317     1.879809     1.410612     1.508743
 
 ``` r
 JA_env_VIF <- VIF_selection(JA_pa,  JA_env_st)
@@ -135,24 +125,18 @@ JA_env_VIF$VIFs
 ```
 
     ## [[1]]
-    ##    hydroperiod   canopy_cover           area          depth     arbust_veg 
-    ##      21.043712      11.498156       4.974863       7.169020       2.337838 
-    ##      arbor_veg dist_to_forest 
-    ##       6.306300      14.270869 
+    ##    hydroperiod           area          depth   canopy_cover            nvt 
+    ##      14.962311       3.081842       5.988699       7.691347       3.453394 
+    ## dist_to_forest 
+    ##      12.622399 
     ## 
     ## [[2]]
-    ##   canopy_cover           area          depth     arbust_veg      arbor_veg 
-    ##       7.704533       3.143530       3.717337       2.237136       5.688753 
-    ## dist_to_forest 
-    ##       7.837156 
+    ##           area          depth   canopy_cover            nvt dist_to_forest 
+    ##       1.961897       4.322304       6.871158       3.356278       7.533870 
     ## 
     ## [[3]]
-    ## canopy_cover         area        depth   arbust_veg    arbor_veg 
-    ##     3.666590     1.907343     2.799926     1.590391     5.648083 
-    ## 
-    ## [[4]]
-    ## canopy_cover         area        depth   arbust_veg 
-    ##     1.403846     1.622256     1.596348     1.507106
+    ##         area        depth canopy_cover          nvt 
+    ##     1.450483     2.089961     2.081341     2.864143
 
 ``` r
 DRF_env_VIF <- VIF_selection(DRF_pa,  DRF_env_st)
@@ -160,10 +144,10 @@ DRF_env_VIF$VIFs
 ```
 
     ## [[1]]
-    ##    hydroperiod   canopy_cover           area          depth      arbor_veg 
-    ##       1.335097       1.284025       1.296877       1.355938       1.057982 
+    ##    hydroperiod           area          depth   canopy_cover            nvt 
+    ##       1.338500       1.296349       1.356465       1.272615       1.048673 
     ## dist_to_forest 
-    ##       1.380390
+    ##       1.368314
 
 ``` r
 UBA_env_VIF <- VIF_selection(UBA_pa,  UBA_env_st)
@@ -171,12 +155,12 @@ UBA_env_VIF$VIFs
 ```
 
     ## [[1]]
-    ##    hydroperiod   canopy_cover           area          depth dist_to_forest 
-    ##       1.444507       1.517073       7.027610       1.752700       6.859993 
+    ##    hydroperiod           area          depth   canopy_cover dist_to_forest 
+    ##       1.436660       7.001901       1.750901       1.459906       6.699443 
     ## 
     ## [[2]]
-    ##    hydroperiod   canopy_cover          depth dist_to_forest 
-    ##       1.345960       1.466037       1.606077       1.710966
+    ##    hydroperiod          depth   canopy_cover dist_to_forest 
+    ##       1.341421       1.599294       1.415973       1.643447
 
 ``` r
 BER_env_VIF <- VIF_selection(BER_pa,  BER_env_st)
@@ -184,16 +168,16 @@ BER_env_VIF$VIFs
 ```
 
     ## [[1]]
-    ##    hydroperiod   canopy_cover           area          depth dist_to_forest 
-    ##       3.107574       1.792601       8.375663       2.415887       8.261786 
+    ##    hydroperiod           area          depth   canopy_cover dist_to_forest 
+    ##       3.117432       8.428997       2.304574       1.663244       7.972957 
     ## 
     ## [[2]]
-    ##    hydroperiod   canopy_cover          depth dist_to_forest 
-    ##       2.194544       1.694149       2.377779       4.283174 
+    ##    hydroperiod          depth   canopy_cover dist_to_forest 
+    ##       2.192425       2.253493       1.561949       4.070420 
     ## 
     ## [[3]]
-    ##  hydroperiod canopy_cover        depth 
-    ##     1.611632     1.426723     1.159804
+    ##  hydroperiod        depth canopy_cover 
+    ##     1.541888     1.154773     1.384145
 
 ``` r
 ITA_env_VIF <- VIF_selection(ITA_pa,  ITA_env_st)
@@ -201,8 +185,8 @@ ITA_env_VIF$VIFs
 ```
 
     ## [[1]]
-    ##  hydroperiod canopy_cover         area        depth    arbor_veg 
-    ##     2.400799     1.625552     1.532619     1.999819     1.311338
+    ##  hydroperiod         area        depth canopy_cover          nvt 
+    ##     2.342853     1.671319     1.996469     1.828709     1.458903
 
    
 
@@ -215,15 +199,15 @@ Broad_clim_VIF$VIFs
 
     ## [[1]]
     ## temp_Season  range_temp  total_prec prec_season 
-    ##    16.70154    11.09451    37.77466    37.44331 
+    ##    16.76472    11.05404    37.92818    37.69109 
     ## 
     ## [[2]]
     ## temp_Season  range_temp prec_season 
-    ##    3.034782    2.140178    4.860439 
+    ##    3.035253    2.145741    4.869951 
     ## 
     ## [[3]]
     ## temp_Season  range_temp 
-    ##    1.169728    1.169728
+    ##    1.167625    1.167625
 
 ``` r
 SSF_clim_VIF <- VIF_selection(SSF_pa,  SSF_clim_st)
@@ -232,15 +216,15 @@ SSF_clim_VIF$VIFs
 
     ## [[1]]
     ## temp_Season  range_temp  total_prec prec_season 
-    ##   44.759191    5.971934    3.197284   52.382832 
+    ##   45.128386    5.922860    3.172604   52.669397 
     ## 
     ## [[2]]
     ## temp_Season  range_temp  total_prec 
-    ##    2.026442    4.722364    3.061846 
+    ##    2.035689    4.718471    3.046979 
     ## 
     ## [[3]]
     ## temp_Season  total_prec 
-    ##    1.157234    1.157234
+    ##     1.15459     1.15459
 
 ``` r
 DRF_clim_VIF <- VIF_selection(DRF_pa,  DRF_clim_st)
@@ -283,13 +267,12 @@ Broad_MEM <- listw.select(Broad_pa, candidates = candidates_Broad, MEM.autocor =
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.259615 with 4 variables (> 0.259615)
-    ## Procedure stopped (alpha criteria): pvalue for variable 11 is 0.080592 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 18 is 0.052895 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 18 is 0.065693 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 19 is 0.058094 (> 0.050000)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.404883 with 25 variables (> 0.404089)
-    ## Procedure stopped (alpha criteria): pvalue for variable 23 is 0.059094 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 11 is 0.054295 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 18 is 0.059994 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 17 is 0.070493 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 20 is 0.056794 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 21 is 0.052895 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 23 is 0.065293 (> 0.050000)
 
 ``` r
 Broad_MEM_FS <- Broad_MEM$best$MEM.select
@@ -312,8 +295,8 @@ DRF_MEM <- listw.select(DRF_pa, candidates = candidates_DRF, MEM.autocor = c("po
 ```
 
     ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.057465 with 2 variables (> 0.050471)
-    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.088891 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.111989 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.086391 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.106289 (> 0.050000)
 
 ``` r
 DRF_MEM_FS <- DRF_MEM$best$MEM.select
@@ -337,12 +320,12 @@ SSF_MEM <- listw.select(SSF_pa, candidates = candidates_SSF, MEM.autocor = c("po
 ```
 
     ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.079183 with 2 variables (> 0.079183)
-    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.078592 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.083592 (> 0.050000)
     ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.304147 with 9 variables (> 0.302779)
-    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.076592 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.076192 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 9 is 0.074993 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 10 is 0.057894 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.077392 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.069193 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 9 is 0.071693 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 10 is 0.057494 (> 0.050000)
 
 ``` r
 SSF_MEM_FS <- SSF_MEM$best$MEM.select
@@ -396,7 +379,7 @@ UBA_MEM <- listw.select(UBA_pa, candidates = candidates_UBA, MEM.autocor = c("po
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.092191 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.091291 (> 0.050000)
 
 ``` r
 UBA_MEM_FS <- UBA_MEM$best$MEM.select
@@ -474,8 +457,8 @@ JA_MEM <- listw.select(JA_pa, candidates = candidates_JA, MEM.autocor = c("posit
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.080092 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.101690 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.082792 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.103890 (> 0.050000)
 
 ``` r
 JA_MEM_FS <- JA_MEM$best$MEM.select
@@ -537,6 +520,7 @@ performed when the whole predictor matrix can significantly explain (p
 ### Broad Spatial Extent
 
 ``` r
+set.seed(5)
 Broad_env_Forward <- forward_selection(Broad_pa, Broad_env_VIF$variables)
 ```
 
@@ -545,21 +529,17 @@ Broad_env_Forward <- forward_selection(Broad_pa, Broad_env_VIF$variables)
     ## Testing variable 3
     ## Testing variable 4
     ## Testing variable 5
-    ## Testing variable 6
-    ## Testing variable 7
-    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.422500 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.176872 with 5 variables (> 0.175018)
 
 ``` r
 Broad_env_Forward$forward_results
 ```
 
     ##        variables order         R2     R2Cum  AdjR2Cum         F pvalue
-    ## 1      ecoregion     7 0.21317132 0.2131713 0.2048008 25.466921 0.0001
-    ## 2 dist_to_forest     6 0.02689891 0.2400702 0.2237277  3.291881 0.0001
-    ## 3   canopy_cover     2 0.02082368 0.2608939 0.2367926  2.592020 0.0002
-    ## 4     arbust_veg     5 0.01787554 0.2787694 0.2470670  2.255414 0.0019
-    ## 5          depth     4 0.01462478 0.2933942 0.2541383  1.862751 0.0143
-    ## 6    hydroperiod     1 0.01463586 0.3080301 0.2613804  1.882439 0.0077
+    ## 1            nvt     5 0.12280383 0.1228038 0.1134720 13.159611 0.0001
+    ## 2 dist_to_forest     6 0.03553797 0.1583418 0.1402416  3.926809 0.0001
+    ## 3   canopy_cover     4 0.02254986 0.1808917 0.1541816  2.532738 0.0018
+    ## 4    hydroperiod     1 0.02048938 0.2013810 0.1662769  2.334697 0.0066
 
 ``` r
 Broad_env_FS <- Broad_env_Forward$selected_variables
@@ -569,14 +549,14 @@ Broad_clim_Forward <- forward_selection(Broad_pa, Broad_clim_VIF$variables)
 
     ## Testing variable 1
     ## Testing variable 2
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.211063 with 2 variables (> 0.211063)
 
 ``` r
 Broad_clim_Forward$forward_results
 ```
 
-    ##     variables order         R2     R2Cum  AdjR2Cum        F pvalue
-    ## 1  range_temp     2 0.18564062 0.1856406 0.1769772 21.42815  1e-04
-    ## 2 temp_Season     1 0.04173225 0.2273729 0.2107572  5.02325  1e-04
+    ##    variables order        R2     R2Cum AdjR2Cum        F pvalue
+    ## 1 range_temp     2 0.1858759 0.1858759 0.177215 21.46152  1e-04
 
 ``` r
 Broad_clim_FS <- Broad_clim_Forward$selected_variables
@@ -590,17 +570,17 @@ SSF_env_Forward <- forward_selection(SSF_pa, SSF_env_VIF$variables)
     ## Testing variable 3
     ## Testing variable 4
     ## Testing variable 5
-    ## Procedure stopped (alpha criteria): pvalue for variable 5 is 0.156700 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 5 is 0.122000 (> 0.050000)
 
 ``` r
 SSF_env_Forward$forward_results
 ```
 
-    ##        variables order         R2     R2Cum   AdjR2Cum        F pvalue
-    ## 1   canopy_cover     2 0.06284440 0.0628444 0.04154541 2.950581 0.0014
-    ## 2    hydroperiod     1 0.05808294 0.1209273 0.08004024 2.841138 0.0009
-    ## 3          depth     4 0.05066306 0.1715904 0.11241829 2.568595 0.0040
-    ## 4 dist_to_forest     7 0.04382034 0.2154107 0.13886545 2.289904 0.0082
+    ##        variables order         R2      R2Cum   AdjR2Cum        F pvalue
+    ## 1 dist_to_forest     6 0.06279225 0.06279225 0.04149207 2.947968 0.0013
+    ## 2    hydroperiod     1 0.05740783 0.12020008 0.07927915 2.805793 0.0017
+    ## 3          depth     3 0.05098863 0.17118871 0.11198790 2.583848 0.0043
+    ## 4   canopy_cover     4 0.04138347 0.21257218 0.13574995 2.154765 0.0132
 
 ``` r
 SSF_env_FS <- SSF_env_Forward$selected_variables
@@ -610,14 +590,14 @@ SSF_clim_Forward <- forward_selection(SSF_pa, SSF_clim_VIF$variables)
 
     ## Testing variable 1
     ## Testing variable 2
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.171372 with 2 variables (> 0.171372)
 
 ``` r
 SSF_clim_Forward$forward_results
 ```
 
-    ##    variables order        R2     R2Cum   AdjR2Cum        F pvalue
-    ## 1 total_prec     2 0.1032504 0.1032504 0.08286973 5.066094  1e-04
+    ##     variables order        R2     R2Cum   AdjR2Cum        F pvalue
+    ## 1  total_prec     2 0.1035181 0.1035181 0.08314354 5.080747  2e-04
+    ## 2 temp_Season     1 0.1046860 0.2082041 0.17137639 5.685174  1e-04
 
 ``` r
 SSF_clim_FS <- SSF_clim_Forward$selected_variables
@@ -638,7 +618,7 @@ ST_env_Forward$forward_results
     ## 
     ## Model: rda(X = New_Y, Y = New_X)
     ##          Df Variance     F Pr(>F)
-    ## Model     3   1.5233 1.632 0.1018
+    ## Model     3   1.5233 1.632  0.103
     ## Residual  4   1.2446
 
 ``` r
@@ -649,14 +629,16 @@ IC_env_Forward <- forward_selection(IC_pa, IC_env_VIF$variables)
 
     ## Testing variable 1
     ## Testing variable 2
-    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.133300 (> 0.050000)
+    ## Testing variable 3
+    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.414300 (> 0.050000)
 
 ``` r
 IC_env_Forward$forward_results
 ```
 
     ##        variables order        R2     R2Cum  AdjR2Cum        F pvalue
-    ## 1 dist_to_forest     4 0.2762401 0.2762401 0.2038641 3.816737  0.001
+    ## 1 dist_to_forest     4 0.2762401 0.2762401 0.2038641 3.816737 0.0005
+    ## 2    hydroperiod     1 0.1448824 0.4211225 0.2924830 2.252534 0.0105
 
 ``` r
 IC_env_FS <- IC_env_Forward$selected_variables
@@ -676,7 +658,7 @@ NI_env_Forward$forward_results
     ## 
     ## Model: rda(X = New_Y, Y = New_X)
     ##          Df Variance      F Pr(>F)
-    ## Model     4   2.2203 1.3581 0.1463
+    ## Model     4   2.2203 1.3581 0.1508
     ## Residual  3   1.2261
 
 ``` r
@@ -696,11 +678,9 @@ MD_env_Forward$forward_results
     ## Number of permutations: 9999
     ## 
     ## Model: rda(X = New_Y, Y = New_X)
-    ##          Df Variance      F Pr(>F)  
-    ## Model     4  2.12434 1.6823 0.0747 .
-    ## Residual  3  0.94709                
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ##          Df Variance      F Pr(>F)
+    ## Model     4   1.9377 1.2819 0.2664
+    ## Residual  3   1.1337
 
 ``` r
 MD_env_FS <- MD_env_Forward$selected_variables
@@ -710,18 +690,14 @@ JA_env_Forward <- forward_selection(JA_pa, JA_env_VIF$variables)
 
     ## Testing variable 1
     ## Testing variable 2
-    ## Testing variable 3
-    ## Testing variable 4
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.544364 with 4 variables (> 0.544364)
+    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.058600 (> 0.050000)
 
 ``` r
 JA_env_Forward$forward_results
 ```
 
-    ##      variables order        R2     R2Cum  AdjR2Cum        F pvalue
-    ## 1        depth     3 0.2978698 0.2978698 0.2101035 3.393898 0.0023
-    ## 2 canopy_cover     1 0.1926780 0.4905478 0.3449900 2.647444 0.0477
-    ## 3         area     2 0.1943781 0.6849259 0.5273889 3.701571 0.0185
+    ##   variables order        R2     R2Cum  AdjR2Cum        F pvalue
+    ## 1     depth     2 0.2978698 0.2978698 0.2101035 3.393898 0.0016
 
 ``` r
 JA_env_FS <- JA_env_Forward$selected_variables
@@ -733,15 +709,15 @@ DRF_env_Forward <- forward_selection(DRF_pa, DRF_env_VIF$variables)
     ## Testing variable 1
     ## Testing variable 2
     ## Testing variable 3
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.078227 with 3 variables (> 0.076121)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.082422 with 3 variables (> 0.081064)
 
 ``` r
 DRF_env_Forward$forward_results
 ```
 
     ##      variables order         R2      R2Cum   AdjR2Cum        F pvalue
-    ## 1 canopy_cover     2 0.06790027 0.06790027 0.04848153 3.496636 0.0005
-    ## 2        depth     4 0.03835188 0.10625215 0.06822033 2.016831 0.0334
+    ## 1 canopy_cover     4 0.06947213 0.06947213 0.05008614 3.583624 0.0006
+    ## 2        depth     3 0.04152619 0.11099833 0.07316847 2.195419 0.0191
 
 ``` r
 DRF_env_FS <- DRF_env_Forward$selected_variables
@@ -751,14 +727,14 @@ DRF_clim_Forward <- forward_selection(DRF_pa, DRF_clim_VIF$variables)
 
     ## Testing variable 1
     ## Testing variable 2
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.059169 with 2 variables (> 0.051511)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.059286 with 2 variables (> 0.054878)
 
 ``` r
 DRF_clim_Forward$forward_results
 ```
 
-    ##    variables order         R2      R2Cum   AdjR2Cum       F pvalue
-    ## 1 range_temp     2 0.06764289 0.06764289 0.04821878 3.48242  5e-04
+    ##    variables order         R2      R2Cum   AdjR2Cum        F pvalue
+    ## 1 range_temp     2 0.06813262 0.06813262 0.04871872 3.509476  7e-04
 
 ``` r
 DRF_clim_FS <- DRF_clim_Forward$selected_variables
@@ -769,14 +745,14 @@ UBA_env_Forward <- forward_selection(UBA_pa, UBA_env_VIF$variables)
 
     ## Testing variable 1
     ## Testing variable 2
-    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.277800 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.279600 (> 0.050000)
 
 ``` r
 UBA_env_Forward$forward_results
 ```
 
-    ##      variables order        R2     R2Cum   AdjR2Cum       F pvalue
-    ## 1 canopy_cover     2 0.1314935 0.1314935 0.09013607 3.17944 0.0029
+    ##      variables order        R2     R2Cum   AdjR2Cum        F pvalue
+    ## 1 canopy_cover     3 0.1360444 0.1360444 0.09490361 3.306803 0.0015
 
 ``` r
 UBA_env_FS <- UBA_env_Forward$selected_variables
@@ -796,8 +772,8 @@ BER_env_Forward$forward_results
     ## 
     ## Model: rda(X = New_Y, Y = New_X)
     ##          Df Variance      F Pr(>F)
-    ## Model     3  0.55873 0.7499  0.811
-    ## Residual  8  1.98673
+    ## Model     3  0.61185 0.8438 0.6938
+    ## Residual  8  1.93360
 
 ``` r
 BER_env_FS <- BER_env_Forward$selected_variables
@@ -816,9 +792,9 @@ ITA_env_Forward$forward_results
     ## Number of permutations: 9999
     ## 
     ## Model: rda(X = New_Y, Y = New_X)
-    ##          Df Variance     F Pr(>F)
-    ## Model     5   1.0843 1.125  0.345
-    ## Residual  9   1.7348
+    ##          Df Variance      F Pr(>F)
+    ## Model     5   1.0943 1.1421 0.3307
+    ## Residual  9   1.7247
 
 ``` r
 ITA_env_FS <- ITA_env_Forward$selected_variables
@@ -947,7 +923,6 @@ Broad_varpart <- var_partitioning(Y = Broad_pa,
                                        clim = Broad_clim_FS,
                                        spa = data.frame(Broad_MEM$best$MEM.select), percent_r2 = F)
 
-
 #Testing significande of spatially structured environment
 candidates_Broad_env <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
                                    weights = c("flin", "fup","fdown"), y_fdown = 5, y_fup = 0.5)
@@ -956,72 +931,94 @@ Broad_MEM_env <- listw.select(Broad_env_FS, candidates = candidates_Broad_env, M
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (alpha criteria): pvalue for variable 4 is 0.086791 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 9 is 0.050195 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 9 is 0.069193 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 13 is 0.066793 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 13 is 0.060494 (> 0.050000)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.381575 with 15 variables (> 0.374008)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.400684 with 18 variables (> 0.393873)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.418525 with 15 variables (> 0.413678)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.426504 with 19 variables (> 0.425424)
-    ## Procedure stopped (alpha criteria): pvalue for variable 14 is 0.050395 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.170783 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.381126 with 7 variables (> 0.377983)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.356546 with 8 variables (> 0.352020)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.448108 with 14 variables (> 0.443978)
+    ## Procedure stopped (alpha criteria): pvalue for variable 14 is 0.052995 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 16 is 0.053295 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 13 is 0.054895 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.422198 with 14 variables (> 0.418147)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.440149 with 16 variables (> 0.433487)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.421414 with 16 variables (> 0.408867)
 
 ``` r
 Broad_env_spa_sig <- envspace.test(spe = Broad_pa, env = Broad_env_FS,   coord = Broad_coord,  
               MEM.spe =  data.frame(Broad_MEM$best$MEM.select), 
               listw.env = candidates_Broad_env[[Broad_MEM_env$best.id]], MEM.autocor = c("positive"),
               regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
-Broad_env_spa_sig
-```
 
-    ## Monte-Carlo test
-    ## Call: as.randtest(sim = E.b, obs = R2.b, alter = alternative)
-    ## 
-    ## Observation: 0.210177 
-    ## 
-    ## Based on 10000 replicates
-    ## Simulated p-value: 9.999e-05 
-    ## Alternative hypothesis: greater 
-    ## 
-    ##     Std.Obs Expectation    Variance 
-    ## 4.362625276 0.062977133 0.001138464
-
-``` r
 #Testing significande of spatially structured climate
 Broad_MEM_clim <- listw.select(Broad_clim_FS, candidates = candidates_Broad_env, MEM.autocor = c("positive"), method = c("FWD"),
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (alpha criteria): pvalue for variable 20 is 0.062894 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 21 is 0.069393 (> 0.050000)
-    ## Procedure stopped (R2more criteria): variable 35 explains only 0.000838 of the variance.
-    ## Procedure stopped (alpha criteria): pvalue for variable 23 is 0.056294 (> 0.050000)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.952786 with 28 variables (> 0.952717)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.926218 with 31 variables (> 0.923705)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.930318 with 21 variables (> 0.929651)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.930886 with 24 variables (> 0.929238)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.906951 with 32 variables (> 0.905302)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.932942 with 13 variables (> 0.930662)
+    ## Procedure stopped (alpha criteria): pvalue for variable 15 is 0.051095 (> 0.050000)
+    ## Procedure stopped (R2more criteria): variable 23 explains only 0.000953 of the variance.
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.968621 with 18 variables (> 0.968432)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.962569 with 20 variables (> 0.961720)
+    ## Procedure stopped (alpha criteria): pvalue for variable 28 is 0.054795 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.960383 with 20 variables (> 0.958395)
+    ## Procedure stopped (alpha criteria): pvalue for variable 19 is 0.051595 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 29 is 0.066693 (> 0.050000)
 
 ``` r
 Broad_clim_spa_sig <- envspace.test(spe = Broad_pa, env = Broad_clim_FS,   coord = Broad_coord,  
               MEM.spe =  data.frame(Broad_MEM$best$MEM.select), 
               listw.env = candidates_Broad_env[[Broad_MEM_clim$best.id]], MEM.autocor = c("positive"),
               regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
+
+
+
+Broad_varpart
+```
+
+    ##              Adj_R2 Df         F      p
+    ## All           0.411 27  3.454546 0.0001
+    ## Env           0.166  4  5.736676 0.0001
+    ## Clim          0.177  1 21.461519 0.0001
+    ## Spa           0.369 22  3.527408 0.0001
+    ## Pure_Env      0.012  4  1.364727 0.0122
+    ## Pure_Clim     0.026  1  3.998770 0.0001
+    ## Pure_Spa      0.168 22  2.165478 0.0001
+    ## Env_Spa       0.054 NA        NA     NA
+    ## Env_Clim      0.004 NA        NA     NA
+    ## Spa_Clim      0.051 NA        NA     NA
+    ## Spa_Clim_Env  0.096 NA        NA     NA
+    ## Resid         0.589 NA        NA     NA
+
+``` r
+Broad_env_spa_sig
+```
+
+    ## Monte-Carlo test
+    ## Call: as.randtest(sim = E.b, obs = R2.b, alter = alternative)
+    ## 
+    ## Observation: 0.1501444 
+    ## 
+    ## Based on 10000 replicates
+    ## Simulated p-value: 9.999e-05 
+    ## Alternative hypothesis: greater 
+    ## 
+    ##     Std.Obs Expectation    Variance 
+    ## 4.848439708 0.034941702 0.000564575
+
+``` r
 Broad_clim_spa_sig
 ```
 
     ## Monte-Carlo test
     ## Call: as.randtest(sim = E.b, obs = R2.b, alter = alternative)
     ## 
-    ## Observation: 0.1936374 
+    ## Observation: 0.1474176 
     ## 
     ## Based on 10000 replicates
-    ## Simulated p-value: 9.999e-05 
+    ## Simulated p-value: 0.00029997 
     ## Alternative hypothesis: greater 
     ## 
     ##      Std.Obs  Expectation     Variance 
-    ## 6.3703428416 0.0335624283 0.0006314239
+    ## 5.2302997382 0.0212520490 0.0005818731
 
    
 
@@ -1041,8 +1038,8 @@ DRF_MEM_env <- listw.select(DRF_env_FS, candidates = candidates_DRF_env, MEM.aut
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.119288 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.064394 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.078192 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.056594 (> 0.050000)
 
 ``` r
 DRF_env_spa_sig <- envspace.test(spe = DRF_pa, env = DRF_env_FS,   coord = DRF_coord,  
@@ -1056,15 +1053,15 @@ DRF_MEM_clim <- listw.select(DRF_clim_FS, candidates = candidates_DRF_env, MEM.a
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.844159 with 4 variables (> 0.838710)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.820676 with 5 variables (> 0.818902)
-    ## Procedure stopped (alpha criteria): pvalue for variable 14 is 0.063494 (> 0.050000)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.932956 with 12 variables (> 0.930517)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.895779 with 9 variables (> 0.890377)
-    ## Procedure stopped (alpha criteria): pvalue for variable 15 is 0.063994 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 10 is 0.055394 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.084192 (> 0.050000)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.876343 with 14 variables (> 0.873455)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.877894 with 5 variables (> 0.863802)
+    ## Procedure stopped (alpha criteria): pvalue for variable 5 is 0.051295 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.954497 with 15 variables (> 0.953531)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.949753 with 15 variables (> 0.947409)
+    ## Procedure stopped (alpha criteria): pvalue for variable 9 is 0.081492 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 16 is 0.058794 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 11 is 0.069593 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.899555 with 9 variables (> 0.898920)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.879873 with 14 variables (> 0.879685)
 
 ``` r
 DRF_clim_spa_sig <- envspace.test(spe = DRF_pa, env = DRF_clim_FS,   coord = DRF_coord,  
@@ -1089,16 +1086,16 @@ SSF_MEM_env <- listw.select(SSF_env_FS, candidates = candidates_SSF_env, MEM.aut
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (alpha criteria): pvalue for variable 1 is 0.053795 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 6 is 0.074493 (> 0.050000)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.371274 with 8 variables (> 0.363374)
-    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.059994 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 10 is 0.073293 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.058494 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.063194 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 10 is 0.050495 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.087591 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 6 is 0.060394 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.123588 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 6 is 0.090291 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.358144 with 8 variables (> 0.340049)
+    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.053295 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 10 is 0.078892 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.054995 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.058694 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.054395 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.089191 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.054395 (> 0.050000)
 
 ``` r
 SSF_env_spa_sig <- envspace.test(spe = SSF_pa, env = SSF_env_FS,   coord = SSF_coord,  
@@ -1112,15 +1109,15 @@ SSF_MEM_clim <- listw.select(SSF_clim_FS, candidates = candidates_SSF_env, MEM.a
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.933219 with 7 variables (> 0.929393)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.900585 with 7 variables (> 0.892680)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.972352 with 13 variables (> 0.971906)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.897325 with 6 variables (> 0.887288)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.886083 with 7 variables (> 0.881915)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.969459 with 13 variables (> 0.968186)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.881494 with 10 variables (> 0.881078)
-    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.060094 (> 0.050000)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.957627 with 11 variables (> 0.956886)
+    ## Procedure stopped (alpha criteria): pvalue for variable 6 is 0.051495 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.052695 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.966230 with 12 variables (> 0.965678)
+    ## Procedure stopped (alpha criteria): pvalue for variable 12 is 0.071293 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 15 is 0.067293 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 14 is 0.066593 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.936295 with 8 variables (> 0.931722)
+    ## Procedure stopped (alpha criteria): pvalue for variable 9 is 0.058194 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.054395 (> 0.050000)
 
 ``` r
 SSF_clim_spa_sig <- envspace.test(spe = SSF_pa, env = SSF_clim_FS,   coord = SSF_coord,  
@@ -1134,18 +1131,18 @@ DRF_varpart
 ```
 
     ##              Adj_R2 Df        F      p
-    ## All           0.186 10 2.121964 0.0001
-    ## Env           0.068  2 2.793770 0.0005
-    ## Clim          0.048  1 3.482420 0.0007
+    ## All           0.191 10 2.154592 0.0001
+    ## Env           0.073  2 2.934146 0.0003
+    ## Clim          0.049  1 3.509476 0.0003
     ## Spa           0.165  7 2.378271 0.0001
-    ## Pure_Env      0.013  2 1.330891 0.1171
-    ## Pure_Clim     0.005  1 1.233515 0.2281
-    ## Pure_Spa      0.093  7 1.751330 0.0005
-    ## Env_Spa       0.032 NA       NA     NA
+    ## Pure_Env      0.016  2 1.407495 0.0827
+    ## Pure_Clim     0.006  1 1.291486 0.1928
+    ## Pure_Spa      0.091  7 1.738194 0.0003
+    ## Env_Spa       0.035 NA       NA     NA
     ## Env_Clim      0.004 NA       NA     NA
-    ## Spa_Clim      0.020 NA       NA     NA
-    ## Spa_Clim_Env  0.019 NA       NA     NA
-    ## Resid         0.814 NA       NA     NA
+    ## Spa_Clim      0.021 NA       NA     NA
+    ## Spa_Clim_Env  0.018 NA       NA     NA
+    ## Resid         0.809 NA       NA     NA
 
 ``` r
 DRF_env_spa_sig
@@ -1154,14 +1151,14 @@ DRF_env_spa_sig
     ## Monte-Carlo test
     ## Call: as.randtest(sim = E.b, obs = R2.b, alter = alternative)
     ## 
-    ## Observation: 0.05116403 
+    ## Observation: 0.05287454 
     ## 
     ## Based on 10000 replicates
-    ## Simulated p-value: 0.01429857 
+    ## Simulated p-value: 0.01089891 
     ## Alternative hypothesis: greater 
     ## 
     ##      Std.Obs  Expectation     Variance 
-    ## 2.3008476871 0.0116996542 0.0002941947
+    ## 2.4182696166 0.0119710565 0.0002860955
 
 ``` r
 DRF_clim_spa_sig
@@ -1170,32 +1167,32 @@ DRF_clim_spa_sig
     ## Monte-Carlo test
     ## Call: as.randtest(sim = E.b, obs = R2.b, alter = alternative)
     ## 
-    ## Observation: 0.03954604 
+    ## Observation: 0.03861442 
     ## 
     ## Based on 10000 replicates
-    ## Simulated p-value: 0.07319268 
+    ## Simulated p-value: 0.1041896 
     ## Alternative hypothesis: greater 
     ## 
-    ##      Std.Obs  Expectation     Variance 
-    ## 1.4204062432 0.0228758433 0.0001377387
+    ##     Std.Obs Expectation    Variance 
+    ## 1.289184542 0.023964214 0.000129139
 
 ``` r
 SSF_varpart
 ```
 
     ##              Adj_R2 Df        F      p
-    ## All           0.348 13 2.847250 0.0001
-    ## Env           0.139  4 2.814161 0.0001
-    ## Clim          0.083  1 5.066094 0.0001
+    ## All           0.346 14 2.703080 0.0001
+    ## Env           0.136  4 2.767066 0.0001
+    ## Clim          0.171  2 5.653462 0.0001
     ## Spa           0.294  8 3.344447 0.0001
-    ## Pure_Env      0.042  4 1.572944 0.0065
-    ## Pure_Clim     0.008  1 1.428745 0.1224
-    ## Pure_Spa      0.150  8 2.147736 0.0001
-    ## Env_Spa       0.074 NA       NA     NA
-    ## Env_Clim      0.004 NA       NA     NA
-    ## Spa_Clim      0.051 NA       NA     NA
-    ## Spa_Clim_Env  0.020 NA       NA     NA
-    ## Resid         0.652 NA       NA     NA
+    ## Pure_Env      0.034  4 1.450372 0.0211
+    ## Pure_Clim     0.009  2 1.224655 0.1878
+    ## Pure_Spa      0.078  8 1.580929 0.0005
+    ## Env_Spa       0.063 NA       NA     NA
+    ## Env_Clim      0.010 NA       NA     NA
+    ## Spa_Clim      0.124 NA       NA     NA
+    ## Spa_Clim_Env  0.029 NA       NA     NA
+    ## Resid         0.654 NA       NA     NA
 
 ``` r
 SSF_env_spa_sig
@@ -1204,14 +1201,14 @@ SSF_env_spa_sig
     ## Monte-Carlo test
     ## Call: as.randtest(sim = E.b, obs = R2.b, alter = alternative)
     ## 
-    ## Observation: 0.0935555 
+    ## Observation: 0.09248927 
     ## 
     ## Based on 10000 replicates
-    ## Simulated p-value: 0.00549945 
+    ## Simulated p-value: 0.00859914 
     ## Alternative hypothesis: greater 
     ## 
     ##      Std.Obs  Expectation     Variance 
-    ## 2.7870020861 0.0312657250 0.0004995269
+    ## 2.5157353962 0.0334944218 0.0005499183
 
 ``` r
 SSF_clim_spa_sig
@@ -1220,14 +1217,14 @@ SSF_clim_spa_sig
     ## Monte-Carlo test
     ## Call: as.randtest(sim = E.b, obs = R2.b, alter = alternative)
     ## 
-    ## Observation: 0.07059744 
+    ## Observation: 0.1528604 
     ## 
     ## Based on 10000 replicates
-    ## Simulated p-value: 0.00329967 
+    ## Simulated p-value: 0.00079992 
     ## Alternative hypothesis: greater 
     ## 
     ##      Std.Obs  Expectation     Variance 
-    ## 3.1266973540 0.0174640140 0.0002887779
+    ## 4.1851154744 0.0458508808 0.0006537776
 
    
 
@@ -1272,16 +1269,15 @@ JA_MEM_env <- listw.select(JA_env_FS, candidates = candidates_JA_env, MEM.autoco
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.1, p.adjust = FALSE, verbose = FALSE) # We are not adjusting p-values here because we assume that if there was a significant spatial and environmental strucutre in species distributions, we want to find spatial patterns in the environment
 ```
 
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.253976 with 1 variables (> 0.253976)
-    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.153285 (> 0.050000)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.421799 with 2 variables (> 0.374867)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.483014 with 2 variables (> 0.413034)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.421741 with 2 variables (> 0.391690)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.376911 with 2 variables (> 0.373257)
-    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.053895 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.052195 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.171683 (> 0.050000)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.568369 with 3 variables (> 0.518718)
+    ## Procedure stopped (alpha criteria): pvalue for variable 1 is 0.058094 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 1 is 0.057494 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.892776 with 2 variables (> 0.874947)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.841344 with 2 variables (> 0.808686)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.852574 with 3 variables (> 0.825464)
+    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.055394 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.133287 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.855931 with 2 variables (> 0.843916)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.859910 with 3 variables (> 0.837980)
 
 ``` r
 #There was no significant spatial structure in the environmental variables
@@ -1317,10 +1313,12 @@ UBA_MEM_env <- listw.select(UBA_env_FS, candidates = candidates_UBA_env, MEM.aut
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.575970 with 4 variables (> 0.528633)
-    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.053795 (> 0.050000)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.515434 with 2 variables (> 0.476628)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.545085 with 2 variables (> 0.516850)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.114080 with 1 variables (> 0.114080)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.610050 with 4 variables (> 0.570723)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.532181 with 3 variables (> 0.504917)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.531064 with 2 variables (> 0.526818)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.584362 with 3 variables (> 0.552325)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.544172 with 3 variables (> 0.543362)
 
 ``` r
 #There was no significant spatial structure in the environmental variables, thus we used the one selected for the species
@@ -1338,13 +1336,13 @@ ST_varpart
 ```
 
     ##              Adj_R2 Df         F      p
-    ## All           0.197  5 1.3440574 0.2679
-    ## Env           0.213  3 1.6319731 0.1001
+    ## All           0.197  5 1.3440574 0.2655
+    ## Env           0.213  3 1.6319731 0.1014
     ## Clim             NA NA        NA     NA
-    ## Spa          -0.085  2 0.7256147 0.8152
-    ## Pure_Env      0.282  3 1.5862081 0.2458
+    ## Spa          -0.085  2 0.7256147 0.8109
+    ## Pure_Env      0.282  3 1.5862081 0.2532
     ## Pure_Clim        NA NA        NA     NA
-    ## Pure_Spa     -0.016  2 0.9605140 0.5104
+    ## Pure_Spa     -0.016  2 0.9605140 0.5131
     ## Env_Spa      -0.069 NA        NA     NA
     ## Env_Clim         NA NA        NA     NA
     ## Spa_Clim         NA NA        NA     NA
@@ -1356,31 +1354,31 @@ IC_varpart
 ```
 
     ##              Adj_R2 Df         F      p
-    ## All           0.202  3 1.9255329 0.0119
-    ## Env           0.204  1 3.8167372 0.0005
+    ## All           0.291  4 2.1287607 0.0037
+    ## Env           0.292  2 3.2736653 0.0001
     ## Clim             NA NA        NA     NA
-    ## Spa          -0.041  2 0.7833254 0.7263
-    ## Pure_Env      0.243  1 3.7340292 0.0034
+    ## Spa          -0.041  2 0.7833254 0.7138
+    ## Pure_Env      0.332  2 3.1073625 0.0017
     ## Pure_Clim        NA NA        NA     NA
-    ## Pure_Spa     -0.002  2 0.9854747 0.4989
-    ## Env_Spa      -0.039 NA        NA     NA
+    ## Pure_Spa     -0.001  2 0.9906546 0.5023
+    ## Env_Spa      -0.040 NA        NA     NA
     ## Env_Clim         NA NA        NA     NA
     ## Spa_Clim         NA NA        NA     NA
     ## Spa_Clim_Env     NA NA        NA     NA
-    ## Resid         0.798 NA        NA     NA
+    ## Resid         0.709 NA        NA     NA
 
 ``` r
 NI_varpart
 ```
 
     ##              Adj_R2 Df         F      p
-    ## All           0.140  5 1.2271911 0.2805
-    ## Env           0.170  4 1.3581374 0.1468
+    ## All           0.140  5 1.2271911 0.2881
+    ## Env           0.170  4 1.3581374 0.1512
     ## Clim             NA NA        NA     NA
-    ## Spa           0.159  1 2.3197422 0.0141
-    ## Pure_Env     -0.019  4 0.9668644 0.5408
+    ## Spa           0.159  1 2.3197422 0.0181
+    ## Pure_Env     -0.019  4 0.9668644 0.5475
     ## Pure_Clim        NA NA        NA     NA
-    ## Pure_Spa     -0.030  1 0.8944824 0.5122
+    ## Pure_Spa     -0.030  1 0.8944824 0.5097
     ## Env_Spa       0.189 NA        NA     NA
     ## Env_Clim         NA NA        NA     NA
     ## Spa_Clim         NA NA        NA     NA
@@ -1398,36 +1396,36 @@ MD_varpart
 ```
 
     ##              Adj_R2 Df         F      p
-    ## All           0.256  5 1.4821403 0.1896
-    ## Env           0.281  4 1.6822740 0.0749
+    ## All           0.282  5 1.5500378 0.1596
+    ## Env           0.139  4 1.2819349 0.2647
     ## Clim             NA NA        NA     NA
-    ## Spa          -0.005  1 0.9665789 0.3793
-    ## Pure_Env      0.261  4 1.5262532 0.2055
+    ## Spa          -0.005  1 0.9665789 0.3754
+    ## Pure_Env      0.287  4 1.5993494 0.1710
     ## Pure_Clim        NA NA        NA     NA
-    ## Pure_Spa     -0.024  1 0.9018220 0.4992
-    ## Env_Spa       0.020 NA        NA     NA
+    ## Pure_Spa      0.143  1 1.5988564 0.2754
+    ## Env_Spa      -0.148 NA        NA     NA
     ## Env_Clim         NA NA        NA     NA
     ## Spa_Clim         NA NA        NA     NA
     ## Spa_Clim_Env     NA NA        NA     NA
-    ## Resid         0.744 NA        NA     NA
+    ## Resid         0.718 NA        NA     NA
 
 ``` r
 JA_varpart
 ```
 
     ##              Adj_R2 Df        F      p
-    ## All           0.607  5 3.779947 0.0004
-    ## Env           0.527  3 4.347714 0.0001
+    ## All           0.425  3 3.220404 0.0025
+    ## Env           0.210  1 3.393898 0.0012
     ## Clim             NA NA       NA     NA
-    ## Spa           0.314  2 3.060817 0.0061
-    ## Pure_Env      0.293  3 2.738776 0.0230
+    ## Spa           0.314  2 3.060817 0.0057
+    ## Pure_Env      0.111  1 2.354789 0.0562
     ## Pure_Clim        NA NA       NA     NA
-    ## Pure_Spa      0.080  2 1.607557 0.1530
-    ## Env_Spa       0.235 NA       NA     NA
+    ## Pure_Spa      0.215  2 2.498105 0.0374
+    ## Env_Spa       0.099 NA       NA     NA
     ## Env_Clim         NA NA       NA     NA
     ## Spa_Clim         NA NA       NA     NA
     ## Spa_Clim_Env     NA NA       NA     NA
-    ## Resid         0.393 NA       NA     NA
+    ## Resid         0.575 NA       NA     NA
 
 ``` r
 JA_env_spa_sig
@@ -1436,32 +1434,32 @@ JA_env_spa_sig
     ## Monte-Carlo test
     ## Call: as.randtest(sim = E.b, obs = R2.b, alter = alternative)
     ## 
-    ## Observation: 0.2345163 
+    ## Observation: 0.09888151 
     ## 
     ## Based on 10000 replicates
-    ## Simulated p-value: 0.2213779 
+    ## Simulated p-value: 0.4524548 
     ## Alternative hypothesis: greater 
     ## 
     ##     Std.Obs Expectation    Variance 
-    ## 0.837075267 0.162152931 0.007473234
+    ## 0.138770640 0.092678692 0.001997944
 
 ``` r
 UBA_varpart
 ```
 
     ##              Adj_R2 Df        F      p
-    ## All           0.147  3 2.263050 0.0008
-    ## Env           0.090  1 3.179440 0.0019
+    ## All           0.151  3 2.308338 0.0005
+    ## Env           0.095  1 3.306803 0.0010
     ## Clim             NA NA       NA     NA
-    ## Spa           0.117  2 2.450992 0.0021
-    ## Pure_Env      0.030  1 1.712526 0.0657
+    ## Spa           0.117  2 2.450992 0.0024
+    ## Pure_Env      0.035  1 1.821646 0.0442
     ## Pure_Clim        NA NA       NA     NA
-    ## Pure_Spa      0.057  2 1.699021 0.0291
+    ## Pure_Spa      0.056  2 1.699031 0.0228
     ## Env_Spa       0.060 NA       NA     NA
     ## Env_Clim         NA NA       NA     NA
     ## Spa_Clim         NA NA       NA     NA
     ## Spa_Clim_Env     NA NA       NA     NA
-    ## Resid         0.853 NA       NA     NA
+    ## Resid         0.849 NA       NA     NA
 
 ``` r
 UBA_env_spa_sig
@@ -1470,56 +1468,73 @@ UBA_env_spa_sig
     ## Monte-Carlo test
     ## Call: as.randtest(sim = E.b, obs = R2.b, alter = alternative)
     ## 
-    ## Observation: 0.05974428 
+    ## Observation: 0.06004112 
     ## 
     ## Based on 10000 replicates
-    ## Simulated p-value: 0.02369763 
+    ## Simulated p-value: 0.02929707 
     ## Alternative hypothesis: greater 
     ## 
     ##      Std.Obs  Expectation     Variance 
-    ## 1.9076032360 0.0065264792 0.0007782833
+    ## 1.7941032784 0.0069554952 0.0008755057
 
 ``` r
 BER_varpart
 ```
 
     ##              Adj_R2 Df         F      p
-    ## All          -0.120  4 0.7055117 0.8903
-    ## Env          -0.073  3 0.7499454 0.8171
+    ## All          -0.085  4 0.7852969 0.8008
+    ## Env          -0.044  3 0.8438125 0.6890
     ## Clim             NA NA        NA     NA
-    ## Spa          -0.012  1 0.8660103 0.5709
-    ## Pure_Env     -0.108  3 0.6797465 0.8621
+    ## Spa          -0.012  1 0.8660103 0.5708
+    ## Pure_Env     -0.072  3 0.7776483 0.7545
     ## Pure_Clim        NA NA        NA     NA
-    ## Pure_Spa     -0.047  1 0.6661102 0.7343
-    ## Env_Spa       0.034 NA        NA     NA
+    ## Pure_Spa     -0.040  1 0.7035544 0.6956
+    ## Env_Spa       0.028 NA        NA     NA
     ## Env_Clim         NA NA        NA     NA
     ## Spa_Clim         NA NA        NA     NA
     ## Spa_Clim_Env     NA NA        NA     NA
-    ## Resid         1.120 NA        NA     NA
+    ## Resid         1.085 NA        NA     NA
 
 ``` r
 ITA_varpart
 ```
 
     ##              Adj_R2 Df         F      p
-    ## All           0.061  7 1.1299485 0.3602
-    ## Env           0.043  5 1.1250194 0.3445
+    ## All           0.065  7 1.1390639 0.3520
+    ## Env           0.048  5 1.1420928 0.3372
     ## Clim             NA NA        NA     NA
-    ## Spa          -0.008  2 0.9443449 0.4803
-    ## Pure_Env      0.069  5 1.1764226 0.3225
+    ## Spa          -0.008  2 0.9443449 0.5007
+    ## Pure_Env      0.073  5 1.1874488 0.3126
     ## Pure_Clim        NA NA        NA     NA
-    ## Pure_Spa      0.018  2 1.0875510 0.3815
-    ## Env_Spa      -0.026 NA        NA     NA
+    ## Pure_Spa      0.017  2 1.0804479 0.3919
+    ## Env_Spa      -0.025 NA        NA     NA
     ## Env_Clim         NA NA        NA     NA
     ## Spa_Clim         NA NA        NA     NA
     ## Spa_Clim_Env     NA NA        NA     NA
-    ## Resid         0.939 NA        NA     NA
+    ## Resid         0.935 NA        NA     NA
 
    
 
 Small Extent not allowing negative fractions
 
 ``` r
+Broad_varpart2 <- var_partitioning(Y = Broad_pa, 
+                                       env = Broad_env_FS,
+                                       clim = Broad_clim_FS,
+                                       spa = data.frame(Broad_MEM$best$MEM.select), percent_r2 = F, allow_negative_r2 = F)
+
+DRF_varpart2 <- var_partitioning(Y = DRF_pa, 
+                                      env = DRF_env_FS,
+                                      clim = DRF_clim_FS,
+                                      spa = DRF_MEM_FS, percent_r2 = F, allow_negative_r2 = F)
+
+SSF_varpart2 <- var_partitioning(Y = SSF_pa, 
+                                      env = SSF_env_FS,
+                                      clim = SSF_clim_FS,
+                                      spa = SSF_MEM_FS, percent_r2 = F, allow_negative_r2 = F)
+
+
+
 ST_varpart2 <- var_partitioning(ST_pa, ST_env_FS, spa = ST_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
 IC_varpart2 <- var_partitioning(IC_pa, IC_env_FS, spa = IC_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
 NI_varpart2 <- var_partitioning(NI_pa, NI_env_FS, spa = NI_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
@@ -1534,11 +1549,11 @@ ST_varpart2
 ```
 
     ##              Adj_R2 Df        F      p
-    ## All           0.213  3 1.631973 0.1008
-    ## Env           0.213  3 1.631973 0.1008
+    ## All           0.213  3 1.631973 0.0979
+    ## Env           0.213  3 1.631973 0.0979
     ## Clim             NA NA       NA     NA
     ## Spa           0.000 NA       NA     NA
-    ## Pure_Env      0.213  3 1.631973 0.1008
+    ## Pure_Env      0.213  3 1.631973 0.0979
     ## Pure_Clim        NA NA       NA     NA
     ## Pure_Spa      0.000 NA       NA     NA
     ## Env_Spa       0.000 NA       NA     NA
@@ -1552,28 +1567,28 @@ IC_varpart2
 ```
 
     ##              Adj_R2 Df        F     p
-    ## All           0.204  1 3.816737 6e-04
-    ## Env           0.204  1 3.816737 6e-04
+    ## All           0.292  2 3.273665 1e-04
+    ## Env           0.292  2 3.273665 1e-04
     ## Clim             NA NA       NA    NA
     ## Spa           0.000 NA       NA    NA
-    ## Pure_Env      0.204  1 3.816737 6e-04
+    ## Pure_Env      0.292  2 3.273665 1e-04
     ## Pure_Clim        NA NA       NA    NA
     ## Pure_Spa      0.000 NA       NA    NA
     ## Env_Spa       0.000 NA       NA    NA
     ## Env_Clim         NA NA       NA    NA
     ## Spa_Clim         NA NA       NA    NA
     ## Spa_Clim_Env     NA NA       NA    NA
-    ## Resid         0.796 NA       NA    NA
+    ## Resid         0.708 NA       NA    NA
 
 ``` r
 NI_varpart2
 ```
 
     ##              Adj_R2 Df        F      p
-    ## All           0.170  4 1.358137 0.1508
-    ## Env           0.170  4 1.358137 0.1508
+    ## All           0.170  4 1.358137 0.1485
+    ## Env           0.170  4 1.358137 0.1485
     ## Clim             NA NA       NA     NA
-    ## Spa           0.159  1 2.319742 0.0136
+    ## Spa           0.159  1 2.319742 0.0149
     ## Pure_Env      0.011 NA       NA     NA
     ## Pure_Clim        NA NA       NA     NA
     ## Pure_Spa      0.000 NA       NA     NA
@@ -1588,54 +1603,54 @@ MD_varpart2
 ```
 
     ##              Adj_R2 Df        F      p
-    ## All           0.281  4 1.682274 0.0785
-    ## Env           0.281  4 1.682274 0.0785
+    ## All           0.139  4 1.281935 0.2652
+    ## Env           0.139  4 1.281935 0.2652
     ## Clim             NA NA       NA     NA
     ## Spa           0.000 NA       NA     NA
-    ## Pure_Env      0.281  4 1.682274 0.0785
+    ## Pure_Env      0.139  4 1.281935 0.2652
     ## Pure_Clim        NA NA       NA     NA
     ## Pure_Spa      0.000 NA       NA     NA
     ## Env_Spa       0.000 NA       NA     NA
     ## Env_Clim         NA NA       NA     NA
     ## Spa_Clim         NA NA       NA     NA
     ## Spa_Clim_Env     NA NA       NA     NA
-    ## Resid         0.719 NA       NA     NA
+    ## Resid         0.861 NA       NA     NA
 
 ``` r
 JA_varpart2
 ```
 
     ##              Adj_R2 Df        F      p
-    ## All           0.607  5 3.779947 0.0005
-    ## Env           0.527  3 4.347714 0.0001
+    ## All           0.425  3 3.220404 0.0013
+    ## Env           0.210  1 3.393898 0.0022
     ## Clim             NA NA       NA     NA
-    ## Spa           0.314  2 3.060817 0.0053
-    ## Pure_Env      0.293  3 2.738776 0.0206
+    ## Spa           0.314  2 3.060817 0.0054
+    ## Pure_Env      0.111  1 2.354789 0.0575
     ## Pure_Clim        NA NA       NA     NA
-    ## Pure_Spa      0.080  2 1.607557 0.1532
-    ## Env_Spa       0.235 NA       NA     NA
+    ## Pure_Spa      0.215  2 2.498105 0.0348
+    ## Env_Spa       0.099 NA       NA     NA
     ## Env_Clim         NA NA       NA     NA
     ## Spa_Clim         NA NA       NA     NA
     ## Spa_Clim_Env     NA NA       NA     NA
-    ## Resid         0.393 NA       NA     NA
+    ## Resid         0.575 NA       NA     NA
 
 ``` r
 UBA_varpart2
 ```
 
     ##              Adj_R2 Df        F      p
-    ## All           0.147  3 2.263050 0.0009
-    ## Env           0.090  1 3.179440 0.0033
+    ## All           0.151  3 2.308338 0.0009
+    ## Env           0.095  1 3.306803 0.0013
     ## Clim             NA NA       NA     NA
-    ## Spa           0.117  2 2.450992 0.0020
-    ## Pure_Env      0.030  1 1.712526 0.0672
+    ## Spa           0.117  2 2.450992 0.0032
+    ## Pure_Env      0.035  1 1.821646 0.0468
     ## Pure_Clim        NA NA       NA     NA
-    ## Pure_Spa      0.057  2 1.699021 0.0279
+    ## Pure_Spa      0.056  2 1.699031 0.0272
     ## Env_Spa       0.060 NA       NA     NA
     ## Env_Clim         NA NA       NA     NA
     ## Spa_Clim         NA NA       NA     NA
     ## Spa_Clim_Env     NA NA       NA     NA
-    ## Resid         0.853 NA       NA     NA
+    ## Resid         0.849 NA       NA     NA
 
 ``` r
 BER_varpart2
@@ -1660,18 +1675,18 @@ ITA_varpart2
 ```
 
     ##              Adj_R2 Df        F      p
-    ## All           0.043  5 1.125019 0.3419
-    ## Env           0.043  5 1.125019 0.3419
+    ## All           0.048  5 1.142093 0.3252
+    ## Env           0.048  5 1.142093 0.3252
     ## Clim             NA NA       NA     NA
     ## Spa           0.000 NA       NA     NA
-    ## Pure_Env      0.043  5 1.125019 0.3419
+    ## Pure_Env      0.048  5 1.142093 0.3252
     ## Pure_Clim        NA NA       NA     NA
     ## Pure_Spa      0.000 NA       NA     NA
     ## Env_Spa       0.000 NA       NA     NA
     ## Env_Clim         NA NA       NA     NA
     ## Spa_Clim         NA NA       NA     NA
     ## Spa_Clim_Env     NA NA       NA     NA
-    ## Resid         0.957 NA       NA     NA
+    ## Resid         0.952 NA       NA     NA
 
    
 
@@ -1701,32 +1716,32 @@ for(i in 1:dim(Varpart_plot_neg)[1]){
 Varpart_plot_neg
 ```
 
-    ##               Broad   SSF   DRF Santa Fé do Sul   Icém Nova Itapirema
-    ## All           0.448 0.348 0.186           0.197  0.202          0.140
-    ## Env           0.261 0.139 0.068           0.213  0.204          0.170
-    ## Clim          0.211 0.083 0.048           0.000  0.000          0.000
-    ## Spa           0.400 0.294 0.165          -0.085 -0.041          0.159
-    ## Pure_Env      0.031 0.042 0.013           0.282  0.243         -0.019
-    ## Pure_Clim    -0.003 0.008 0.005           0.000  0.000          0.000
-    ## Pure_Spa      0.145 0.150 0.093          -0.016 -0.002         -0.030
-    ## Env_Spa       0.061 0.074 0.032          -0.069 -0.039          0.189
-    ## Env_Clim      0.020 0.004 0.004           0.000  0.000          0.000
-    ## Spa_Clim      0.045 0.051 0.020           0.000  0.000          0.000
-    ## Spa_Clim_Env  0.149 0.020 0.019           0.000  0.000          0.000
-    ## Resid         0.552 0.652 0.814           0.803  0.798          0.860
+    ##              Broad   SSF   DRF Santa Fé do Sul   Icém Nova Itapirema
+    ## All          0.411 0.346 0.191           0.197  0.291          0.140
+    ## Env          0.166 0.136 0.073           0.213  0.292          0.170
+    ## Clim         0.177 0.171 0.049           0.000  0.000          0.000
+    ## Spa          0.369 0.294 0.165          -0.085 -0.041          0.159
+    ## Pure_Env     0.012 0.034 0.016           0.282  0.332         -0.019
+    ## Pure_Clim    0.026 0.009 0.006           0.000  0.000          0.000
+    ## Pure_Spa     0.168 0.078 0.091          -0.016 -0.001         -0.030
+    ## Env_Spa      0.054 0.063 0.035          -0.069 -0.040          0.189
+    ## Env_Clim     0.004 0.010 0.004           0.000  0.000          0.000
+    ## Spa_Clim     0.051 0.124 0.021           0.000  0.000          0.000
+    ## Spa_Clim_Env 0.096 0.029 0.018           0.000  0.000          0.000
+    ## Resid        0.589 0.654 0.809           0.803  0.709          0.860
     ##              Morro do Diabo Jataí Ubatuba Bertioga Itanhaém
-    ## All                   0.256 0.607   0.147   -0.120    0.061
-    ## Env                   0.281 0.527   0.090   -0.073    0.043
+    ## All                   0.282 0.425   0.151   -0.085    0.065
+    ## Env                   0.139 0.210   0.095   -0.044    0.048
     ## Clim                  0.000 0.000   0.000    0.000    0.000
     ## Spa                  -0.005 0.314   0.117   -0.012   -0.008
-    ## Pure_Env              0.261 0.293   0.030   -0.108    0.069
+    ## Pure_Env              0.287 0.111   0.035   -0.072    0.073
     ## Pure_Clim             0.000 0.000   0.000    0.000    0.000
-    ## Pure_Spa             -0.024 0.080   0.057   -0.047    0.018
-    ## Env_Spa               0.020 0.235   0.060    0.034   -0.026
+    ## Pure_Spa              0.143 0.215   0.056   -0.040    0.017
+    ## Env_Spa              -0.148 0.099   0.060    0.028   -0.025
     ## Env_Clim              0.000 0.000   0.000    0.000    0.000
     ## Spa_Clim              0.000 0.000   0.000    0.000    0.000
     ## Spa_Clim_Env          0.000 0.000   0.000    0.000    0.000
-    ## Resid                 0.744 0.393   0.853    1.120    0.939
+    ## Resid                 0.718 0.575   0.849    1.085    0.935
 
      
    
@@ -1752,26 +1767,26 @@ Varpart_plot_p
 ```
 
     ##               Broad    SSF    DRF Santa Fé do Sul   Icém Nova Itapirema
-    ## All          0.0001 0.0001 0.0001          0.2679 0.0119         0.2805
-    ## Env          0.0001 0.0001 0.0005          0.1001 0.0005         0.1468
-    ## Clim         0.0001 0.0001 0.0007              NA     NA             NA
-    ## Spa          0.0001 0.0001 0.0001          0.8152 0.7263         0.0141
-    ## Pure_Env     0.0001 0.0065 0.1171          0.2458 0.0034         0.5408
-    ## Pure_Clim    0.8405 0.1224 0.2281              NA     NA             NA
-    ## Pure_Spa     0.0001 0.0001 0.0005          0.5104 0.4989         0.5122
+    ## All          0.0001 0.0001 0.0001          0.2655 0.0037         0.2881
+    ## Env          0.0001 0.0001 0.0003          0.1014 0.0001         0.1512
+    ## Clim         0.0001 0.0001 0.0003              NA     NA             NA
+    ## Spa          0.0001 0.0001 0.0001          0.8109 0.7138         0.0181
+    ## Pure_Env     0.0122 0.0211 0.0827          0.2532 0.0017         0.5475
+    ## Pure_Clim    0.0001 0.1878 0.1928              NA     NA             NA
+    ## Pure_Spa     0.0001 0.0005 0.0003          0.5131 0.5023         0.5097
     ## Env_Spa          NA     NA     NA              NA     NA             NA
     ## Env_Clim         NA     NA     NA              NA     NA             NA
     ## Spa_Clim         NA     NA     NA              NA     NA             NA
     ## Spa_Clim_Env     NA     NA     NA              NA     NA             NA
     ## Resid            NA     NA     NA              NA     NA             NA
     ##              Morro do Diabo  Jataí Ubatuba Bertioga Itanhaém
-    ## All                  0.1896 0.0004  0.0008   0.8903   0.3602
-    ## Env                  0.0749 0.0001  0.0019   0.8171   0.3445
+    ## All                  0.1596 0.0025  0.0005   0.8008   0.3520
+    ## Env                  0.2647 0.0012  0.0010   0.6890   0.3372
     ## Clim                     NA     NA      NA       NA       NA
-    ## Spa                  0.3793 0.0061  0.0021   0.5709   0.4803
-    ## Pure_Env             0.2055 0.0230  0.0657   0.8621   0.3225
+    ## Spa                  0.3754 0.0057  0.0024   0.5708   0.5007
+    ## Pure_Env             0.1710 0.0562  0.0442   0.7545   0.3126
     ## Pure_Clim                NA     NA      NA       NA       NA
-    ## Pure_Spa             0.4992 0.1530  0.0291   0.7343   0.3815
+    ## Pure_Spa             0.2754 0.0374  0.0228   0.6956   0.3919
     ## Env_Spa                  NA     NA      NA       NA       NA
     ## Env_Clim                 NA     NA      NA       NA       NA
     ## Spa_Clim                 NA     NA      NA       NA       NA
@@ -1784,9 +1799,9 @@ Varpart_plot_p
 Constructing a matrix with all R2 values (without negative values)
 
 ``` r
-Varpart_plot <- data.frame(Broad_varpart[,1],
-                           SSF_varpart[,1],
-                           DRF_varpart[,1],
+Varpart_plot <- data.frame(Broad_varpart2[,1],
+                           SSF_varpart2[,1],
+                           DRF_varpart2[,1],
                            ST_varpart2[,1],
                            IC_varpart2[,1],
                            NI_varpart2[,1],
@@ -1807,32 +1822,32 @@ for(i in 1:dim(Varpart_plot)[1]){
 Varpart_plot
 ```
 
-    ##               Broad   SSF   DRF Santa Fé do Sul  Icém Nova Itapirema
-    ## All           0.448 0.348 0.186           0.213 0.204          0.170
-    ## Env           0.261 0.139 0.068           0.213 0.204          0.170
-    ## Clim          0.211 0.083 0.048           0.000 0.000          0.000
-    ## Spa           0.400 0.294 0.165           0.000 0.000          0.159
-    ## Pure_Env      0.031 0.042 0.013           0.213 0.204          0.011
-    ## Pure_Clim    -0.003 0.008 0.005           0.000 0.000          0.000
-    ## Pure_Spa      0.145 0.150 0.093           0.000 0.000          0.000
-    ## Env_Spa       0.061 0.074 0.032           0.000 0.000          0.159
-    ## Env_Clim      0.020 0.004 0.004           0.000 0.000          0.000
-    ## Spa_Clim      0.045 0.051 0.020           0.000 0.000          0.000
-    ## Spa_Clim_Env  0.149 0.020 0.019           0.000 0.000          0.000
-    ## Resid         0.552 0.652 0.814           0.787 0.796          0.830
+    ##              Broad   SSF   DRF Santa Fé do Sul  Icém Nova Itapirema
+    ## All          0.411 0.346 0.191           0.213 0.292          0.170
+    ## Env          0.166 0.136 0.073           0.213 0.292          0.170
+    ## Clim         0.177 0.171 0.049           0.000 0.000          0.000
+    ## Spa          0.369 0.294 0.165           0.000 0.000          0.159
+    ## Pure_Env     0.012 0.034 0.016           0.213 0.292          0.011
+    ## Pure_Clim    0.026 0.009 0.006           0.000 0.000          0.000
+    ## Pure_Spa     0.168 0.078 0.091           0.000 0.000          0.000
+    ## Env_Spa      0.054 0.063 0.035           0.000 0.000          0.159
+    ## Env_Clim     0.004 0.010 0.004           0.000 0.000          0.000
+    ## Spa_Clim     0.051 0.124 0.021           0.000 0.000          0.000
+    ## Spa_Clim_Env 0.096 0.029 0.018           0.000 0.000          0.000
+    ## Resid        0.589 0.654 0.809           0.787 0.708          0.830
     ##              Morro do Diabo Jataí Ubatuba Bertioga Itanhaém
-    ## All                   0.281 0.607   0.147        0    0.043
-    ## Env                   0.281 0.527   0.090        0    0.043
+    ## All                   0.139 0.425   0.151        0    0.048
+    ## Env                   0.139 0.210   0.095        0    0.048
     ## Clim                  0.000 0.000   0.000        0    0.000
     ## Spa                   0.000 0.314   0.117        0    0.000
-    ## Pure_Env              0.281 0.293   0.030        0    0.043
+    ## Pure_Env              0.139 0.111   0.035        0    0.048
     ## Pure_Clim             0.000 0.000   0.000        0    0.000
-    ## Pure_Spa              0.000 0.080   0.057        0    0.000
-    ## Env_Spa               0.000 0.235   0.060        0    0.000
+    ## Pure_Spa              0.000 0.215   0.056        0    0.000
+    ## Env_Spa               0.000 0.099   0.060        0    0.000
     ## Env_Clim              0.000 0.000   0.000        0    0.000
     ## Spa_Clim              0.000 0.000   0.000        0    0.000
     ## Spa_Clim_Env          0.000 0.000   0.000        0    0.000
-    ## Resid                 0.719 0.393   0.853        1    0.957
+    ## Resid                 0.861 0.575   0.849        1    0.952
 
      
    
@@ -1929,25 +1944,25 @@ Means_spatial_extent
 ```
 
     ##                                   Broad_Extent Intermediate_Extent Small_Extent
-    ## All                                      0.448              0.2670     0.208125
-    ## Env                                      0.261              0.1035     0.191000
-    ## Clim                                     0.211              0.0655     0.000000
-    ## Spa                                      0.400              0.2295     0.073750
-    ## Pure_Env                                 0.031              0.0275     0.134375
-    ## Pure_Clim                               -0.003              0.0065     0.000000
-    ## Pure_Spa                                 0.145              0.1215     0.017125
-    ## Env_Spa                                  0.061              0.0530     0.056750
-    ## Env_Clim                                 0.020              0.0040     0.000000
-    ## Spa_Clim                                 0.045              0.0355     0.000000
-    ## Spa_Clim_Env                             0.149              0.0195     0.000000
-    ## Resid                                    0.552              0.7330     0.791875
-    ## Env_Spatially_Structured                 0.210              0.0725     0.056750
-    ## Env_Non_Spatially_Structured             0.051              0.0315     0.134375
-    ## Clim_Spatially_Structured                0.194              0.0550     0.000000
-    ## Clim_Non_Spatially_Structured            0.017              0.0105     0.000000
-    ## Non_Spatially_Climate_Environment        0.048              0.0380     0.134375
-    ## Spatially_Climate_Environment            0.255              0.1080     0.056750
-    ## Total_Climate_Environment                0.303              0.1460     0.191125
+    ## All                                      0.411              0.2685     0.179750
+    ## Env                                      0.166              0.1045     0.145875
+    ## Clim                                     0.177              0.1100     0.000000
+    ## Spa                                      0.369              0.2295     0.073750
+    ## Pure_Env                                 0.012              0.0250     0.106125
+    ## Pure_Clim                                0.026              0.0075     0.000000
+    ## Pure_Spa                                 0.168              0.0845     0.033875
+    ## Env_Spa                                  0.054              0.0490     0.039750
+    ## Env_Clim                                 0.004              0.0070     0.000000
+    ## Spa_Clim                                 0.051              0.0725     0.000000
+    ## Spa_Clim_Env                             0.096              0.0235     0.000000
+    ## Resid                                    0.589              0.7315     0.820250
+    ## Env_Spatially_Structured                 0.150              0.0725     0.039750
+    ## Env_Non_Spatially_Structured             0.016              0.0320     0.106125
+    ## Clim_Spatially_Structured                0.147              0.0960     0.000000
+    ## Clim_Non_Spatially_Structured            0.030              0.0145     0.000000
+    ## Non_Spatially_Climate_Environment        0.042              0.0395     0.106125
+    ## Spatially_Climate_Environment            0.201              0.1450     0.039750
+    ## Total_Climate_Environment                0.243              0.1845     0.145875
 
  
 
@@ -1967,25 +1982,25 @@ Means_small_extent
 ```
 
     ##                                      SSF        DRF
-    ## All                               0.2950 0.06333333
-    ## Env                               0.2790 0.04433333
+    ## All                               0.2478 0.06633333
+    ## Env                               0.2048 0.04766667
     ## Clim                              0.0000 0.00000000
     ## Spa                               0.0946 0.03900000
-    ## Pure_Env                          0.2004 0.02433333
+    ## Pure_Env                          0.1532 0.02766667
     ## Pure_Clim                         0.0000 0.00000000
-    ## Pure_Spa                          0.0160 0.01900000
-    ## Env_Spa                           0.0788 0.02000000
+    ## Pure_Spa                          0.0430 0.01866667
+    ## Env_Spa                           0.0516 0.02000000
     ## Env_Clim                          0.0000 0.00000000
     ## Spa_Clim                          0.0000 0.00000000
     ## Spa_Clim_Env                      0.0000 0.00000000
-    ## Resid                             0.7050 0.93666667
-    ## Env_Spatially_Structured          0.0788 0.02000000
-    ## Env_Non_Spatially_Structured      0.2004 0.02433333
+    ## Resid                             0.7522 0.93366667
+    ## Env_Spatially_Structured          0.0516 0.02000000
+    ## Env_Non_Spatially_Structured      0.1532 0.02766667
     ## Clim_Spatially_Structured         0.0000 0.00000000
     ## Clim_Non_Spatially_Structured     0.0000 0.00000000
-    ## Non_Spatially_Climate_Environment 0.2004 0.02433333
-    ## Spatially_Climate_Environment     0.0788 0.02000000
-    ## Total_Climate_Environment         0.2792 0.04433333
+    ## Non_Spatially_Climate_Environment 0.1532 0.02766667
+    ## Spatially_Climate_Environment     0.0516 0.02000000
+    ## Total_Climate_Environment         0.2048 0.04766667
 
  
 
