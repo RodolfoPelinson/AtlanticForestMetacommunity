@@ -26,7 +26,7 @@ source("Loading_data.R")
 
 
 ```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
-library(AtlanticForestMetacommunity)
+devtools::load_all()
 source("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Auxiliary Scripts/Loading_data.R")
 ```
 
@@ -265,7 +265,7 @@ data.frame(DRF_min = apply(DRF_env, 2, min), DRF_mean = apply(DRF_env, 2, mean),
 ```
 \  
 
-#### 
+#### SSF
 ```{r}
 data.frame(SSF_min = apply(SSF_clim, 2, min), SSF_mean = apply(SSF_clim, 2, mean), SSF_max = apply(SSF_clim, 2, max))
 data.frame(SSF_min = apply(SSF_env, 2, min), SSF_mean = apply(SSF_env, 2, mean), SSF_max = apply(SSF_env, 2, max))
@@ -368,16 +368,27 @@ apply(Int_Env_cv, 2, mean)
 
 ### Small Extent
 ```{r}
-Sm_Env_cv <- data.frame(UBA_cv = apply(UBA_env, 2, coef_var),
-           BER_cv = apply(BER_env, 2, coef_var),
-           ITA_cv = apply(ITA_env, 2, coef_var),
-           ST_cv = apply(ST_env, 2, coef_var),
-           IC_cv = apply(IC_env, 2, coef_var),
-           NI_cv = apply(NI_env, 2, coef_var),
-           MD_cv = apply(MD_env, 2, coef_var),
-           JA_cv = apply(JA_env, 2, coef_var))
+UBA_cv <- c(apply(UBA_env, 2, coef_var), nvt = NA)
+BER_cv <- c(apply(BER_env, 2, coef_var), nvt = NA)
+ITA_cv <- c(apply(ITA_env, 2, coef_var), dist_to_forest = NA)
+ST_cv <- c(apply(ST_env, 2, coef_var), canopy_cover = NA)
+IC_cv <- c(apply(IC_env, 2, coef_var), canopy_cover = NA)
+NI_cv <- c(apply(NI_env, 2, coef_var), canopy_cover = NA)
+MD_cv <- c(apply(MD_env, 2, coef_var))
+JA_cv <- c(apply(JA_env, 2, coef_var))
+
+UBA_cv <- UBA_cv[order(names(UBA_cv))]
+BER_cv <- BER_cv[order(names(BER_cv))]
+ITA_cv <- ITA_cv[order(names(ITA_cv))]
+ST_cv <- ST_cv[order(names(ST_cv))]
+IC_cv <- IC_cv[order(names(IC_cv))]
+NI_cv <- NI_cv[order(names(NI_cv))]
+MD_cv <- MD_cv[order(names(MD_cv))]
+JA_cv <- JA_cv[order(names(JA_cv))]
+
+Sm_Env_cv <- data.frame(UBA_cv,BER_cv,ITA_cv,ST_cv,IC_cv,NI_cv,MD_cv,JA_cv)
 
 Sm_Env_cv
-apply(Sm_Env_cv, 2, mean)
+apply(na.omit(Sm_Env_cv), 2, mean)
 ```
 

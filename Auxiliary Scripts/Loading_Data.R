@@ -94,9 +94,9 @@ ITA_pa=ITA_pa_orig[,which (colSums(ITA_pa_orig)>1)]
 Broad_locality <- data$locality
 
 Broadenv<-data.frame(hydroperiod = data$hydroperiod[2:nrow(data)],
+                     canopy_cover = data$canopy_cover_cat[2:nrow(data)],
                     area = data$area[2:nrow(data)],
                     depth = data$depth[2:nrow(data)],
-                    canopy_cover = data$canopy_cover_cat[2:nrow(data)],
                     nvt = data$nvt[2:nrow(data)],
                     #arbust_veg = data$arbust_veg[2:nrow(data)],
                     #arbor_veg = data$arbor_veg[2:nrow(data)],
