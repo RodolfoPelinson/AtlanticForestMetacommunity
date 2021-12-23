@@ -12,6 +12,9 @@ library(AtlanticForestMetacommunity)
 source("Loading_data.R")
 ```
 
+    ## Error in get(genname, envir = envir) : 
+    ##   objeto 'testthat_print' não encontrado
+
 The packages used to run this analyses are:
 
 `vegan` version 2.5-6  
@@ -158,9 +161,10 @@ My_Imagine(comm = Broad_pa, col = c("white", "black", "grey50"),
            order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8,
            top_margin = 7, left_margin = 4,
            Env1 = PC1, Env.col_1 = c("white","red"), Env.label_1 = "Climate",
-           Env2 = as.factor(Broad_env$nvt), Env.col_2 = c("chartreuse1", "chartreuse3","chartreuse4"), Env.label_2 = "Vegetation",
-           Env3 = as.factor(Broad_env$canopy_cover), Env.col_3= c("gold","forestgreen"), Env.label_3 = "Canopy Cover",
-           Env4 = as.factor(Broad_env$ecoregion), Env.col_4= c("darkgreen","darkolivegreen1"), Env.label_4 = "Ecoregion")
+           Env2 = Broad_env_st$dist_to_forest, Env.col_2 = c("forestgreen","lemonchiffon"), Env.label_2 = "Dist. Forest",
+           Env3 = as.numeric(Broad_env$nvt), Env.col_3 = c("lemonchiffon","forestgreen"), Env.label_3 = "Vegetation",
+           Env4 = as.numeric(Broad_env$canopy_cover), Env.col_4= c("lemonchiffon","forestgreen"), Env.label_4 = "Canopy Cover",
+           Env5 = as.numeric(Broad_env$ecoregion), Env.col_5= c("forestgreen","darkolivegreen2"), Env.label_5 = "Ecoregion")
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-6-1.png" width="1000" height="700" style="display: block; margin: auto;" />
@@ -241,8 +245,7 @@ round(ITA_spearman,3)
 
 ``` r
 My_Imagine(comm = ITA_pa, col = c("white", "black","gray50"),
-           order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4,
-           Env1 = as.factor(ITA_env$hydroperiod), Env.col_1 = c("lightskyblue", "royalblue"), Env.label_1 = "Hydroperiod")
+           order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4)
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-13-1.png" width="600" height="500" style="display: block; margin: auto;" />
@@ -337,7 +340,7 @@ round(MD_spearman,3)
 ``` r
 My_Imagine(comm = MD_pa, col = c("white", "black","gray50"),
            order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4,
-           Env1 = as.factor(MD_env$canopy_cover), Env.col_1 = c("gold","forestgreen"), Env.label_1 = "Canopy Cover")
+           Env1 = as.numeric(MD_env$canopy_cover), Env.col_1 = c("lemonchiffon","forestgreen"), Env.label_1 = "Canopy Cover")
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-21-1.png" width="600" height="500" style="display: block; margin: auto;" />
@@ -360,10 +363,9 @@ round(JA_spearman,3)
 ``` r
 My_Imagine(comm = JA_pa, col = c("white", "black","gray50"),
            order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4,
-           Env1 = as.factor(JA_env$hydroperiod), Env.col_1 = c("cyan2","blue3"), Env.label_1 = "Hydroperiod",
-           Env2 = as.factor(JA_env$nvt), Env.col_2 = c("chartreuse1", "chartreuse3","chartreuse4"), Env.label_2 = "Vegetation",
-           Env3 = as.factor(JA_env$canopy_cover), Env.col_3 = c("gold","forestgreen"), Env.label_3 = "Canopy Cover")
+           Env1 = as.numeric(JA_env$hydroperiod), Env.col_1 = c("lightskyblue", "royalblue"), Env.label_1 = "Hydroperiod",
+           Env2 = as.numeric(JA_env$nvt), Env.col_2 = c("lemonchiffon","forestgreen"), Env.label_2 = "Vegetation",
+           Env3 = as.numeric(JA_env$canopy_cover), Env.col_3 = c("lemonchiffon","forestgreen"), Env.label_3 = "Canopy Cover")
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-23-1.png" width="600" height="500" style="display: block; margin: auto;" />
-   

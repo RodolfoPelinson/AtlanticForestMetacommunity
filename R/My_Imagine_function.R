@@ -45,6 +45,9 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
                         Env.col_3 = NULL, Env.label_3 = NULL, Env3 = NULL,
                         Env.col_4 = NULL, Env.label_4 = NULL, Env4 = NULL,
                         Env.col_5 = NULL, Env.label_5 = NULL, Env5 = NULL)
+
+
+
 {
   if(isFALSE(is.null(Env1))  & is.null(Env2) & is.null(Env3)& is.null(Env4)& is.null(Env5)){
     layout(matrix(c(1,2), 1, 2, byrow = TRUE), widths = c(0.95,0.05))
@@ -143,30 +146,38 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
   if(is.null(Env1)==F){
 
     if(is.numeric(Env1)){
-      Env1_new = findInterval(Env1, sort(Env1))
-      pal <- colorRampPalette(c(Env.col_1[1], Env.col_1[2]), space = "Lab")
-      Env.col_1 <-pal(length(Env1_new))[Env1_new]
+      pal <- col_numeric(
+        palette = c(Env.col_1[1], Env.col_1[2]),
+        domain = Env1,
+        na.color = "grey50",
+        alpha = FALSE,
+        reverse = FALSE)
+      Env.col_1 <-pal(Env1)
     }
 
     if(is.factor(Env1)){
       Env1<-as.numeric(Env1)
     }
-
     par(mar = c(3,0, top_margin, 1))
-    image(y = 1:length(Env1),x = 1, z = t(as.matrix(Env1)),
+    image(y = 1:length(Env1),x = 1, z = t(as.matrix(1:length(Env1))),
           col = Env.col_1,
           axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
     axis(3, at = 0.4, labels = Env.label_1, las = 2,
          cex.axis = 1, lwd.ticks = 0)
     box(lwd = box.lwd)
+
   }
 
   if(is.null(Env2)==F){
 
     if(is.numeric(Env2)){
-      Env2_new = findInterval(Env2, sort(Env2))
-      pal <- colorRampPalette(c(Env.col_2[1], Env.col_2[2]), space = "Lab")
-      Env.col_2 <-pal(length(Env2_new))[Env2_new]
+      pal <- col_numeric(
+        palette = c(Env.col_2[1], Env.col_2[2]),
+        domain = Env2,
+        na.color = "grey50",
+        alpha = FALSE,
+        reverse = FALSE)
+      Env.col_2 <-pal(Env2)
     }
 
     if(is.factor(Env2)){
@@ -174,7 +185,7 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
     }
 
     par(mar = c(3,0, top_margin, 1))
-    image(y = 1:length(Env2),x = 1, z = t(as.matrix(Env2)),
+    image(y = 1:length(Env2),x = 1, z = t(as.matrix(1:length(Env2))),
           col = Env.col_2,
           axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
     axis(3, at = 0.4, labels = Env.label_2, las = 2,
@@ -185,9 +196,13 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
   if(is.null(Env3)==F){
 
     if(is.numeric(Env3)){
-      Env3_new = findInterval(Env3, sort(Env3))
-      pal <- colorRampPalette(c(Env.col_3[1], Env.col_3[2]), space = "Lab")
-      Env.col_3 <-pal(length(Env3_new))[Env3_new]
+      pal <- col_numeric(
+        palette = c(Env.col_3[1], Env.col_3[2]),
+        domain = Env3,
+        na.color = "grey50",
+        alpha = FALSE,
+        reverse = FALSE)
+      Env.col_3 <-pal(Env3)
     }
 
     if(is.factor(Env3)){
@@ -195,7 +210,7 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
     }
 
     par(mar = c(3,0, top_margin, 1))
-    image(y = 1:length(Env3),x = 1, z = t(as.matrix(Env3)),
+    image(y = 1:length(Env3),x = 1, z = t(as.matrix(1:length(Env3))),
           col = Env.col_3,
           axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
     axis(3, at = 0.4, labels = Env.label_3, las = 2,
@@ -207,9 +222,14 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
   if(is.null(Env4)==F){
 
     if(is.numeric(Env4)){
-      Env4_new = findInterval(Env4, sort(Env4))
-      pal <- colorRampPalette(c(Env.col_4[1], Env.col_4[2]), space = "Lab")
-      Env.col_4 <-pal(length(Env4_new))[Env4_new]
+      pal <- col_numeric(
+        palette = c(Env.col_4[1], Env.col_4[2]),
+        domain = Env4,
+        na.color = "grey50",
+        alpha = FALSE,
+        reverse = FALSE
+      )
+      Env.col_4 <- pal(Env4)
     }
 
     if(is.factor(Env4)){
@@ -217,7 +237,7 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
     }
 
     par(mar = c(3,0, top_margin, 1))
-    image(y = 1:length(Env4),x = 1, z = t(as.matrix(Env4)),
+    image(y = 1:length(Env4),x = 1, z = t(as.matrix(1:length(Env4))),
           col = Env.col_4,
           axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
     axis(3, at = 0.4, labels = Env.label_4, las = 2,
@@ -229,9 +249,13 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
   if(is.null(Env5)==F){
 
     if(is.numeric(Env5)){
-      Env5_new = findInterval(Env5, sort(Env5))
-      pal <- colorRampPalette(c(Env.col_5[1], Env.col_5[2]), space = "Lab")
-      Env.col_5 <-pal(length(Env5_new))[Env5_new]
+      pal <- col_numeric(
+        palette = c(Env.col_5[1], Env.col_5[2]),
+        domain = Env5,
+        na.color = "grey50",
+        alpha = FALSE,
+        reverse = FALSE)
+      Env.col_5 <-pal(Env5)
     }
 
     if(is.factor(Env5)){
@@ -239,7 +263,7 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
     }
 
     par(mar = c(3,0, top_margin, 1))
-    image(y = 1:length(Env5),x = 1, z = t(as.matrix(Env5)),
+    image(y = 1:length(Env5),x = 1, z = t(as.matrix(1:length(Env5))),
           col = Env.col_5,
           axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
     axis(3, at = 0.4, labels = Env.label_5, las = 2,
