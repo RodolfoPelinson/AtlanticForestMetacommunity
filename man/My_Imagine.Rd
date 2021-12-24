@@ -10,12 +10,20 @@ My_Imagine(
   order = TRUE,
   scores = 1,
   fill = TRUE,
-  xlab = "Species",
-  ylab = "Sites",
-  yline = 2,
-  xline = 2,
+  xlab = "",
+  ylab = "",
+  yline = 0,
+  xline = 0,
   sitenames = rownames(comm),
+  cex.envlab = 1,
   speciesnames = colnames(comm),
+  xlab_line = 3,
+  cex.xlab = 2,
+  ylab_line = 3,
+  cex.ylab = 2,
+  main = "",
+  main_line = 3,
+  cex.main = 2,
   Env1 = NULL,
   Env2 = NULL,
   Env.col_1 = NULL,
@@ -26,8 +34,10 @@ My_Imagine(
   cex.species = 1,
   top_margin = 2,
   left_margin = 2,
+  bottom_margin = 3,
+  right_margin = 1,
   EigenVal = F,
-  box.lwd = 2,
+  box.lwd = 1,
   Env.col_3 = NULL,
   Env.label_3 = NULL,
   Env3 = NULL,
@@ -50,9 +60,9 @@ My_Imagine(
 
 \item{fill}{Logical. Should embeded absences be filled?}
 
-\item{xlab}{X axis Label. Defaut is to "Species".}
+\item{xlab}{Label of the x axis}
 
-\item{ylab}{Y axis Label. Defaut is to "Sites".}
+\item{ylab}{Label of the y axis}
 
 \item{yline}{Line position of y label. Defaut is 2.}
 
@@ -60,7 +70,23 @@ My_Imagine(
 
 \item{sitenames}{A vector of site Names. Defaut is row names.}
 
+\item{cex.envlab}{The size of the environmental gradient labels}
+
 \item{speciesnames}{A vector of species Names. Defaut is column names.}
+
+\item{xlab_line}{Line position of the x label}
+
+\item{cex.xlab}{Size of the x label}
+
+\item{ylab_line}{Line position of the y label}
+
+\item{cex.ylab}{Size of the y label}
+
+\item{main}{Main Title}
+
+\item{main_line}{Line poisition of the main title.}
+
+\item{cex.main}{Size of the main title}
 
 \item{Env1}{The first environmental gradient}
 
@@ -81,6 +107,10 @@ My_Imagine(
 \item{top_margin}{The space left in the top of the plot. Useful to fit long species names.}
 
 \item{left_margin}{The space left in the left side of the plot. Useful to fit long site names.}
+
+\item{bottom_margin}{The space left in the bottom side of the plot.}
+
+\item{right_margin}{The space left in the right side of the plot.}
 
 \item{EigenVal}{Should the relative eigenvalue of the ordination axis used be plotted?}
 

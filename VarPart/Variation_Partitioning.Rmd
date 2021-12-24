@@ -112,8 +112,8 @@ DRF_clim_VIF$VIFs
 ## Spatial Variables
 
 Constructing matrices of spatial filters
-```{r, cache = FALSE, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
-set.seed(6)
+```{r, cache = TRUE, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+set.seed(4)
 
 candidates_Broad <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
                                    weights = c("flin", "fup"), y_fdown = 5, y_fup = 0.5)
@@ -377,42 +377,20 @@ We are only going to plot the four most important ones
 ```{r, fig.width= 6, fig.height=6,out.width= 800, out.height=800 , fig.align='center', dpi = 200}
 par(mfrow = c(2,2))
 
-sr_value(Broad_coord, data.frame(Broad_MEM$best$MEM.select)[,1], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+ylim <- c(min(Broad_coord[,"lat"])*1.005, max(Broad_coord[,"lat"])*0.995)
+xlim <- c(min(Broad_coord[,"long"])*1.005, max(Broad_coord[,"long"])*0.995)
+
+sr_value(Broad_coord, data.frame(Broad_MEM$best$MEM.select)[,1], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = paste("LARGE SCALE", colnames(data.frame(Broad_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
 
-sr_value(Broad_coord, data.frame(Broad_MEM$best$MEM.select)[,2], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+sr_value(Broad_coord, data.frame(Broad_MEM$best$MEM.select)[,2], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = paste("LARGE SCALE", colnames(data.frame(Broad_MEM$best$MEM.select))[2]), line = 3, outer = F, adj = 1)
 
-sr_value(Broad_coord, data.frame(Broad_MEM$best$MEM.select)[,3], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+sr_value(Broad_coord, data.frame(Broad_MEM$best$MEM.select)[,3], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = paste("LARGE SCALE", colnames(data.frame(Broad_MEM$best$MEM.select))[3]), line = 3, outer = F, adj = 1)
 
-sr_value(Broad_coord, data.frame(Broad_MEM$best$MEM.select)[,4], ylim = c(-24.49270,-20.17833), xlim = c(-52.64536, -44.51492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+sr_value(Broad_coord, data.frame(Broad_MEM$best$MEM.select)[,4], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = paste("LARGE SCALE", colnames(data.frame(Broad_MEM$best$MEM.select))[4]), line = 3, outer = F, adj = 1)
-
-```
-
-\  
-\  
-\  
-\  
-
-
-
-Intermediate Scale DRF.
-```{r, fig.width= 6, fig.height=6,out.width= 800, out.height=800 , fig.align='center', dpi = 200}
-par(mfrow = c(2,2))
-
-sr_value(DRF_coord, data.frame(DRF_MEM$best$MEM.select)[,1], ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
-title(main = paste("DRF", colnames(data.frame(DRF_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
-
-sr_value(DRF_coord, data.frame(DRF_MEM$best$MEM.select)[,2], ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
-title(main = paste("DRF", colnames(data.frame(DRF_MEM$best$MEM.select))[2]), line = 3, outer = F, adj = 1)
-
-sr_value(DRF_coord, data.frame(DRF_MEM$best$MEM.select)[,3], ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
-title(main = paste("DRF", colnames(data.frame(DRF_MEM$best$MEM.select))[3]), line = 3, outer = F, adj = 1)
-
-sr_value(DRF_coord, data.frame(DRF_MEM$best$MEM.select)[,4], ylim = c(-24.59270,-23.33123), xlim = c(-47.61181, -44.61492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
-title(main = paste("DRF", colnames(data.frame(DRF_MEM$best$MEM.select))[4]), line = 3, outer = F, adj = 1)
 
 ```
 \  
@@ -427,30 +405,141 @@ Intermediate Scale SSF.
 
 par(mfrow = c(2,2))
 
-sr_value(SSF_coord, data.frame(SSF_MEM$best$MEM.select)[,1], ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+ylim <- c(min(SSF_coord[,"lat"])*1.005, max(SSF_coord[,"lat"])*0.995)
+xlim <- c(min(SSF_coord[,"long"])*1.005, max(SSF_coord[,"long"])*0.995)
+
+sr_value(SSF_coord, data.frame(SSF_MEM$best$MEM.select)[,1], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = paste("SSF", colnames(data.frame(SSF_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
 
-sr_value(SSF_coord, data.frame(SSF_MEM$best$MEM.select)[,2], ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+sr_value(SSF_coord, data.frame(SSF_MEM$best$MEM.select)[,2], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = paste("SSF", colnames(data.frame(SSF_MEM$best$MEM.select))[2]), line = 3, outer = F, adj = 1)
 
-sr_value(SSF_coord, data.frame(SSF_MEM$best$MEM.select)[,3], ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+sr_value(SSF_coord, data.frame(SSF_MEM$best$MEM.select)[,3], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = paste("SSF", colnames(data.frame(SSF_MEM$best$MEM.select))[3]), line = 3, outer = F, adj = 1)
 
-sr_value(SSF_coord, data.frame(SSF_MEM$best$MEM.select)[,4], ylim = c(-22.61958,-20.17833), xlim = c(-52.54536, -47.52589), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+sr_value(SSF_coord, data.frame(SSF_MEM$best$MEM.select)[,4], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = paste("SSF", colnames(data.frame(SSF_MEM$best$MEM.select))[4]), line = 3, outer = F, adj = 1)
 
 ```
+\  
+\  
+\  
+\  
 
+
+Intermediate Scale DRF.
+```{r, fig.width= 6, fig.height=6,out.width= 800, out.height=800 , fig.align='center', dpi = 200}
+par(mfrow = c(2,2))
+
+ylim <- c(min(DRF_coord[,"lat"])*1.005, max(DRF_coord[,"lat"])*0.995)
+xlim <- c(min(DRF_coord[,"long"])*1.005, max(DRF_coord[,"long"])*0.995)
+
+sr_value(DRF_coord, data.frame(DRF_MEM$best$MEM.select)[,1], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("DRF", colnames(data.frame(DRF_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
+
+sr_value(DRF_coord, data.frame(DRF_MEM$best$MEM.select)[,2], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("DRF", colnames(data.frame(DRF_MEM$best$MEM.select))[2]), line = 3, outer = F, adj = 1)
+
+sr_value(DRF_coord, data.frame(DRF_MEM$best$MEM.select)[,3], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("DRF", colnames(data.frame(DRF_MEM$best$MEM.select))[3]), line = 3, outer = F, adj = 1)
+
+sr_value(DRF_coord, data.frame(DRF_MEM$best$MEM.select)[,4], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("DRF", colnames(data.frame(DRF_MEM$best$MEM.select))[4]), line = 3, outer = F, adj = 1)
+
+```
 \  
 \  
 \  
 \  
+
+
+
+Small Extent SSF - Santa Fé do Sul
+```{r, fig.width= 6, fig.height=3,out.width= 800, out.height=400 , fig.align='center', dpi = 200}
+par(mfrow = c(1,2))
+
+ylim <- c(min(ST_coord[,"lat"])*1.0001, max(ST_coord[,"lat"])*0.9999)
+xlim <- c(min(ST_coord[,"long"])*1.0001, max(ST_coord[,"long"])*0.9999)
+
+sr_value(ST_coord, ST_MEM_FS[,1], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("Santa Fé do Sul -", colnames(ST_MEM_FS)[1]), line = 3, outer = F, adj = 1)
+
+sr_value(ST_coord, ST_MEM_FS[,2], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("Santa Fé do Sul -", colnames(ST_MEM_FS)[2]), line = 3, outer = F, adj = 1)
+```
+
+
+
+Small Extent SSF - Icém
+```{r, fig.width= 6, fig.height=3,out.width= 800, out.height=400 , fig.align='center', dpi = 200}
+par(mfrow = c(1,2))
+
+ylim <- c(min(IC_coord[,"lat"])*1.0001, max(IC_coord[,"lat"])*0.9999)
+xlim <- c(min(IC_coord[,"long"])*1.0001, max(IC_coord[,"long"])*0.9999)
+
+sr_value(IC_coord, IC_MEM_FS[,1], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("Icém -", colnames(IC_MEM_FS)[1]), line = 3, outer = F, adj = 1)
+
+sr_value(IC_coord, IC_MEM_FS[,2], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("Icém -", colnames(IC_MEM_FS)[2]), line = 3, outer = F, adj = 1)
+```
+
+
+
+
+Small Extent SSF - Nova Itapirema.
+```{r, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+par(mfrow = c(1,1))
+
+ylim <- c(min(NI_coord[,"lat"])*1.0001, max(NI_coord[,"lat"])*0.9999)
+xlim <- c(min(NI_coord[,"long"])*1.0001, max(NI_coord[,"long"])*0.9999)
+
+sr_value(NI_coord, NI_MEM_FS[,1], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("Nova Itapirema -", colnames(NI_MEM_FS)[1]), line = 3, outer = F, adj = 1)
+```
+
+
+
+
+Small Extent SSF - Morro do Diabo.
+```{r, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+par(mfrow = c(1,1))
+
+ylim <- c(min(MD_coord[,"lat"])*1.0025, max(MD_coord[,"lat"])*0.9975)
+xlim <- c(min(MD_coord[,"long"])*1.0025, max(MD_coord[,"long"])*0.9975)
+
+sr_value(MD_coord, MD_MEM_FS[,1], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 0.8, xax = 2, yax = 1, method = "bubble")
+title(main = paste("Morro do Diabo -", colnames(MD_MEM_FS)[1]), line = 3, outer = F, adj = 1)
+```
+
+
+
+Small Extent SSF - Jataí.
+```{r, fig.width= 6, fig.height=3,out.width= 800, out.height=400 , fig.align='center', dpi = 200}
+par(mfrow = c(1,2))
+
+ylim <- c(min(JA_coord[,"lat"])*1.0001, max(JA_coord[,"lat"])*0.9999)
+xlim <- c(min(JA_coord[,"long"])*1.0001, max(JA_coord[,"long"])*0.9999)
+
+sr_value(JA_coord, JA_MEM_FS[,1], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("Jataí -", colnames(JA_MEM_FS)[1]), line = 3, outer = F, adj = 1)
+
+sr_value(JA_coord, JA_MEM_FS[,2], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("Jataí -", colnames(JA_MEM_FS)[2]), line = 3, outer = F, adj = 1)
+```
+\  
+\  
+\  
+\  
+
 
 
 Small Extent DRF - Ubatuba
 ```{r, fig.width= 6, fig.height=3,out.width= 800, out.height=400 , fig.align='center', dpi = 200}
-
 par(mfrow = c(1,2))
+
+ylim <- c(min(UBA_coord[,"lat"])*1.00015, max(UBA_coord[,"lat"])*0.99985)
+xlim <- c(min(UBA_coord[,"long"])*1.00015, max(UBA_coord[,"long"])*0.99985)
 
 sr_value(UBA_coord, data.frame(UBA_MEM$best$MEM.select)[,1], ylim = c(-23.37694,-23.33123), xlim = c(-44.95004, -44.80492), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
 title(main = paste("UBA", colnames(data.frame(UBA_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
@@ -459,39 +548,42 @@ sr_value(UBA_coord, data.frame(UBA_MEM$best$MEM.select)[,2], ylim = c(-23.37694,
 title(main = paste("UBA", colnames(data.frame(UBA_MEM$best$MEM.select))[2]), line = 3, outer = F, adj = 1)
 
 ```
-
 \  
 \  
 
 
 
-Small Extent SSF - Nova Itapirema.
+Small Extent SSF - Bertioga.
 ```{r, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
 par(mfrow = c(1,1))
 
-sr_value(NI_coord, data.frame(NI_MEM$best$MEM.select)[,1], ylim = c(-21.08111,-21.07333), xlim = c(-49.54072, -49.51689), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
-title(main = paste("NI", colnames(data.frame(NI_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
+ylim <- c(min(BER_coord[,"lat"])*1.0002, max(BER_coord[,"lat"])*0.9998)
+xlim <- c(min(BER_coord[,"long"])*1.0002, max(BER_coord[,"long"])*0.9998)
+
+sr_value(BER_coord, BER_MEM_FS[,1], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("Bertioga -", colnames(UBA_MEM_FS)[1]), line = 3, outer = F, adj = 1)
 ```
 
 
 
-Small Extent SSF - Jataí.
+Small Extent DRF - Itanhaém
 ```{r, fig.width= 6, fig.height=3,out.width= 800, out.height=400 , fig.align='center', dpi = 200}
-
 
 par(mfrow = c(1,2))
 
-sr_value(JA_coord, data.frame(JA_MEM$best$MEM.select)[,1], ylim = c(-21.58556, -21.56376), xlim = c(-47.79086, -47.72289), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
-title(main = paste("JA", colnames(data.frame(JA_MEM$best$MEM.select))[1]), line = 3, outer = F, adj = 1)
+ylim <- c(min(ITA_coord[,"lat"])*1.003, max(ITA_coord[,"lat"])*0.997)
+xlim <- c(min(ITA_coord[,"long"])*1.003, max(ITA_coord[,"long"])*0.997)
 
-sr_value(JA_coord, data.frame(JA_MEM$best$MEM.select)[,2], ylim = c(-21.58556, -21.56376), xlim = c(-47.79086, -47.72289), grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
-title(main = paste("JA", colnames(data.frame(JA_MEM$best$MEM.select))[2]), line = 3, outer = F, adj = 1)
+sr_value(ITA_coord, ITA_MEM_FS[,1], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("Itanhaém -", colnames(ITA_MEM_FS)[1]), line = 3, outer = F, adj = 1)
+
+sr_value(ITA_coord, ITA_MEM_FS[,2], ylim = ylim, xlim = xlim, grid=F, csize = 0.8, clegend = 1, xax = 2, yax = 1, method = "bubble")
+title(main = paste("Itanhaém -", colnames(ITA_MEM_FS)[2]), line = 3, outer = F, adj = 1)
+
 ```
+\  
+\  
 
-\  
-\  
-\  
-\  
 
 
 ## Variation Partitioning

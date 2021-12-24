@@ -10,7 +10,8 @@ var_partitioning(
   clim = NULL,
   spa,
   percent_r2 = F,
-  allow_negative_r2 = TRUE
+  allow_negative_r2 = TRUE,
+  round = 3
 )
 }
 \arguments{
