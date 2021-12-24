@@ -113,7 +113,7 @@ DRF_clim_VIF$VIFs
 
 Constructing matrices of spatial filters
 ```{r, cache = FALSE, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
-set.seed(5)
+set.seed(6)
 
 candidates_Broad <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
                                    weights = c("flin", "fup"), y_fdown = 5, y_fup = 0.5)
@@ -723,6 +723,10 @@ UBA_varpart2 <- var_partitioning(UBA_pa, UBA_env_FS, spa = UBA_MEM_FS, allow_neg
 BER_varpart2 <- var_partitioning(BER_pa, BER_env_FS, spa = BER_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
 ITA_varpart2 <- var_partitioning(ITA_pa, ITA_env_FS, spa = ITA_MEM_FS, allow_negative_r2 = F, percent_r2 = F)
 
+Broad_varpart2
+SSF_varpart2
+DRF_varpart2
+
 ST_varpart2
 IC_varpart2
 NI_varpart2
@@ -772,7 +776,7 @@ Varpart_plot_neg
 Constructing a matrix with all p values (with negative R2 values)
 ```{r, message=FALSE, warning=FALSE}
 
-Varpart_plot_p <- data.frame(Broad_varpart[,4],
+Varpart_plot_p_neg <- data.frame(Broad_varpart[,4],
                            SSF_varpart[,4],
                            DRF_varpart[,4],
                            ST_varpart[,4],
@@ -784,9 +788,9 @@ Varpart_plot_p <- data.frame(Broad_varpart[,4],
                            BER_varpart[,4],
                            ITA_varpart[,4])
 
-colnames(Varpart_plot_p) <- c("Broad", "SSF", "DRF", "Santa Fé do Sul", "Icém", "Nova Itapirema", "Morro do Diabo", "Jataí", "Ubatuba", "Bertioga", "Itanhaém")
+colnames(Varpart_plot_p_neg) <- c("Broad", "SSF", "DRF", "Santa Fé do Sul", "Icém", "Nova Itapirema", "Morro do Diabo", "Jataí", "Ubatuba", "Bertioga", "Itanhaém")
 
-Varpart_plot_p
+Varpart_plot_p_neg
 ```
 \  
 \    
@@ -829,6 +833,29 @@ Varpart_plot
 \      
 
 
+Constructing a matrix with all p values (without negative R2 values)
+```{r, message=FALSE, warning=FALSE}
+
+Varpart_plot_p <- data.frame(Broad_varpart2[,4],
+                           SSF_varpart2[,4],
+                           DRF_varpart2[,4],
+                           ST_varpart2[,4],
+                           IC_varpart2[,4],
+                           NI_varpart2[,4],
+                           MD_varpart2[,4],
+                           JA_varpart2[,4],
+                           UBA_varpart2[,4],
+                           BER_varpart2[,4],
+                           ITA_varpart2[,4])
+
+colnames(Varpart_plot_p) <- c("Broad", "SSF", "DRF", "Santa Fé do Sul", "Icém", "Nova Itapirema", "Morro do Diabo", "Jataí", "Ubatuba", "Bertioga", "Itanhaém")
+
+Varpart_plot_p
+```
+\  
+\    
+\  
+\      
 
   
 

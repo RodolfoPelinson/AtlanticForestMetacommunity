@@ -158,8 +158,9 @@ Plotting it.
 
 ``` r
 My_Imagine(comm = Broad_pa, col = c("white", "black", "grey50"),
-           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8,
-           top_margin = 7, left_margin = 4,
+           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Clementsian Structure", xlab_line = 0.25, cex.xlab = 1.5,
            Env1 = PC1, Env.col_1 = c("white","red"), Env.label_1 = "Climate",
            Env2 = Broad_env_st$dist_to_forest, Env.col_2 = c("forestgreen","lemonchiffon"), Env.label_2 = "Dist. Forest",
            Env3 = as.numeric(Broad_env$nvt), Env.col_3 = c("lemonchiffon","forestgreen"), Env.label_3 = "Vegetation",
@@ -175,7 +176,10 @@ My_Imagine(comm = Broad_pa, col = c("white", "black", "grey50"),
 
 ``` r
 My_Imagine(comm = DRF_pa, col = c("white", "black"),
-           order = T, scores = 1, fill = F, cex.site = 0.6, top_margin = 4, left_margin = 4)
+           order = T, scores = 1, fill = F, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Random Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Dense Rain Forest", main_line = 3.5, cex.main = 1.25)
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-7-1.png" width="1000" height="700" style="display: block; margin: auto;" />
@@ -184,7 +188,10 @@ My_Imagine(comm = DRF_pa, col = c("white", "black"),
 
 ``` r
 My_Imagine(comm = SSF_pa, col = c("white", "black"),
-           order = T, scores = 1, fill = F, cex.site = 0.6, top_margin = 4, left_margin = 4)
+           order = T, scores = 1, fill = F, cex.site = 0.6, cex.species = 0.8,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Random Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Seasonal Semideciduous Forest", main_line = 3.5, cex.main = 1.25)
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-8-1.png" width="1000" height="700" style="display: block; margin: auto;" />
@@ -209,9 +216,11 @@ round(UBA_spearman,3)
     ## nvt              NA          NA    NA    NA
 
 ``` r
-My_Imagine(comm = UBA_pa, col = c("white", "black","grey50"),
-           order = T, scores = 1, fill = T, cex.site = 0.6,
-           top_margin = 4, left_margin = 4)
+My_Imagine(comm = UBA_pa, col = c("white", "black", "grey50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Quasi-Nested Structure: Clumped Species Loss", xlab_line = 0.25, cex.xlab = 1,
+           main = "Ubatuba", main_line = 3.5, cex.main = 1.25)
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-10-1.png" width="600" height="500" style="display: block; margin: auto;" />
@@ -221,8 +230,10 @@ Bertioga
 
 ``` r
 My_Imagine(comm = BER_pa, col = c("white", "black"),
-           order = T, scores = 1, fill = F, cex.site = 0.6,
-           top_margin = 4, left_margin = 4)
+           order = T, scores = 1, fill = F, cex.site = 0.6, cex.species = 0.8,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Random Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Bertioga", main_line = 3.5, cex.main = 1.25)
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-11-1.png" width="600" height="500" style="display: block; margin: auto;" />
@@ -244,8 +255,11 @@ round(ITA_spearman,3)
     ## nvt          -0.329          NA 0.231 0.384
 
 ``` r
-My_Imagine(comm = ITA_pa, col = c("white", "black","gray50"),
-           order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4)
+My_Imagine(comm = ITA_pa, col = c("white", "black", "grey50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Quasi-Nested Structure: Random Species Loss", xlab_line = 0.25, cex.xlab = 1,
+           main = "Itanhaém", main_line = 3.5, cex.main = 1.25)
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-13-1.png" width="600" height="500" style="display: block; margin: auto;" />
@@ -270,8 +284,10 @@ round(ST_spearman,3)
 
 ``` r
 My_Imagine(comm = ST_pa, col = c("white", "black"),
-           order = T, scores = 1, fill = F, cex.site = 0.6,
-           top_margin = 4, left_margin = 4)
+           order = T, scores = 1, fill = F, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Random Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Santa Fé do Sul", main_line = 3.5, cex.main = 1.25)
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-15-1.png" width="600" height="500" style="display: block; margin: auto;" />
@@ -293,8 +309,10 @@ round(IC_spearman,3)
 
 ``` r
 My_Imagine(comm = IC_pa, col = c("white", "black"),
-           order = T, scores = 1, fill = F, cex.site = 0.6,
-           top_margin = 4, left_margin = 4)
+           order = T, scores = 1, fill = F, cex.site = 0.6, cex.species = 0.8,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Random Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Icém", main_line = 3.5, cex.main = 1.25)
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-17-1.png" width="600" height="500" style="display: block; margin: auto;" />
@@ -316,8 +334,10 @@ round(NI_spearman,3)
 
 ``` r
 My_Imagine(comm = NI_pa, col = c("white", "black"),
-           order = T, scores = 1, fill = F, cex.site = 0.6,
-           top_margin = 4, left_margin = 4)
+           order = T, scores = 1, fill = F, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Random Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Nova Itapirema", main_line = 3.5, cex.main = 1.25)
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-19-1.png" width="600" height="500" style="display: block; margin: auto;" />
@@ -338,9 +358,12 @@ round(MD_spearman,3)
     ## nvt           0.326          NA 0.431 0.431
 
 ``` r
-My_Imagine(comm = MD_pa, col = c("white", "black","gray50"),
-           order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4,
-           Env1 = as.numeric(MD_env$canopy_cover), Env.col_1 = c("lemonchiffon","forestgreen"), Env.label_1 = "Canopy Cover")
+My_Imagine(comm = MD_pa, col = c("white", "black", "grey50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Quasi-Gleasonian Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Morro do Diabo", main_line = 3.5, cex.main = 1.25,
+           Env1 = as.numeric(MD_env$canopy_cover), Env.col_1= c("lemonchiffon","forestgreen"), Env.label_1 = "Canopy Cover")
 ```
 
 <img src="EMS_files/figure-gfm/unnamed-chunk-21-1.png" width="600" height="500" style="display: block; margin: auto;" />
@@ -361,8 +384,11 @@ round(JA_spearman,3)
     ## nvt          -0.803          NA 0.005 0.013
 
 ``` r
-My_Imagine(comm = JA_pa, col = c("white", "black","gray50"),
-           order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4,
+My_Imagine(comm = JA_pa, col = c("white", "black", "grey50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Quasi-Clementsian Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Jataí", main_line = 3.5, cex.main = 1.25,
            Env1 = as.numeric(JA_env$hydroperiod), Env.col_1 = c("lightskyblue", "royalblue"), Env.label_1 = "Hydroperiod",
            Env2 = as.numeric(JA_env$nvt), Env.col_2 = c("lemonchiffon","forestgreen"), Env.label_2 = "Vegetation",
            Env3 = as.numeric(JA_env$canopy_cover), Env.col_3 = c("lemonchiffon","forestgreen"), Env.label_3 = "Canopy Cover")

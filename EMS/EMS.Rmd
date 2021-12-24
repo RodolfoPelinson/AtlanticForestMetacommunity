@@ -96,8 +96,9 @@ round(Broad_spearman,3)
 Plotting it.
 ```{r, fig.height= 7,fig.width=10,out.width= 1000, out.height=700 , fig.align='center', dpi = 200}
 My_Imagine(comm = Broad_pa, col = c("white", "black", "grey50"),
-           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8,
-           top_margin = 7, left_margin = 4,
+           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Clementsian Structure", xlab_line = 0.25, cex.xlab = 1.5,
            Env1 = PC1, Env.col_1 = c("white","red"), Env.label_1 = "Climate",
            Env2 = Broad_env_st$dist_to_forest, Env.col_2 = c("forestgreen","lemonchiffon"), Env.label_2 = "Dist. Forest",
            Env3 = as.numeric(Broad_env$nvt), Env.col_3 = c("lemonchiffon","forestgreen"), Env.label_3 = "Vegetation",
@@ -112,14 +113,20 @@ My_Imagine(comm = Broad_pa, col = c("white", "black", "grey50"),
 #### DRF - Dense Rain Forest
 ```{r, fig.height= 7,fig.width=10,out.width= 1000, out.height=700 , fig.align='center', dpi = 200}
 My_Imagine(comm = DRF_pa, col = c("white", "black"),
-           order = T, scores = 1, fill = F, cex.site = 0.6, top_margin = 4, left_margin = 4)
+           order = T, scores = 1, fill = F, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Random Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Dense Rain Forest", main_line = 3.5, cex.main = 1.25)
 ```
 
 
 #### SSF - Seasonal Semideciduous Forest
 ```{r, fig.height= 7,fig.width=10,out.width= 1000, out.height=700 , fig.align='center', dpi = 200}
 My_Imagine(comm = SSF_pa, col = c("white", "black"),
-           order = T, scores = 1, fill = F, cex.site = 0.6, top_margin = 4, left_margin = 4)
+           order = T, scores = 1, fill = F, cex.site = 0.6, cex.species = 0.8,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Random Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Seasonal Semideciduous Forest", main_line = 3.5, cex.main = 1.25)
 ```
 \  
 \  
@@ -144,9 +151,11 @@ round(UBA_spearman,3)
 
 
 ```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
-My_Imagine(comm = UBA_pa, col = c("white", "black","grey50"),
-           order = T, scores = 1, fill = T, cex.site = 0.6,
-           top_margin = 4, left_margin = 4)
+My_Imagine(comm = UBA_pa, col = c("white", "black", "grey50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Quasi-Nested Structure: Clumped Species Loss", xlab_line = 0.25, cex.xlab = 1,
+           main = "Ubatuba", main_line = 3.5, cex.main = 1.25)
 ```
 \  
 \  
@@ -155,8 +164,10 @@ My_Imagine(comm = UBA_pa, col = c("white", "black","grey50"),
 Bertioga
 ```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
 My_Imagine(comm = BER_pa, col = c("white", "black"),
-           order = T, scores = 1, fill = F, cex.site = 0.6,
-           top_margin = 4, left_margin = 4)
+           order = T, scores = 1, fill = F, cex.site = 0.6, cex.species = 0.8,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Random Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Bertioga", main_line = 3.5, cex.main = 1.25)
 ```
 
 \  
@@ -172,8 +183,11 @@ round(ITA_spearman,3)
 
 
 ```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
-My_Imagine(comm = ITA_pa, col = c("white", "black","gray50"),
-           order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4)
+My_Imagine(comm = ITA_pa, col = c("white", "black", "grey50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Quasi-Nested Structure: Random Species Loss", xlab_line = 0.25, cex.xlab = 1,
+           main = "Itanhaém", main_line = 3.5, cex.main = 1.25)
 ```
 
 \  
@@ -191,8 +205,10 @@ round(ST_spearman,3)
 
 ```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
 My_Imagine(comm = ST_pa, col = c("white", "black"),
-           order = T, scores = 1, fill = F, cex.site = 0.6,
-           top_margin = 4, left_margin = 4)
+           order = T, scores = 1, fill = F, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Random Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Santa Fé do Sul", main_line = 3.5, cex.main = 1.25)
 ```
 \  
 \  
@@ -206,8 +222,10 @@ round(IC_spearman,3)
 
 ```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
 My_Imagine(comm = IC_pa, col = c("white", "black"),
-           order = T, scores = 1, fill = F, cex.site = 0.6,
-           top_margin = 4, left_margin = 4)
+           order = T, scores = 1, fill = F, cex.site = 0.6, cex.species = 0.8,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Random Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Icém", main_line = 3.5, cex.main = 1.25)
 ```
 \  
 \  
@@ -221,8 +239,10 @@ round(NI_spearman,3)
 
 ```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
 My_Imagine(comm = NI_pa, col = c("white", "black"),
-           order = T, scores = 1, fill = F, cex.site = 0.6,
-           top_margin = 4, left_margin = 4)
+           order = T, scores = 1, fill = F, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Random Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Nova Itapirema", main_line = 3.5, cex.main = 1.25)
 ```
 \  
 \  
@@ -234,9 +254,12 @@ round(MD_spearman,3)
 ```
 
 ```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
-My_Imagine(comm = MD_pa, col = c("white", "black","gray50"),
-           order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4,
-           Env1 = as.numeric(MD_env$canopy_cover), Env.col_1 = c("lemonchiffon","forestgreen"), Env.label_1 = "Canopy Cover")
+My_Imagine(comm = MD_pa, col = c("white", "black", "grey50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Quasi-Gleasonian Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Morro do Diabo", main_line = 3.5, cex.main = 1.25,
+           Env1 = as.numeric(MD_env$canopy_cover), Env.col_1= c("lemonchiffon","forestgreen"), Env.label_1 = "Canopy Cover")
 ```
 \  
 \  
@@ -249,8 +272,11 @@ round(JA_spearman,3)
 ```
 
 ```{r, fig.height= 5,fig.width=6,out.width= 600, out.height=500 , fig.align='center', dpi = 200}
-My_Imagine(comm = JA_pa, col = c("white", "black","gray50"),
-           order = T, scores = 1, fill = T, cex.site = 0.6, top_margin = 7, left_margin = 4,
+My_Imagine(comm = JA_pa, col = c("white", "black", "grey50"),
+           order = T, scores = 1, fill = T, cex.site = 0.6, cex.species = 0.8, cex.envlab = 0.9,
+           top_margin = 5, left_margin = 1.25, sitenames = FALSE, bottom_margin = 1.25, right_margin = 0.25, xline = -0.75,
+           ylab = "Sites", ylab_line = 0, cex.ylab = 1.5, xlab = "Quasi-Clementsian Structure", xlab_line = 0.25, cex.xlab = 1,
+           main = "Jataí", main_line = 3.5, cex.main = 1.25,
            Env1 = as.numeric(JA_env$hydroperiod), Env.col_1 = c("lightskyblue", "royalblue"), Env.label_1 = "Hydroperiod",
            Env2 = as.numeric(JA_env$nvt), Env.col_2 = c("lemonchiffon","forestgreen"), Env.label_2 = "Vegetation",
            Env3 = as.numeric(JA_env$canopy_cover), Env.col_3 = c("lemonchiffon","forestgreen"), Env.label_3 = "Canopy Cover")

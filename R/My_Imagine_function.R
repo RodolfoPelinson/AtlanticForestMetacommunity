@@ -29,19 +29,31 @@
 #' @param Env.col_5 The colors of the fifth Environmental Gradient. If it is a continuous gradient, this should be a vector with the two most extreme colors. If it is a factor, it should be a vector with one color for each of the levels of the factor.
 #' @param cex.site The size of the site labels.
 #' @param cex.species The size of the species labels.
+#' @param cex.envlab The size of the environmental gradient labels
 #' @param top_margin The space left in the top of the plot. Useful to fit long species names.
 #' @param left_margin The space left in the left side of the plot. Useful to fit long site names.
+#' @param bottom_margin The space left in the bottom side of the plot.
+#' @param right_margin The space left in the right side of the plot.
 #' @param EigenVal Should the relative eigenvalue of the ordination axis used be plotted?
+#' @param xlab Label of the x axis
+#' @param ylab Label of the y axis
+#' @param xlab_line Line position of the x label
+#' @param ylab_line Line position of the y label
+#' @param cex.xlab Size of the x label
+#' @param cex.ylab Size of the y label
+#' @param main Main Title
+#' @param main_line Line poisition of the main title.
+#' @param cex.main Size of the main title
 #' @param box.lwd The width of the plot box.
 #' @export
 #'
 
 
 My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = TRUE,
-                        xlab = "Species", ylab = "Sites", yline = 2, xline = 2, sitenames = rownames(comm),
-                        speciesnames = colnames(comm),
+                        xlab = "", ylab = "", yline = 0, xline = 0, sitenames = rownames(comm), cex.envlab = 1,
+                        speciesnames = colnames(comm),   xlab_line = 3, cex.xlab = 2, ylab_line = 3, cex.ylab = 2, main = "", main_line = 3, cex.main = 2,
                         Env1 = NULL, Env2 = NULL, Env.col_1 = NULL, Env.label_1 = NULL, Env.col_2 = NULL, Env.label_2 = NULL,
-                        cex.site = 1, cex.species = 1, top_margin = 2, left_margin = 2, EigenVal = F, box.lwd = 2,
+                        cex.site = 1, cex.species = 1, top_margin = 2, left_margin = 2, bottom_margin = 3, right_margin = 1,EigenVal = F, box.lwd = 1,
                         Env.col_3 = NULL, Env.label_3 = NULL, Env3 = NULL,
                         Env.col_4 = NULL, Env.label_4 = NULL, Env4 = NULL,
                         Env.col_5 = NULL, Env.label_5 = NULL, Env5 = NULL)
@@ -130,17 +142,22 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
   comm <- comm[reverse, ]
 
   #ploting
-  par(mar = c(3,left_margin, top_margin, 1), cex = 1)
+  par(mar = c(bottom_margin,left_margin, top_margin, right_margin), cex = 1)
   image(1:dim(comm)[2], 1:dim(comm)[1], t(comm),  col = col,
         xlab = "", ylab = "", axes = FALSE)
+  title(xlab = xlab, line = xlab_line, cex.lab = cex.xlab, adj = 1)
+  title(ylab = ylab, line = ylab_line, cex.lab = cex.ylab)
+  title(main = main, line = main_line, cex.main = cex.main, adj = 0, font.main = 1)
+
+
   box(lwd = box.lwd)
   if (length(sitenames) > 1) {
     axis(2, at = 1:dim(comm)[1], labels = sitenames, las = 1,
-         cex.axis = cex.site, lwd.ticks = 0)
+         cex.axis = cex.site, tick = FALSE, line = yline)
   }
   if (length(speciesnames) > 1) {
     axis(3, at = 1:dim(comm)[2], labels = speciesnames, las = 2,
-         cex.axis = cex.species, lwd.ticks = 0)
+         cex.axis = cex.species, tick = FALSE, line = xline)
   }
 
   if(is.null(Env1)==F){
@@ -158,12 +175,12 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
     if(is.factor(Env1)){
       Env1<-as.numeric(Env1)
     }
-    par(mar = c(3,0, top_margin, 1))
+    par(mar = c(bottom_margin,0, top_margin, right_margin))
     image(y = 1:length(Env1),x = 1, z = t(as.matrix(1:length(Env1))),
           col = Env.col_1,
           axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
     axis(3, at = 0.4, labels = Env.label_1, las = 2,
-         cex.axis = 1, lwd.ticks = 0)
+         cex.axis = cex.envlab, tick = FALSE, line = xline)
     box(lwd = box.lwd)
 
   }
@@ -184,12 +201,12 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
       Env2<-as.numeric(Env2)
     }
 
-    par(mar = c(3,0, top_margin, 1))
+    par(mar = c(bottom_margin,0, top_margin, right_margin))
     image(y = 1:length(Env2),x = 1, z = t(as.matrix(1:length(Env2))),
           col = Env.col_2,
           axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
     axis(3, at = 0.4, labels = Env.label_2, las = 2,
-         cex.axis = 1, lwd.ticks = 0)
+         cex.axis = cex.envlab, tick = FALSE, line = xline)
     box(lwd = box.lwd)
   }
 
@@ -209,12 +226,12 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
       Env3<-as.numeric(Env3)
     }
 
-    par(mar = c(3,0, top_margin, 1))
+    par(mar = c(bottom_margin,0, top_margin, right_margin))
     image(y = 1:length(Env3),x = 1, z = t(as.matrix(1:length(Env3))),
           col = Env.col_3,
           axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
     axis(3, at = 0.4, labels = Env.label_3, las = 2,
-         cex.axis = 1, lwd.ticks = 0)
+         cex.axis = cex.envlab, tick = FALSE, line = xline)
     box(lwd = box.lwd)
   }
 
@@ -236,12 +253,12 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
       Env4<-as.numeric(Env4)
     }
 
-    par(mar = c(3,0, top_margin, 1))
+    par(mar = c(bottom_margin,0, top_margin, right_margin))
     image(y = 1:length(Env4),x = 1, z = t(as.matrix(1:length(Env4))),
           col = Env.col_4,
           axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
     axis(3, at = 0.4, labels = Env.label_4, las = 2,
-         cex.axis = 1, lwd.ticks = 0)
+         cex.axis = cex.envlab, tick = FALSE, line = xline)
     box(lwd = box.lwd)
   }
 
@@ -262,12 +279,12 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
       Env5<-as.numeric(Env5)
     }
 
-    par(mar = c(3,0, top_margin, 1))
+    par(mar = c(bottom_margin,0, top_margin, right_margin))
     image(y = 1:length(Env5),x = 1, z = t(as.matrix(1:length(Env5))),
           col = Env.col_5,
           axes = FALSE, xlab = "", ylab = "", xlim = c(0,1))
     axis(3, at = 0.4, labels = Env.label_5, las = 2,
-         cex.axis = 1, lwd.ticks = 0)
+         cex.axis = cex.envlab, tick = FALSE,  line = xline)
     box(lwd = box.lwd)
   }
 
