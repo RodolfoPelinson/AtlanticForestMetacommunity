@@ -112,8 +112,8 @@ DRF_clim_VIF$VIFs
 ## Spatial Variables
 
 Constructing matrices of spatial filters
-```{r, cache = TRUE, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
-set.seed(4)
+```{r, cache = FALSE, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+set.seed(5)
 
 candidates_Broad <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
                                    weights = c("flin", "fup"), y_fdown = 5, y_fup = 0.5)
@@ -597,7 +597,7 @@ title(main = paste("Itanhaém -", colnames(ITA_MEM_FS)[2]), line = 3, outer = F,
 Broad_varpart <- var_partitioning(Y = Broad_pa, 
                                        env = Broad_env_FS,
                                        clim = Broad_clim_FS,
-                                       spa = data.frame(Broad_MEM$best$MEM.select), percent_r2 = F)
+                                       spa = Broad_MEM_FS, percent_r2 = F)
 
 #Testing significande of spatially structured environment
 candidates_Broad_env <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
@@ -786,12 +786,12 @@ ITA_varpart
   
   
 
-Small Extent not allowing negative fractions
+Not allowing negative fractions
 ```{r, cache = FALSE}
 Broad_varpart2 <- var_partitioning(Y = Broad_pa, 
                                        env = Broad_env_FS,
                                        clim = Broad_clim_FS,
-                                       spa = data.frame(Broad_MEM$best$MEM.select), percent_r2 = F, allow_negative_r2 = F)
+                                       spa = Broad_MEM_FS, percent_r2 = F, allow_negative_r2 = F)
 
 DRF_varpart2 <- var_partitioning(Y = DRF_pa, 
                                       env = DRF_env_FS,
@@ -970,7 +970,7 @@ barplot(as.matrix(Varpart_barplot_break), axes = F, col = c(Pure_Env = "gold",
         args.legend	= list(x = -0.5,y = 0.9, yjust = 1, xjust = 0, horiz = F, ncol = 4, box.col = "transparent",text.width = 5, border = "white"), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25)
 axis(2, at = c(0,0.1,0.2,0.3,0.4,0.5,0.6, 0.7, 0.8), labels = c("0 %","10 %","20 %","30 %","40 %","50 %","60 %","70%","100%"))
 axis.break(2, 0.75, style = "slash") 
-axis(1,at = c(0.5,4.5,16),line = 2, labels =c("Broad","Intermediate","Fine"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+axis(1,at = c(0.5,4.5,16),line = 2, labels =c("Large","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 axis(1,at = c(12.5,21.5),line = 0.5, labels =c("SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.1)
 text(c(0.5,   3.5,5.5   ,8.5,10.5,12.5,14.5,16.5,    19.5,21.5,23.5),rep(0.79,11), labels =c("All","SSF","DRF","Santa Fé do Sul","Icém","Nova Itapirema","Morro do Diabo","Jataí","Ubatuba","Bertioga","Itanhaém"), srt = 90, adj = 1, col = "grey45")
 #text(c(10.5,12.5,16.5,16.5,19.5),c(0.1,0.08,0.17,0.59,0.03), labels =c("*","*","*","*","*","*"), adj = 0.5, col = "white", cex = 2)
@@ -1079,7 +1079,7 @@ arrows(y0 = c(as.matrix(se_spatial_extent_lower[3,])),
        x1 = c(2.5,4.5),
        x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
 axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
-axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Large","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 
 
 barplot(as.matrix(Means_spatial_extent[c(14,13),]), axes = F, col = c("gold",mix_color(alpha = 0.5,"gold","grey25")), space = c(0,1,1),
@@ -1089,7 +1089,7 @@ arrows(y0 = c(as.matrix(se_spatial_extent_lower[2,])),
        x1 = c(2.5,4.5),
        x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
 axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
-axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Large","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 
 
 
@@ -1100,7 +1100,7 @@ arrows(y0 = c(as.matrix(se_spatial_extent_lower[4,])),
        x1 = c(2.5,4.5),
        x0 = c(2.5,4.5),  code = 3, angle = 90, length = 0.1, lwd = 1)
 axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
-axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
+axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Large","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 
 
 ```
@@ -1162,7 +1162,7 @@ arrows(y0 = c(as.matrix(se_small_extent_lower["Clim",])),
 
 axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
 
-axis(1,at = c(1.25,4.5,8.5),line = 1, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
+axis(1,at = c(1.25,4.5,8.5),line = 1, labels =c("Large","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
 axis(1,at = c(3.75,5.25,7.75,9.25),line = -0.5, labels =c("SSF","DRF", "SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
 
 
@@ -1179,7 +1179,7 @@ arrows(y0 = c(as.matrix(se_small_extent_lower["Env",])),
 
 axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
 
-axis(1,at = c(1.25,4.5,8.5),line = 1, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
+axis(1,at = c(1.25,4.5,8.5),line = 1, labels =c("Large","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
 axis(1,at = c(3.75,5.25,7.75,9.25),line = -0.5, labels =c("SSF","DRF", "SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
 
 
@@ -1197,7 +1197,7 @@ arrows(y0 = c(as.matrix(se_small_extent_lower["Spa",])),
 
 axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","10 %","15 %","20 %", "25 %", "30 %", "35 %", "40 %"))
 
-axis(1,at = c(1.25,4.5,8.5),line = 1, labels =c("Broad","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
+axis(1,at = c(1.25,4.5,8.5),line = 1, labels =c("Large","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
 axis(1,at = c(3.75,5.25,7.75,9.25),line = -0.5, labels =c("SSF","DRF", "SSF","DRF"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3, gap.axis = -1)
 
 

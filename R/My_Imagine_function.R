@@ -59,8 +59,10 @@ My_Imagine <- function (comm, col = c(0,1,2), order = TRUE, scores = 1, fill = T
                         Env.col_5 = NULL, Env.label_5 = NULL, Env5 = NULL)
 
 
-
 {
+
+  require(scales)
+
   if(isFALSE(is.null(Env1))  & is.null(Env2) & is.null(Env3)& is.null(Env4)& is.null(Env5)){
     layout(matrix(c(1,2), 1, 2, byrow = TRUE), widths = c(0.95,0.05))
   }
