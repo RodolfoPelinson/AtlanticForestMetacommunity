@@ -43,7 +43,7 @@ library(adespatial)
 \  
 Constructing Spatial matrix (same as in the varpart file)
 ```{r, cache = TRUE, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
-set.seed(5)
+set.seed(3, sample.kind = "default")
 
 candidates_Broad <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
                                    weights = c("flin", "fup"), y_fdown = 5, y_fup = 0.5)

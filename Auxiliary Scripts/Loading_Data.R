@@ -1,5 +1,7 @@
 ## LOADING DATA
 ############################
+set.seed(1, sample.kind = "default")
+
 
 library("vegan")
 data = read.csv("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Data csv/Data.csv",header=TRUE,row.names = 1, encoding = "UTF-8")

@@ -24,7 +24,7 @@ The used packages to run this analysis are:
         Constructing Spatial matrix (same as in the varpart file)
 
 ``` r
-set.seed(5)
+set.seed(3, sample.kind = "default")
 
 candidates_Broad <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
                                    weights = c("flin", "fup"), y_fdown = 5, y_fup = 0.5)
@@ -45,12 +45,13 @@ Broad_MEM <- listw.select(Broad_pa, candidates = candidates_Broad, MEM.autocor =
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (alpha criteria): pvalue for variable 11 is 0.063394 (> 0.050000)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.378872 with 21 variables (> 0.377727)
-    ## Procedure stopped (alpha criteria): pvalue for variable 21 is 0.052495 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 20 is 0.058594 (> 0.050000)
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.412103 with 29 variables (> 0.409416)
-    ## Procedure stopped (alpha criteria): pvalue for variable 23 is 0.070993 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 5 is 0.286871 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 12 is 0.066193 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.395438 with 22 variables (> 0.393805)
+    ## Procedure stopped (alpha criteria): pvalue for variable 16 is 0.072993 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.399941 with 31 variables (> 0.398728)
+    ## Procedure stopped (alpha criteria): pvalue for variable 18 is 0.051195 (> 0.050000)
+    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.371382 with 23 variables (> 0.369036)
 
 ``` r
 Broad_MEM_FS <- Broad_MEM$best$MEM.select
@@ -72,9 +73,8 @@ DRF_MEM <- listw.select(DRF_pa, candidates = candidates_DRF, MEM.autocor = c("po
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.057465 with 2 variables (> 0.050471)
-    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.080392 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.101590 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.083192 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.108089 (> 0.050000)
 
 ``` r
 DRF_MEM_FS <- DRF_MEM$best$MEM.select
@@ -98,12 +98,12 @@ SSF_MEM <- listw.select(SSF_pa, candidates = candidates_SSF, MEM.autocor = c("po
 ```
 
     ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.079183 with 2 variables (> 0.079183)
-    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.081892 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.082992 (> 0.050000)
     ## Procedure stopped (adjR2thresh criteria) adjR2cum = 0.304147 with 9 variables (> 0.302779)
-    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.079092 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.069793 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 9 is 0.071793 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 10 is 0.057494 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 7 is 0.071493 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 8 is 0.068893 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 9 is 0.071693 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 10 is 0.056094 (> 0.050000)
 
 ``` r
 SSF_MEM_FS <- SSF_MEM$best$MEM.select
@@ -157,7 +157,7 @@ UBA_MEM <- listw.select(UBA_pa, candidates = candidates_UBA, MEM.autocor = c("po
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.090291 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.082792 (> 0.050000)
 
 ``` r
 UBA_MEM_FS <- UBA_MEM$best$MEM.select
@@ -235,8 +235,8 @@ JA_MEM <- listw.select(JA_pa, candidates = candidates_JA, MEM.autocor = c("posit
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
 ```
 
-    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.083492 (> 0.050000)
-    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.109489 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 2 is 0.083692 (> 0.050000)
+    ## Procedure stopped (alpha criteria): pvalue for variable 3 is 0.103690 (> 0.050000)
 
 ``` r
 JA_MEM_FS <- JA_MEM$best$MEM.select

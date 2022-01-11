@@ -7,17 +7,17 @@
 #' @export
 #'
 
-forward_selection <- function(Y,X){
+forward_selection <- function(Y,X,permutations = 9999){
 
   New_X <- X[is.na(rowSums(X)) == FALSE,]
   New_Y <- Y[is.na(rowSums(X)) == FALSE,]
 
   X_rda <- rda(New_Y,New_X)
-  p <- anova.cca(X_rda, permutations = 9999)
+  p <- anova.cca(X_rda, permutations = permutations)
   if(na.omit(p$`Pr(>F)`) <= 0.05){
     X.R2 <- RsquareAdj(X_rda)$adj.r.squared
 
-    res <- try(X_forw <- forward.sel(New_Y, as.matrix(New_X), adjR2thresh = X.R2, nperm = 9999))
+    res <- try(X_forw <- forward.sel(New_Y, as.matrix(New_X), adjR2thresh = X.R2, nperm = permutations))
     if(inherits(res, "try-error")){
       message("No variables selected")
       New_X_2 <- data.frame(X)

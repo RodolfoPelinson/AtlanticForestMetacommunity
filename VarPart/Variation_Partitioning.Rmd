@@ -49,6 +49,12 @@ library(spdep)
 \  
 \  
 \  
+```{r}
+set.seed(5)
+```
+
+
+
 
 ## Reducing Multicolinearity
 
@@ -112,8 +118,8 @@ DRF_clim_VIF$VIFs
 ## Spatial Variables
 
 Constructing matrices of spatial filters
-```{r, cache = FALSE, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
-set.seed(5)
+```{r, cache = TRUE, fig.height= 3,fig.width=3,out.width= 400, out.height=400 , fig.align='center', dpi = 200}
+set.seed(3, sample.kind = "default")
 
 candidates_Broad <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
                                    weights = c("flin", "fup"), y_fdown = 5, y_fup = 0.5)
@@ -125,6 +131,7 @@ Broad_MEM_FS <- Broad_MEM$best$MEM.select
 
 adegraphics::s.label(Broad_coord, nb = candidates_Broad[[Broad_MEM$best.id]],
                      pnb.edge.col = "red", main = paste("Broad - ",names(Broad_MEM$best.id)), plot = TRUE, labels = NULL)
+
 ################################################################################
 
 
@@ -182,6 +189,7 @@ BER_MEM <- listw.select(BER_pa, candidates = candidates_BER, MEM.autocor = c("po
 BER_MEM_FS <- dbmem(BER_coord, MEM.autocor = c("positive"), silent = TRUE)
 ################################################################################
 
+set.seed(2)
 candidates_UBA <- listw.candidates(UBA_coord, style = "B", nb = c("del", "rel", "pcnm"),
                                    weights = c("flin"))
 
@@ -218,17 +226,18 @@ IC_MEM_FS <- dbmem(IC_coord, MEM.autocor = c("positive"), silent = TRUE)
 
 ################################################################################
 
+set.seed(5)
 candidates_NI <- listw.candidates(NI_coord, style = "B", nb = c("del", "rel", "pcnm"),
                                    weights = c("flin"))
 
 NI_MEM <- listw.select(NI_pa, candidates = candidates_NI, MEM.autocor = c("positive"), method = c("FWD"),
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = TRUE, verbose = FALSE)
 
+NI_MEM_FS <- NI_MEM$best$MEM.select
 
 adegraphics::s.label(NI_coord, nb = candidates_NI[[NI_MEM$best.id]],
                      pnb.edge.col = "red", main = paste("NI - ",names(NI_MEM$best.id)), plot = TRUE, labels = NULL)
 
-NI_MEM_FS <- dbmem(NI_coord, MEM.autocor = c("positive"), silent = TRUE)
 
 
 ################################################################################
@@ -592,6 +601,8 @@ title(main = paste("Itanhaém -", colnames(ITA_MEM_FS)[2]), line = 3, outer = F,
 
 #### Large Extent
 ```{r, cache = FALSE}
+set.seed(10)
+
 #Variation partitioning Broad
 
 Broad_varpart <- var_partitioning(Y = Broad_pa, 
@@ -607,7 +618,7 @@ Broad_MEM_env <- listw.select(Broad_env_FS, candidates = candidates_Broad_env, M
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
 
 Broad_env_spa_sig <- envspace.test(spe = Broad_pa, env = Broad_env_FS,   coord = Broad_coord,  
-              MEM.spe =  data.frame(Broad_MEM$best$MEM.select), 
+              MEM.spe =  Broad_MEM_FS, 
               listw.env = candidates_Broad_env[[Broad_MEM_env$best.id]], MEM.autocor = c("positive"),
               regular = FALSE, nperm = 10000, MSR.method = "singleton", alpha = 0.05)
 
