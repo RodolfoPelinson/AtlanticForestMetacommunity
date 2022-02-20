@@ -6,6 +6,7 @@
 #' @param scores Numeric. What axis of the CA should be used for ordination? (Defaut is 1)
 #' @param CoherenceMethod null model randomization method used by 'nullmaker' to compute Coherence. See the Coherence function from package metacom. (default is "curveball")
 #' @param turnoverMethod null model randomization method used by 'nullmaker' or 'EMS' to use the approach outlined in Leibold and Mikkelson 2002. See the Turnover function from package metacom. (default is "EMS")
+#' @param allow_Checkerboard Logical. Should Checkerboard structures be Identified? Presley et al. 2019 advocate that checkerboards should be restricted to small sets of ecologically similar species for which interspecific interactions may lead to mutual exclusion.
 #' @param sims Number of randomizations (default is 1000)
 #' @param order Should the original matrix be ordered by reciprocal averaging?
 #' @param orderNulls Should the null communities be ordered? (default is TRUE)
@@ -17,7 +18,19 @@
 #' @export
 #'
 
-IdentifyStructure <- function(comm, names = NULL, scores = 1,CoherenceMethod = "curveball", turnoverMethod = "EMS", sims = 1000, order = T, orderNulls = F,  seed = NULL, fill = T, round = NULL, elapsed_time = TRUE){
+IdentifyStructure <- function(comm,
+                              names = NULL,
+                              scores = 1,
+                              CoherenceMethod = "curveball",
+                              turnoverMethod = "EMS",
+                              sims = 1000,
+                              order = T,
+                              orderNulls = F,
+                              seed = NULL,
+                              fill = T,
+                              round = NULL,
+                              elapsed_time = TRUE,
+                              allow_Checkerboard = FALSE){
 
   if(isTRUE(elapsed_time)){start_time <- Sys.time()}
 
@@ -111,9 +124,17 @@ IdentifyStructure <- function(comm, names = NULL, scores = 1,CoherenceMethod = "
         if(turnover <= null_Turnover & Coe_p <= 0.05){structure <- paste(structure, Loss, sep = " ")}
       }
 
-      if(Coe_p <= 0.05){
-        if(embAbs > null_embAbs){
-          if(embAbs > null_embAbs){structure <- "Checkerboard"}
+      if(isTRUE(allow_Checkerboard)){
+        if(Coe_p <= 0.05){
+          if(embAbs > null_embAbs){
+            if(embAbs > null_embAbs){structure <- "Checkerboard"}
+          }
+        }
+      }else{
+        if(Coe_p <= 0.05){
+          if(embAbs > null_embAbs){
+            if(embAbs > null_embAbs){structure <- "Random"}
+          }
         }
       }
 

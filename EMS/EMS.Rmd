@@ -283,3 +283,839 @@ My_Imagine(comm = JA_pa, col = c("white", "black", "grey50"),
 ```
 \  
 \  
+\ 
+\ 
+
+
+
+# Exploring multiple sample sizes
+
+We clearly have very different sample sizes among scales. 96 on the Broad scale, 46 and 50 on the intermediate one, and from 8 to 23 on the smallest ones. The number of communities in each scale clearly affects our ability to detect true co-occurrence patterns. Therefore, we repeated our analysis for the intermediate and large scale varying the number of observed communities to have a better idea of the validity of our results for the intermediate and small scales.
+\ 
+\ 
+
+
+## Large scale with N = 50
+
+```{r, echo=FALSE, eval = TRUE}
+load("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Not Commit/Dados_EMS_subsampling_50.RData")
+```
+
+We got Random structures at the intermediate scales with an N ~ 50, and a Clementsian structure at the large scale with an N ~ 100. Lets see if we would get a similar result at large scale with an N = 50. 
+
+To do so we sampled 50 communities from a total of 96 for 1000 times and calculated the metacommunity structure. To keep the a good representation of spatial scale we restricted our sampling procedure following:
+
+ - 5 communities from each of the 5 areas of the SSF for a total of 25 communities from the SSF ecoregion.
+ - 8 communities from each of the 3 areas of the DRF plus 1 community from any of those areas for a total of 25 communities from the DRF ecoregion.
+
+```{r, eval = FALSE}
+set.seed(3)
+Broad_matrices_pa_50 <- list()
+SSF_locality_levels <-levels(as.factor(SSF_locality))
+DRF_locality_levels <-levels(as.factor(DRF_locality))
+id_SSF <- list()
+id_DRF <- list()
+
+for(j in 1:1000){
+  for(i in 1:length(SSF_locality_levels)){
+    id_SSF[[i]] <- c(sample(rownames(Broad_pa[Broad_locality == SSF_locality_levels[i],]),5))
+  }
+  ids_SSF <- unlist(id_SSF)
+
+  for(i in 1:length(DRF_locality_levels)){
+    id_DRF[[i]] <- c(sample(rownames(Broad_pa[Broad_locality == DRF_locality_levels[i],]),8))
+  }
+  ids_DRF <- unlist(id_DRF)
+  ids_DRF <- c(ids_DRF, sample(rownames(DRF_pa)[rownames(DRF_pa) %in% id_DRF == FALSE],1))
+  ids <- c(ids_SSF,ids_DRF)
+  oc_matrix <- Broad_pa[match(ids, rownames(Broad_pa)),]
+  oc_matrix <- oc_matrix[,colSums(oc_matrix) > 0]
+  Broad_matrices_pa_50[[j]] <- oc_matrix
+}
+
+
+Metacommunities_Broad_50 <- IdentifyStructure2(Broad_matrices_pa_50,
+                                              CoherenceMethod = "curveball",
+                                              turnoverMethod = "EMS",
+                                              orderNulls = T, seed = 3, sims = 1000, round = 3, multicore = TRUE, n_cores = 10)
+```
+
+\ 
+
+This is the percentage of coherent metacommunities found in our subsamples:
+```{r}
+length(Metacommunities_Broad_50$p_Coherence[Metacommunities_Broad_50$p_Coherence < 0.05]) / length(Metacommunities_Broad_50$p_Coherence)
+```
+\ 
+
+These are the percentages of different structures identified. The asterisk indicate the Structure identified using all of the 96 communities.
+```{r}
+
+names_structures <- c("Clementsian",
+  "Quasi-Clementsian",
+  "Gleasonian",
+  "Quasi-Gleasonian",
+  "Evenly-Spaced",
+  "Quasi-Evenly-Spaced",
+  "Nested with clumped species loss",
+  "Quasi-Nested with clumped species loss",
+  "Nested with random species loss",
+  "Quasi-Nested with random species loss",
+  "Nested with hyperdispersed species loss",
+  "Quasi-Nested with hyperdispersed species loss",
+  "Random")
+
+Structures_50 <- c(rep(NA, 13))
+names(Structures_50) <- names_structures
+
+prop_Structures <- table(Metacommunities_Broad_50$Structure) / sum(table(Metacommunities_Broad_50$Structure)) 
+Structures_50[match(names(prop_Structures), names_structures)] <- prop_Structures
+Structures_50[is.na(Structures_50)] <- 0
+Structures_50 <- Structures_50*100
+
+
+Structures_50 <- as.matrix(t(data.frame(Structures = Structures_50[c(1,3,5,7,9,11,13)], Quasi = c(Structures_50[c(2,4,5,8,10,12)],0))))
+
+par(mar = c(3.5,16,2,0.75), bty = "l")
+barplot(Structures_50,
+        axes = F, col = c("grey50", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "N = 50", horiz = TRUE, ylim = c(0,10))
+title(xlab = "%", line = 2.5, cex.lab = 1.5)
+axis(1)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
+text(x = sum(Structures_50[,1],5), y = 0.5,labels = "*", cex = 2)
+box()
+
+
+```
+
+Grey bars are Quasi structures.
+\ 
+
+It seems that a sample size of 50 would be more than enough to identify the true co-occurrence pattern.
+\ 
+\ 
+
+
+
+
+
+
+
+
+
+
+## Large and intermediate scales with N = 20
+
+```{r, echo=FALSE}
+load("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Not Commit/Dados_EMS_subsampling_20.RData")
+```
+
+Now lets see if we would get a similar results for the large and intermediate scales with an N = 20. 
+
+### Intermediate Scale
+
+#### SSF
+We sampled 20 communities from a total of 46 for 1000 times and calculated the Metacommunity Structure (i.e. co-occurrence pattern). To keep a good representation of spatial scale we restricted our sampling procedure following:
+
+ - 4 communities from each of the 5 areas of the SSF for a total of 20 communities.
+
+```{r, eval = FALSE}
+SSF_matrices_pa_20 <- list()
+SSF_locality_levels <-levels(as.factor(SSF_locality))
+id <- list()
+
+for(j in 1:1000){
+  for(i in 1:length(SSF_locality_levels)){
+    id[[i]] <- c(sample(rownames(SSF_pa[SSF_locality == SSF_locality_levels[i],]),4))
+  }
+  ids <- unlist(id)
+  oc_matrix <- SSF_pa[match(ids, rownames(SSF_pa)),]
+  oc_matrix <- oc_matrix[,colSums(oc_matrix) > 0]
+  SSF_matrices_pa_20[[j]] <- oc_matrix
+}
+
+Metacommunities_SSF_20 <- IdentifyStructure2(SSF_matrices_pa_20,
+                                            CoherenceMethod = "curveball",
+                                            turnoverMethod = "EMS",
+                                            orderNulls = T, seed = 3, sims = 1000, round = 3, multicore = TRUE, n_cores = 10)
+```
+ 
+
+
+This is the percentage of coherent metacommunities found in our subsamples:
+```{r}
+length(Metacommunities_SSF_20$p_Coherence[Metacommunities_SSF_20$p_Coherence < 0.05]) / length(Metacommunities_SSF_20$p_Coherence)
+```
+\ 
+
+These are the percentages of different structures identified. The asterisk indicate the Structure identified using all of the 46 communities.
+```{r}
+
+Structures_SSF_20 <- c(rep(NA, 13))
+names(Structures_SSF_20) <- names_structures
+
+prop_Structures <- table(Metacommunities_SSF_20$Structure) / sum(table(Metacommunities_SSF_20$Structure)) 
+Structures_SSF_20[match(names(prop_Structures), names_structures)] <- prop_Structures
+Structures_SSF_20[is.na(Structures_SSF_20)] <- 0
+Structures_SSF_20 <- Structures_SSF_20*100
+
+
+Structures_SSF_20 <- as.matrix(t(data.frame(Structures = Structures_SSF_20[c(1,3,5,7,9,11,13)], Quasi = c(Structures_SSF_20[c(2,4,5,8,10,12)],0))))
+
+par(mar = c(3.5,16,2,0.75), bty = "l")
+barplot(Structures_SSF_20,
+        axes = F, col = c("grey20", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "SSF, N = 20", horiz = TRUE, ylim = c(0,10))
+title(xlab = "%", line = 2.5, cex.lab = 1.5)
+axis(1)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
+text(x = sum(Structures_SSF_20[,7],5), y = 9.5,labels = "*", cex = 2)
+
+box()
+
+```
+
+Grey bars are Quasi structures.
+
+\ 
+
+#### DRF
+We sampled 20 communities from a total of 50 for 1000 times and calculated the Metacommunity Structure (i.e. co-occurrence pattern). To keep a good representation of spatial scale we restricted our sampling procedure following:
+
+ - 7 communities from each of the 3 areas of the DRF, minus one of any of the selected communities for a total of 20 communities.
+
+```{r, eval = FALSE}
+DRF_matrices_pa_20 <- list()
+DRF_locality_levels <-levels(as.factor(DRF_locality))
+id <- list()
+
+for(j in 1:1000){
+  for(i in 1:length(DRF_locality_levels)){
+    id[[i]] <- c(sample(rownames(DRF_pa[DRF_locality == DRF_locality_levels[i],]),7))
+  }
+  ids <- unlist(id)
+  ids <- ids[-sample(ids,1)]
+  oc_matrix <- DRF_pa[match(ids, rownames(DRF_pa)),]
+  oc_matrix <- oc_matrix[,colSums(oc_matrix) > 0]
+  DRF_matrices_pa_20[[j]] <- oc_matrix
+}
+
+Metacommunities_DRF_20 <- IdentifyStructure2(DRF_matrices_pa_20,
+                                            CoherenceMethod = "curveball",
+                                            turnoverMethod = "EMS",
+                                            orderNulls = T, seed = 3, sims = 1000, round = 3, multicore = TRUE, n_cores = 10)
+```
+ 
+
+
+This is the percentage of coherent metacommunities found in our subsamples:
+```{r}
+length(Metacommunities_DRF_20$p_Coherence[Metacommunities_DRF_20$p_Coherence < 0.05]) / length(Metacommunities_DRF_20$p_Coherence)
+```
+\ 
+
+These are the percentages of different structures identified. The asterisk indicate the Structure identified using all of the 46 communities.
+```{r}
+
+Structures_DRF_20 <- c(rep(NA, 13))
+names(Structures_DRF_20) <- names_structures
+
+prop_Structures <- table(Metacommunities_DRF_20$Structure) / sum(table(Metacommunities_DRF_20$Structure)) 
+Structures_DRF_20[match(names(prop_Structures), names_structures)] <- prop_Structures
+Structures_DRF_20[is.na(Structures_DRF_20)] <- 0
+Structures_DRF_20 <- Structures_DRF_20*100
+
+
+Structures_DRF_20 <- as.matrix(t(data.frame(Structures = Structures_DRF_20[c(1,3,5,7,9,11,13)], Quasi = c(Structures_DRF_20[c(2,4,5,8,10,12)],0))))
+
+par(mar = c(3.5,16,2,0.75), bty = "l")
+barplot(Structures_DRF_20,
+        axes = F, col = c("grey20", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "DRF, N = 20", horiz = TRUE, ylim = c(0,10))
+title(xlab = "%", line = 2.5, cex.lab = 1.5)
+axis(1)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
+text(x = sum(Structures_DRF_20[,7],5), y = 9.5,labels = "*", cex = 2)
+
+box()
+
+```
+
+Grey bars are Quasi structures.
+
+\ 
+
+
+
+### Large scale with N = 20
+
+We sampled 20 communities from a total of 96 for 1000 times and calculated the Metacommunity Structure (i.e. co-occurrence pattern). To keep a good representation of spatial scale we restricted our sampling procedure following:
+
+ - 2 communities from each of the 5 areas of the SSF for a total of 10 communities from the SSF ecoregion.
+ - 3 communities from each of the 3 areas of the DRF plus 1 community from any of those areas for a total of 10 communities from the DRF ecoregion.
+
+```{r, eval = FALSE}
+set.seed(3)
+Broad_matrices_pa_20 <- list()
+SSF_locality_levels <-levels(as.factor(SSF_locality))
+DRF_locality_levels <-levels(as.factor(DRF_locality))
+id_SSF <- list()
+id_DRF <- list()
+
+for(j in 1:1000){
+  for(i in 1:length(SSF_locality_levels)){
+    id_SSF[[i]] <- c(sample(rownames(Broad_pa[Broad_locality == SSF_locality_levels[i],]),2))
+  }
+  ids_SSF <- unlist(id_SSF)
+
+  for(i in 1:length(DRF_locality_levels)){
+    id_DRF[[i]] <- c(sample(rownames(Broad_pa[Broad_locality == DRF_locality_levels[i],]),3))
+  }
+  ids_DRF <- unlist(id_DRF)
+  ids_DRF <- c(ids_DRF, sample(rownames(DRF_pa)[rownames(DRF_pa) %in% id_DRF == FALSE],1))
+  ids <- c(ids_SSF,ids_DRF)
+  oc_matrix <- Broad_pa[match(ids, rownames(Broad_pa)),]
+  oc_matrix <- oc_matrix[,colSums(oc_matrix) > 0]
+  Broad_matrices_pa_20[[j]] <- oc_matrix
+}
+
+
+Metacommunities_Broad_20 <- IdentifyStructure2(Broad_matrices_pa_20,
+                                              CoherenceMethod = "curveball",
+                                              turnoverMethod = "EMS",
+                                              orderNulls = T, seed = 3, sims = 1000, round = 3, multicore = TRUE, n_cores = 10)
+```
+
+
+This is the percentage of coherent metacommunities found in our subsamples:
+```{r}
+length(Metacommunities_Broad_20$p_Coherence[Metacommunities_Broad_20$p_Coherence < 0.05]) / length(Metacommunities_Broad_20$p_Coherence)
+```
+\ 
+
+These are the percentages of different structures identified. The asterisk indicate the Structure identified using all of the 96 communities.
+```{r}
+
+Structures_Broad_20 <- c(rep(NA, 13))
+names(Structures_Broad_20) <- names_structures
+
+prop_Structures <- table(Metacommunities_Broad_20$Structure) / sum(table(Metacommunities_Broad_20$Structure)) 
+Structures_Broad_20[match(names(prop_Structures), names_structures)] <- prop_Structures
+Structures_Broad_20[is.na(Structures_Broad_20)] <- 0
+Structures_Broad_20 <- Structures_Broad_20*100
+
+
+Structures_Broad_20 <- as.matrix(t(data.frame(Structures = Structures_Broad_20[c(1,3,5,7,9,11,13)], Quasi = c(Structures_Broad_20[c(2,4,5,8,10,12)],0))))
+
+par(mar = c(3.5,16,2,0.75), bty = "l")
+barplot(Structures_Broad_20,
+        axes = F, col = c("grey20", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "Large, N = 20", horiz = TRUE, ylim = c(0,10))
+title(xlab = "%", line = 2.5, cex.lab = 1.5)
+axis(1)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
+text(x = sum(Structures_Broad_20[,1],5), y = 0.5,labels = "*", cex = 2)
+
+box()
+
+```
+
+Grey bars are Quasi structures.
+
+\ 
+
+It seems that a sample size of 20 gives a good idea of the true co-occurrence pattern.
+\ 
+\ 
+
+
+
+
+
+
+
+
+
+
+
+## Large and intermediate scales with N = 15
+
+```{r, echo=FALSE}
+load("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Not Commit/Dados_EMS_subsampling_15.RData")
+```
+
+
+Now lets see if we would get a similar results for the large and intermediate scales with an N = 20. 
+
+### Intermediate Scale
+
+#### SSF
+We sampled 15 communities from a total of 46 for 1000 times and calculated the Metacommunity Structure (i.e. co-occurrence pattern). To keep a good representation of spatial scale we restricted our sampling procedure following:
+
+ - 3 communities from each of the 5 areas of the SSF for a total of 15 communities.
+
+
+```{r, eval = FALSE}
+set.seed(3)
+SSF_matrices_pa_15 <- list()
+SSF_locality_levels <-levels(as.factor(SSF_locality))
+id <- list()
+
+for(j in 1:1000){
+  for(i in 1:length(SSF_locality_levels)){
+    id[[i]] <- c(sample(rownames(SSF_pa[SSF_locality == SSF_locality_levels[i],]),3))
+  }
+  ids <- unlist(id)
+  oc_matrix <- SSF_pa[match(ids, rownames(SSF_pa)),]
+  oc_matrix <- oc_matrix[,colSums(oc_matrix) > 0]
+  SSF_matrices_pa_15[[j]] <- oc_matrix
+}
+
+Metacommunities_SSF_15 <- IdentifyStructure2(SSF_matrices_pa_15,
+                                         CoherenceMethod = "curveball",
+                                         turnoverMethod = "EMS",
+                                         orderNulls = T, seed = 3, sims = 1000, round = 3, multicore = TRUE, n_cores = 10)
+```
+ 
+
+
+This is the percentage of coherent metacommunities found in our subsamples:
+```{r}
+length(Metacommunities_SSF_15$p_Coherence[Metacommunities_SSF_15$p_Coherence < 0.05 & Metacommunities_SSF_15$z_Coherence < 0]) / length(Metacommunities_SSF_15$p_Coherence)
+```
+\ 
+
+These are the percentages of different structures identified. The asterisk indicate the Structure identified using all of the 46 communities.
+```{r}
+
+Structures_SSF_15 <- c(rep(NA, 13))
+names(Structures_SSF_15) <- names_structures
+
+prop_Structures <- table(Metacommunities_SSF_15$Structure) / sum(table(Metacommunities_SSF_15$Structure)) 
+Structures_SSF_15[match(names(prop_Structures), names_structures)] <- prop_Structures
+Structures_SSF_15[is.na(Structures_SSF_15)] <- 0
+Structures_SSF_15 <- Structures_SSF_15*100
+
+
+Structures_SSF_15 <- as.matrix(t(data.frame(Structures = Structures_SSF_15[c(1,3,5,7,9,11,13)], Quasi = c(Structures_SSF_15[c(2,4,5,8,10,12)],0))))
+
+par(mar = c(3.5,16,2,0.75), bty = "l")
+barplot(Structures_SSF_15,
+        axes = F, col = c("grey15", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "SSF, N = 15", horiz = TRUE, ylim = c(0,10))
+title(xlab = "%", line = 2.5, cex.lab = 1.5)
+axis(1)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
+text(x = sum(Structures_SSF_15[,7],5), y = 9.5,labels = "*", cex = 2)
+
+box()
+
+```
+
+Grey bars are Quasi structures.
+
+\ 
+
+#### DRF
+We sampled 15 communities from a total of 50 for 1500 times and calculated the Metacommunity Structure (i.e. co-occurrence pattern). To keep a good representation of spatial scale we restricted our sampling procedure following:
+
+ - 5 communities from each of the 3 areas of the DRF, plus one from any of those areas for a total of 15 communities.
+
+```{r, eval = FALSE}
+set.seed(3)
+DRF_matrices_pa_15 <- list()
+DRF_locality_levels <-levels(as.factor(DRF_locality))
+id <- list()
+
+for(j in 1:1000){
+  for(i in 1:length(DRF_locality_levels)){
+    id[[i]] <- c(sample(rownames(DRF_pa[DRF_locality == DRF_locality_levels[i],]),5))
+  }
+  ids <- unlist(id)
+  oc_matrix <- DRF_pa[match(ids, rownames(DRF_pa)),]
+  oc_matrix <- oc_matrix[,colSums(oc_matrix) > 0]
+  DRF_matrices_pa_15[[j]] <- oc_matrix
+}
+nrow(DRF_matrices_pa_15[[10]])
+
+Metacommunities_DRF_15 <- IdentifyStructure2(DRF_matrices_pa_15,
+                                         CoherenceMethod = "curveball",
+                                         turnoverMethod = "EMS",
+                                         orderNulls = T, seed = 3, sims = 1000, round = 3, multicore = TRUE, n_cores = 10)
+```
+ 
+
+
+This is the percentage of coherent metacommunities found in our subsamples:
+```{r}
+length(Metacommunities_DRF_15$p_Coherence[Metacommunities_DRF_15$p_Coherence < 0.05 & Metacommunities_DRF_15$z_Coherence < 0]) / length(Metacommunities_DRF_15$p_Coherence)
+```
+\ 
+
+These are the percentages of different structures identified. The asterisk indicate the Structure identified using all of the 46 communities.
+```{r}
+
+Structures_DRF_15 <- c(rep(NA, 13))
+names(Structures_DRF_15) <- names_structures
+
+prop_Structures <- table(Metacommunities_DRF_15$Structure) / sum(table(Metacommunities_DRF_15$Structure)) 
+Structures_DRF_15[match(names(prop_Structures), names_structures)] <- prop_Structures
+Structures_DRF_15[is.na(Structures_DRF_15)] <- 0
+Structures_DRF_15 <- Structures_DRF_15*100
+
+
+Structures_DRF_15 <- as.matrix(t(data.frame(Structures = Structures_DRF_15[c(1,3,5,7,9,11,13)], Quasi = c(Structures_DRF_15[c(2,4,5,8,10,12)],0))))
+
+par(mar = c(3.5,16,2,0.75), bty = "l")
+barplot(Structures_DRF_15,
+        axes = F, col = c("grey15", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "DRF, N = 15", horiz = TRUE, ylim = c(0,10))
+title(xlab = "%", line = 2.5, cex.lab = 1.5)
+axis(1)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
+text(x = sum(Structures_DRF_15[,7],5), y = 9.5,labels = "*", cex = 2)
+
+box()
+
+```
+
+Grey bars are Quasi structures.
+
+\ 
+
+
+
+
+### Large scale with N = 15
+
+We sampled 15 communities from a total of 96 for 1000 times and calculated the Metacommunity Structure (i.e. co-occurrence pattern). To keep a good representation of spatial scale we restricted our sampling procedure following:
+
+ - 2 community from each of the 5 areas of the SSF minus 2 or 3 of those communities for a total of 7 or 8 communities from the SSF ecoregion.
+ - 2 communities from each of the 3 areas of the DRF, plus 1 or 2 communities from any of those areas for a total of 7 or 8 communities from the DRF ecoregion.
+
+```{r, eval = FALSE}
+set.seed(3)
+Broad_matrices_pa_15 <- list()
+SSF_locality_levels <-levels(as.factor(SSF_locality))
+DRF_locality_levels <-levels(as.factor(DRF_locality))
+id_SSF <- list()
+id_DRF <- list()
+
+for(j in 1:1000){
+  for(i in 1:length(SSF_locality_levels)){
+    id_SSF[[i]] <- c(sample(rownames(Broad_pa[Broad_locality == SSF_locality_levels[i],]),2))
+  }
+  ids_SSF <- unlist(id_SSF)
+  minus <- sample(c(2,3),1)
+  ids_SSF<- ids_SSF[-sample(1:length(ids_SSF),minus)]
+
+
+  for(i in 1:length(DRF_locality_levels)){
+    id_DRF[[i]] <- c(sample(rownames(Broad_pa[Broad_locality == DRF_locality_levels[i],]),2))
+  }
+  ids_DRF <- unlist(id_DRF)
+  ids_DRF <- c(ids_DRF, sample(rownames(DRF_pa)[rownames(DRF_pa) %in% id_DRF == FALSE],(minus-1) ) )
+  ids <- c(ids_SSF,ids_DRF)
+  oc_matrix <- Broad_pa[match(ids, rownames(Broad_pa)),]
+  oc_matrix <- oc_matrix[,colSums(oc_matrix) > 0]
+  Broad_matrices_pa_15[[j]] <- oc_matrix
+}
+
+
+Metacommunities_Broad_15 <- IdentifyStructure2(Broad_matrices_pa_15,
+                                           CoherenceMethod = "curveball",
+                                           turnoverMethod = "EMS",
+                                           orderNulls = T, seed = 3, sims = 1000, round = 3, multicore = TRUE, n_cores = 10)
+```
+
+
+This is the percentage of coherent metacommunities found in our subsamples:
+```{r}
+length(Metacommunities_Broad_15$p_Coherence[Metacommunities_Broad_15$p_Coherence < 0.05 & Metacommunities_Broad_15$z_Coherence < 0]) / length(Metacommunities_Broad_15$p_Coherence)
+```
+\ 
+
+These are the percentages of different structures identified. The asterisk indicate the Structure identified using all of the 96 communities.
+```{r}
+
+Structures_Broad_15 <- c(rep(NA, 13))
+names(Structures_Broad_15) <- names_structures
+
+prop_Structures <- table(Metacommunities_Broad_15$Structure) / sum(table(Metacommunities_Broad_15$Structure)) 
+Structures_Broad_15[match(names(prop_Structures), names_structures)] <- prop_Structures
+Structures_Broad_15[is.na(Structures_Broad_15)] <- 0
+Structures_Broad_15 <- Structures_Broad_15*100
+
+
+Structures_Broad_15 <- as.matrix(t(data.frame(Structures = Structures_Broad_15[c(1,3,5,7,9,11,13)], Quasi = c(Structures_Broad_15[c(2,4,5,8,10,12)],0))))
+
+par(mar = c(3.5,16,2,0.75), bty = "l")
+barplot(Structures_Broad_15,
+        axes = F, col = c("grey15", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "Large, N = 15", horiz = TRUE, ylim = c(0,10))
+title(xlab = "%", line = 2.5, cex.lab = 1.5)
+axis(1)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
+text(x = sum(Structures_Broad_15[,1],5), y = 0.5,labels = "*", cex = 2)
+
+box()
+
+
+```
+
+Grey bars are Quasi structures.
+
+\ 
+
+It seems that a sample size of 15 would only capture co-occurrence patterns that are too strong.
+\ 
+\ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Large and intermediate scales with N = 10
+
+```{r, echo=FALSE}
+load("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Not Commit/Dados_EMS_subsampling.RData")
+```
+
+Now lets see if we would get a similar results for the large and intermediate scales with an N = 20. 
+
+### Intermediate Scale
+
+#### SSF
+We sampled 10 communities from a total of 46 for 1000 times and calculated the Metacommunity Structure (i.e. co-occurrence pattern). To keep a good representation of spatial scale we restricted our sampling procedure following:
+
+ - 2 communities from each of the 5 areas of the SSF for a total of 10 communities.
+
+```{r, eval = FALSE}
+SSF_matrices_pa <- list()
+SSF_locality_levels <-levels(as.factor(SSF_locality))
+id <- list()
+
+set.seed(3)
+for(j in 1:1000){
+  for(i in 1:length(SSF_locality_levels)){
+    id[[i]] <- c(sample(rownames(SSF_pa[SSF_locality == SSF_locality_levels[i],]),2))
+  }
+  ids <- unlist(id)
+  oc_matrix <- SSF_pa[match(ids, rownames(SSF_pa)),]
+  oc_matrix <- oc_matrix[,colSums(oc_matrix) > 0]
+  SSF_matrices_pa[[j]] <- oc_matrix
+}
+
+Metacommunities_SSF <- IdentifyStructure2(SSF_matrices_pa,
+                                     CoherenceMethod = "curveball",
+                                     turnoverMethod = "EMS",
+                                     orderNulls = T, seed = 3, sims = 1000, round = 3, multicore = TRUE, n_cores = 10)
+```
+ 
+
+
+This is the percentage of coherent metacommunities found in our subsamples:
+```{r}
+length(Metacommunities_SSF$p_Coherence[Metacommunities_SSF$p_Coherence < 0.05 & Metacommunities_SSF$z_Coherence < 0]) / length(Metacommunities_SSF$p_Coherence)
+```
+\ 
+
+These are the percentages of different structures identified. The asterisk indicate the Structure identified using all of the 46 communities.
+```{r}
+
+Structures_SSF <- c(rep(NA, 13))
+names(Structures_SSF) <- names_structures
+
+prop_Structures <- table(Metacommunities_SSF$Structure) / sum(table(Metacommunities_SSF$Structure)) 
+Structures_SSF[match(names(prop_Structures), names_structures)] <- prop_Structures
+Structures_SSF[is.na(Structures_SSF)] <- 0
+Structures_SSF <- Structures_SSF*100
+
+
+Structures_SSF <- as.matrix(t(data.frame(Structures = Structures_SSF[c(1,3,5,7,9,11,13)], Quasi = c(Structures_SSF[c(2,4,5,8,10,12)],0))))
+
+par(mar = c(3.5,16,2,0.75), bty = "l")
+barplot(Structures_SSF,
+        axes = F, col = c("grey15", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "SSF, N = 10", horiz = TRUE, ylim = c(0,10))
+title(xlab = "%", line = 2.5, cex.lab = 1.5)
+axis(1)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
+text(x = sum(Structures_SSF[,7],5), y = 9.5,labels = "*", cex = 2)
+
+box()
+
+```
+
+Grey bars are Quasi structures.
+
+\ 
+
+#### DRF
+We sampled 10 communities from a total of 50 for 1000 times and calculated the Metacommunity Structure (i.e. co-occurrence pattern). To keep a good representation of spatial scale we restricted our sampling procedure following:
+
+ - 3 communities from each of the 3 areas of the DRF, plus one from any of those areas for a total of 10 communities.
+
+```{r, eval = FALSE}
+DRF_matrices_pa <- list()
+DRF_locality_levels <-levels(as.factor(DRF_locality))
+id <- list()
+
+set.seed(3)
+for(j in 1:1000){
+  for(i in 1:length(DRF_locality_levels)){
+    id[[i]] <- c(sample(rownames(DRF_pa[DRF_locality == DRF_locality_levels[i],]),3))
+  }
+  ids <- unlist(id)
+  ids <- c(ids, sample(rownames(DRF_pa)[rownames(DRF_pa) %in% ids == FALSE],1))
+  oc_matrix <- DRF_pa[match(ids, rownames(DRF_pa)),]
+  oc_matrix <- oc_matrix[,colSums(oc_matrix) > 0]
+  DRF_matrices_pa[[j]] <- oc_matrix
+}
+
+Metacommunities_DRF <- IdentifyStructure2(DRF_matrices_pa,
+                                         CoherenceMethod = "curveball",
+                                         turnoverMethod = "EMS",
+                                         orderNulls = T, seed = 3, sims = 1000, round = 3, multicore = TRUE, n_cores = 10)
+```
+ 
+
+
+This is the percentage of coherent metacommunities found in our subsamples:
+```{r}
+length(Metacommunities_DRF$p_Coherence[Metacommunities_DRF$p_Coherence < 0.05 & Metacommunities_DRF$z_Coherence < 0]) / length(Metacommunities_DRF$p_Coherence)
+```
+\ 
+
+These are the percentages of different structures identified. The asterisk indicate the Structure identified using all of the 46 communities.
+```{r}
+
+Structures_DRF <- c(rep(NA, 13))
+names(Structures_DRF) <- names_structures
+
+prop_Structures <- table(Metacommunities_DRF$Structure) / sum(table(Metacommunities_DRF$Structure)) 
+Structures_DRF[match(names(prop_Structures), names_structures)] <- prop_Structures
+Structures_DRF[is.na(Structures_DRF)] <- 0
+Structures_DRF <- Structures_DRF*100
+
+
+Structures_DRF <- as.matrix(t(data.frame(Structures = Structures_DRF[c(1,3,5,7,9,11,13)], Quasi = c(Structures_DRF[c(2,4,5,8,10,12)],0))))
+
+par(mar = c(3.5,16,2,0.75), bty = "l")
+barplot(Structures_DRF,
+        axes = F, col = c("grey15", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "DRF, N = 10", horiz = TRUE, ylim = c(0,10))
+title(xlab = "%", line = 2.5, cex.lab = 1.5)
+axis(1)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
+text(x = sum(Structures_DRF[,7],5), y = 9.5,labels = "*", cex = 2)
+
+box()
+
+```
+
+Grey bars are Quasi structures.
+
+\ 
+
+
+
+### Large scale with N = 10
+
+We sampled 10 communities from a total of 96 for 1000 times and calculated the Metacommunity Structure (i.e. co-occurrence pattern). To keep a good representation of spatial scale we restricted our sampling procedure following:
+
+ - 1 community from each of the 5 areas of the SSF for a total of 5 communities from the SSF ecoregion.
+ - 2 communities from each of the 3 areas of the DRF, minus 1 community from any of those areas for a total of 5 communities from the DRF ecoregion.
+
+```{r, eval = FALSE}
+set.seed(3)
+Broad_matrices_pa <- list()
+SSF_locality_levels <-levels(as.factor(SSF_locality))
+DRF_locality_levels <-levels(as.factor(DRF_locality))
+id_SSF <- list()
+id_DRF <- list()
+
+for(j in 1:1000){
+  for(i in 1:length(SSF_locality_levels)){
+    id_SSF[[i]] <- c(sample(rownames(Broad_pa[Broad_locality == SSF_locality_levels[i],]),1))
+  }
+  ids_SSF <- unlist(id_SSF)
+
+  for(i in 1:length(DRF_locality_levels)){
+    id_DRF[[i]] <- c(sample(rownames(Broad_pa[Broad_locality == DRF_locality_levels[i],]),2))
+  }
+  ids_DRF <- unlist(id_DRF)
+  ids_DRF <- ids_DRF[-sample(1:length(ids_DRF),1)]
+  ids <- c(ids_SSF,ids_DRF)
+  oc_matrix <- Broad_pa[match(ids, rownames(Broad_pa)),]
+  oc_matrix <- oc_matrix[,colSums(oc_matrix) > 0]
+  Broad_matrices_pa[[j]] <- oc_matrix
+}
+
+
+Metacommunities_Broad <- IdentifyStructure2(Broad_matrices_pa,
+                                         CoherenceMethod = "curveball",
+                                         turnoverMethod = "EMS",
+                                         orderNulls = T, seed = 3, sims = 1000, round = 3, multicore = TRUE, n_cores = 10)
+```
+
+
+This is the percentage of coherent metacommunities found in our subsamples:
+```{r}
+length(Metacommunities_Broad_20$p_Coherence[Metacommunities_Broad_20$p_Coherence < 0.05]) / length(Metacommunities_Broad_20$p_Coherence)
+```
+\ 
+
+These are the percentages of different structures identified. The asterisk indicate the Structure identified using all of the 96 communities.
+```{r}
+
+Structures_Broad <- c(rep(NA, 13))
+names(Structures_Broad) <- names_structures
+
+prop_Structures <- table(Metacommunities_Broad$Structure) / sum(table(Metacommunities_Broad$Structure)) 
+Structures_Broad[match(names(prop_Structures), names_structures)] <- prop_Structures
+Structures_Broad[is.na(Structures_Broad)] <- 0
+Structures_Broad <- Structures_Broad*100
+
+
+Structures_Broad <- as.matrix(t(data.frame(Structures = Structures_Broad[c(1,3,5,7,9,11,13)], Quasi = c(Structures_Broad[c(2,4,5,8,10,12)],0))))
+
+par(mar = c(3.5,16,2,0.75), bty = "l")
+barplot(Structures_Broad,
+        axes = F, col = c("grey15", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "Large, N = 10", horiz = TRUE, ylim = c(0,10))
+title(xlab = "%", line = 2.5, cex.lab = 1.5)
+axis(1)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
+axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
+text(x = sum(Structures_Broad[,1],5), y = 0.5,labels = "*", cex = 2)
+box()
+
+```
+
+Grey bars are Quasi structures.
+
+\ 
+
+It seems that a sample size of 10 is not enough to capture the true structure. It seems to be able to capture coherence when it exists though.
+\ 
+\ 
+
