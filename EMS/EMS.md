@@ -513,7 +513,7 @@ box()
 
 ![](EMS_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
-Grey bars are Quasi structures.  
+Light grey bars are Quasi structures.  
 
 It seems that a sample size of 50 would be more than enough to identify
 the true co-occurrence pattern.    
@@ -585,20 +585,19 @@ Structures_SSF_20 <- as.matrix(t(data.frame(Structures = Structures_SSF_20[c(1,3
 
 par(mar = c(3.5,16,2,0.75), bty = "l")
 barplot(Structures_SSF_20,
-        axes = F, col = c("grey20", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        axes = F, col = c("grey50", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
         border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "SSF, N = 20", horiz = TRUE, ylim = c(0,10))
 title(xlab = "%", line = 2.5, cex.lab = 1.5)
 axis(1)
 axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
 axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
 text(x = sum(Structures_SSF_20[,7],5), y = 9.5,labels = "*", cex = 2)
-
 box()
 ```
 
 ![](EMS_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
-Grey bars are Quasi structures.
+Light grey bars are Quasi structures.
 
  
 
@@ -663,7 +662,7 @@ Structures_DRF_20 <- as.matrix(t(data.frame(Structures = Structures_DRF_20[c(1,3
 
 par(mar = c(3.5,16,2,0.75), bty = "l")
 barplot(Structures_DRF_20,
-        axes = F, col = c("grey20", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        axes = F, col = c("grey50", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
         border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "DRF, N = 20", horiz = TRUE, ylim = c(0,10))
 title(xlab = "%", line = 2.5, cex.lab = 1.5)
 axis(1)
@@ -676,7 +675,7 @@ box()
 
 ![](EMS_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
-Grey bars are Quasi structures.
+Light grey bars are Quasi structures.
 
  
 
@@ -754,7 +753,7 @@ Structures_Broad_20 <- as.matrix(t(data.frame(Structures = Structures_Broad_20[c
 
 par(mar = c(3.5,16,2,0.75), bty = "l")
 barplot(Structures_Broad_20,
-        axes = F, col = c("grey20", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        axes = F, col = c("grey50", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
         border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "Large, N = 20", horiz = TRUE, ylim = c(0,10))
 title(xlab = "%", line = 2.5, cex.lab = 1.5)
 axis(1)
@@ -767,7 +766,7 @@ box()
 
 ![](EMS_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
 
-Grey bars are Quasi structures.
+Light grey bars are Quasi structures.
 
  
 
@@ -842,7 +841,7 @@ Structures_SSF_15 <- as.matrix(t(data.frame(Structures = Structures_SSF_15[c(1,3
 
 par(mar = c(3.5,16,2,0.75), bty = "l")
 barplot(Structures_SSF_15,
-        axes = F, col = c("grey15", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        axes = F, col = c("grey50", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
         border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "SSF, N = 15", horiz = TRUE, ylim = c(0,10))
 title(xlab = "%", line = 2.5, cex.lab = 1.5)
 axis(1)
@@ -855,7 +854,7 @@ box()
 
 ![](EMS_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
 
-Grey bars are Quasi structures.
+Light grey bars are Quasi structures.
 
  
 
@@ -921,7 +920,7 @@ Structures_DRF_15 <- as.matrix(t(data.frame(Structures = Structures_DRF_15[c(1,3
 
 par(mar = c(3.5,16,2,0.75), bty = "l")
 barplot(Structures_DRF_15,
-        axes = F, col = c("grey15", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        axes = F, col = c("grey50", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
         border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "DRF, N = 15", horiz = TRUE, ylim = c(0,10))
 title(xlab = "%", line = 2.5, cex.lab = 1.5)
 axis(1)
@@ -934,7 +933,7 @@ box()
 
 ![](EMS_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
 
-Grey bars are Quasi structures.
+Light grey bars are Quasi structures.
 
  
 
@@ -1016,7 +1015,7 @@ Structures_Broad_15 <- as.matrix(t(data.frame(Structures = Structures_Broad_15[c
 
 par(mar = c(3.5,16,2,0.75), bty = "l")
 barplot(Structures_Broad_15,
-        axes = F, col = c("grey15", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        axes = F, col = c("grey50", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
         border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "Large, N = 15", horiz = TRUE, ylim = c(0,10))
 title(xlab = "%", line = 2.5, cex.lab = 1.5)
 axis(1)
@@ -1029,7 +1028,7 @@ box()
 
 ![](EMS_files/figure-gfm/unnamed-chunk-47-1.png)<!-- -->
 
-Grey bars are Quasi structures.
+Light grey bars are Quasi structures.
 
  
 
@@ -1104,20 +1103,19 @@ Structures_SSF <- as.matrix(t(data.frame(Structures = Structures_SSF[c(1,3,5,7,9
 
 par(mar = c(3.5,16,2,0.75), bty = "l")
 barplot(Structures_SSF,
-        axes = F, col = c("grey15", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        axes = F, col = c("grey50", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
         border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "SSF, N = 10", horiz = TRUE, ylim = c(0,10))
 title(xlab = "%", line = 2.5, cex.lab = 1.5)
 axis(1)
 axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
 axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
 text(x = sum(Structures_SSF[,7],5), y = 9.5,labels = "*", cex = 2)
-
 box()
 ```
 
 ![](EMS_files/figure-gfm/unnamed-chunk-51-1.png)<!-- -->
 
-Grey bars are Quasi structures.
+Light grey bars are Quasi structures.
 
  
 
@@ -1183,20 +1181,19 @@ Structures_DRF <- as.matrix(t(data.frame(Structures = Structures_DRF[c(1,3,5,7,9
 
 par(mar = c(3.5,16,2,0.75), bty = "l")
 barplot(Structures_DRF,
-        axes = F, col = c("grey15", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        axes = F, col = c("grey50", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
         border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "DRF, N = 10", horiz = TRUE, ylim = c(0,10))
 title(xlab = "%", line = 2.5, cex.lab = 1.5)
 axis(1)
 axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = -0.25, labels =names_structures[c(1,3,5,7,9,11,13)], tick = F,las = 1, hadj = 1, cex.axis = 1, gap.axis = -1, padj = 0.4)
 axis(2,at = c(0.5, 2, 3.5, 5, 6.5, 8, 9.5),line = 0, labels =FALSE, tick = T,las = 1, hadj = 1, cex.axis = 0.75, gap.axis = -1, padj = 0.4)
 text(x = sum(Structures_DRF[,7],5), y = 9.5,labels = "*", cex = 2)
-
 box()
 ```
 
 ![](EMS_files/figure-gfm/unnamed-chunk-54-1.png)<!-- -->
 
-Grey bars are Quasi structures.
+Light grey bars are Quasi structures.
 
  
 
@@ -1274,7 +1271,7 @@ Structures_Broad <- as.matrix(t(data.frame(Structures = Structures_Broad[c(1,3,5
 
 par(mar = c(3.5,16,2,0.75), bty = "l")
 barplot(Structures_Broad,
-        axes = F, col = c("grey15", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+        axes = F, col = c("grey50", "grey80"), space = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
         border = "black", xlim = c(0,100), axisnames= F, xlab = "", cex.lab = 1.25, main = "Large, N = 10", horiz = TRUE, ylim = c(0,10))
 title(xlab = "%", line = 2.5, cex.lab = 1.5)
 axis(1)
@@ -1286,7 +1283,7 @@ box()
 
 ![](EMS_files/figure-gfm/unnamed-chunk-57-1.png)<!-- -->
 
-Grey bars are Quasi structures.
+Light grey bars are Quasi structures.
 
  
 
