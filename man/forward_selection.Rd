@@ -4,7 +4,7 @@
 \alias{forward_selection}
 \title{Automating the forward selection of variables}
 \usage{
-forward_selection(Y, X)
+forward_selection(Y, X, permutations = 9999)
 }
 \arguments{
 \item{Y}{A matrix of response variables}

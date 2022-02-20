@@ -12,10 +12,14 @@
 #' @param seed seed for simulating the null model. Null matrices should be repeatable.
 #' @param fill should embedded absences be filled before the statistics are calculated? (default is TRUE)
 #' @param round Numeric. Should numeric results be rounded? If so, how many digits? Defaut is set to NULL.
+#' @param elapsed_time Logical. Should a message with the elapsed time be returned?
+
 #' @export
 #'
 
-IdentifyStructure <- function(comm, names = NULL, scores = 1,CoherenceMethod = "curveball", turnoverMethod = "EMS", sims = 1000, order = T, orderNulls = F,  seed = NULL, fill = T, round = NULL){
+IdentifyStructure <- function(comm, names = NULL, scores = 1,CoherenceMethod = "curveball", turnoverMethod = "EMS", sims = 1000, order = T, orderNulls = F,  seed = NULL, fill = T, round = NULL, elapsed_time = TRUE){
+
+  if(isTRUE(elapsed_time)){start_time <- Sys.time()}
 
   if(is.null(names)){names <- c(1:length(comm))}
 
@@ -43,100 +47,110 @@ IdentifyStructure <- function(comm, names = NULL, scores = 1,CoherenceMethod = "
   for (i in 1:length(comm)){
     #  Sys.sleep(0.1)
 
+    tryCatch({
+      metacom_cohe <- metacom::Coherence(comm=comm[[i]], scores=scores, method=CoherenceMethod, sims=sims, order=order, allowEmpty=FALSE, verbose = F,  orderNulls = orderNulls, seed = seed)
+      metacom_turn <- metacom::Turnover(comm=comm[[i]], scores=scores, method= turnoverMethod, sims=sims, order=order, allowEmpty=FALSE, verbose = F,  orderNulls = orderNulls, seed = seed, fill = fill)
+      metacom_bound <- metacom::BoundaryClump(comm=comm[[i]], scores=scores, order=order)
 
-    metacom_cohe <- metacom::Coherence(comm=comm[[i]], scores=scores, method=CoherenceMethod, sims=sims, order=order, allowEmpty=FALSE, verbose = F,  orderNulls = orderNulls, seed = seed)
-    metacom_turn <- metacom::Turnover(comm=comm[[i]], scores=scores, method= turnoverMethod, sims=sims, order=order, allowEmpty=FALSE, verbose = F,  orderNulls = orderNulls, seed = seed, fill = fill)
-    metacom_bound <- metacom::BoundaryClump(comm=comm[[i]], scores=scores, order=order)
 
+      Quasi <- "Quasi"
+      Loss <- NULL
 
-    Quasi <- "Quasi"
-    Loss <- NULL
+      embAbs <- metacom_cohe$stat[1]
+      z_embAbs <- metacom_cohe$stat[2]
+      null_embAbs <- metacom_cohe$stat[4]
+      Coe_p <- metacom_cohe$stat[3]
 
-    embAbs <- metacom_cohe$stat[1]
-    z_embAbs <- metacom_cohe$stat[2]
-    null_embAbs <- metacom_cohe$stat[4]
-    Coe_p <- metacom_cohe$stat[3]
+      turnover <- metacom_turn$stat[1]
+      z_turn <-metacom_turn$stat[2]
+      null_Turnover <- metacom_turn$stat[4]
+      Turnover_p <- metacom_turn$stat[3]
 
-    turnover <- metacom_turn$stat[1]
-    z_turn <-metacom_turn$stat[2]
-    null_Turnover <- metacom_turn$stat[4]
-    Turnover_p <- metacom_turn$stat[3]
+      Boundary <- metacom_bound$stat[1]
+      Boundary_p <- metacom_bound$stat[2]
 
-    Boundary <- metacom_bound$stat[1]
-    Boundary_p <- metacom_bound$stat[2]
-
-    if(is.nan(Coe_p)){
-      if(turnover<null_Turnover){structure <- "Nested"}
-      if(turnover>null_Turnover ){
-        if(Boundary_p > 0.05){structure <- "Gleasonian"}
-        if(Boundary_p <= 0.05 & Boundary > 1){structure <- "Clementsian"}
-        if(Boundary_p <= 0.05 & Boundary < 1){structure <- "Evenly-Spaced"}
-      }
-    }else{
-      if(Coe_p > 0.05){structure <- "Random"}
-      if(Coe_p <= 0.05){
-        if(embAbs > null_embAbs){structure <- "Checkerboard"}
-        if(embAbs < null_embAbs){
-          if(turnover<null_Turnover){structure <- "Nested"}
-          if(turnover>null_Turnover ){
-            if(Boundary_p > 0.05){structure <- "Gleasonian"}
-            if(Boundary_p <= 0.05 & Boundary > 1){structure <- "Clementsian"}
-            if(Boundary_p <= 0.05 & Boundary < 1){structure <- "Evenly-Spaced"}
+      if(is.nan(Coe_p)){
+        if(turnover<null_Turnover){structure <- "Nested"}
+        if(turnover>null_Turnover ){
+          if(Boundary_p > 0.05){structure <- "Gleasonian"}
+          if(Boundary_p <= 0.05 & Boundary > 1){structure <- "Clementsian"}
+          if(Boundary_p <= 0.05 & Boundary < 1){structure <- "Evenly-Spaced"}
+        }
+      }else{
+        if(Coe_p > 0.05){structure <- "Random"}
+        if(Coe_p <= 0.05){
+          if(embAbs < null_embAbs){
+            if(turnover<null_Turnover){structure <- "Nested"}
+            if(turnover>null_Turnover ){
+              if(Boundary_p > 0.05){structure <- "Gleasonian"}
+              if(Boundary_p <= 0.05 & Boundary > 1){structure <- "Clementsian"}
+              if(Boundary_p <= 0.05 & Boundary < 1){structure <- "Evenly-Spaced"}
+            }
           }
         }
       }
-    }
 
 
-    if(is.nan(Turnover_p)==F){
-      if(is.nan(Coe_p)){
-        if(Turnover_p>0.05){structure <- paste(Quasi, structure, sep = "-")}
-      }else{
-        if(Turnover_p>0.05 & Coe_p < 0.05){structure <- paste(Quasi, structure, sep = "-")}
+      if(is.nan(Turnover_p)==F){
+        if(is.nan(Coe_p)){
+          if(Turnover_p>0.05){structure <- paste(Quasi, structure, sep = "-")}
+        }else{
+          if(Turnover_p>0.05 & Coe_p < 0.05){structure <- paste(Quasi, structure, sep = "-")}
+        }
       }
-    }
 
-    if(is.nan(Turnover_p) & is.nan(Coe_p)){structure <- "Nested"}
+      if(is.nan(Turnover_p) & is.nan(Coe_p)){structure <- "Nested"}
 
-    if(Boundary_p > 0.05){Loss <- "with random species loss"}
-    if(Boundary_p <= 0.05 & Boundary > 1){Loss <- "with clumped species loss"}
-    if(Boundary_p <= 0.05 & Boundary < 1){Loss <- "with hyperdispersed species loss"}
+      if(Boundary_p > 0.05){Loss <- "with random species loss"}
+      if(Boundary_p <= 0.05 & Boundary > 1){Loss <- "with clumped species loss"}
+      if(Boundary_p <= 0.05 & Boundary < 1){Loss <- "with hyperdispersed species loss"}
 
-    if(is.nan(Coe_p)){
-      if(turnover <= null_Turnover){structure <- paste(structure, Loss, sep = " ")}
-    }else{
-      if(turnover <= null_Turnover & Coe_p <= 0.05){structure <- paste(structure, Loss, sep = " ")}
-    }
+      if(is.nan(Coe_p)){
+        if(turnover <= null_Turnover){structure <- paste(structure, Loss, sep = " ")}
+      }else{
+        if(turnover <= null_Turnover & Coe_p <= 0.05){structure <- paste(structure, Loss, sep = " ")}
+      }
+
+      if(Coe_p <= 0.05){
+        if(embAbs > null_embAbs){
+          if(embAbs > null_embAbs){structure <- "Checkerboard"}
+        }
+      }
 
 
-    #Now we compute other useful information
-    percent_emb_abs <- 1-(embAbs/null_embAbs)
-    percent_turnover <- 1-(turnover/null_Turnover)
+      #Now we compute other useful information
+      percent_emb_abs <- 1-(embAbs/null_embAbs)
+      percent_turnover <- 1-(turnover/null_Turnover)
 
 
 
-    Embeded_Absences[i] = embAbs
-    Simulated_Embeded_Absences[i] = null_embAbs
-    percent_difference_EmbAbs[i] = percent_emb_abs
-    z_Coherence[i] = z_embAbs
-    p_Coherence[i] = Coe_p
+      Embeded_Absences[i] = embAbs
+      Simulated_Embeded_Absences[i] = null_embAbs
+      percent_difference_EmbAbs[i] = percent_emb_abs
+      z_Coherence[i] = z_embAbs
+      p_Coherence[i] = Coe_p
 
-    Turnover[i] = turnover
-    Simulated_Turnover[i] = null_Turnover
-    percent_difference_Turn[i] = percent_turnover
-    z_Turnover[i] = z_turn
-    p_Turnover[i] = Turnover_p
+      Turnover[i] = turnover
+      Simulated_Turnover[i] = null_Turnover
+      percent_difference_Turn[i] = percent_turnover
+      z_Turnover[i] = z_turn
+      p_Turnover[i] = Turnover_p
 
-    I_Index[i] = Boundary
-    p_I_Index[i] = Boundary_p
+      I_Index[i] = Boundary
+      p_I_Index[i] = Boundary_p
 
-    N_sites[i] <- nrow(comm[[i]])
-    N_species[i] = ncol(comm[[i]])
+      N_sites[i] <- nrow(comm[[i]])
+      N_species[i] = ncol(comm[[i]])
 
-    Structure[i] = structure
+      Structure[i] = structure
 
-    # update progress bar
-    setTxtProgressBar(pb, i)
+      # update progress bar
+      setTxtProgressBar(pb, i)
+
+    }, error=function(e){})
+
+
+
   }
   close(pb)
 
@@ -161,5 +175,13 @@ IdentifyStructure <- function(comm, names = NULL, scores = 1,CoherenceMethod = "
 
   results <- data.frame(results, Structure)
   rownames(results) <- names
+
+  if(isTRUE(elapsed_time)){
+    end_time <- Sys.time()
+    message(paste("Elapsed time: ", round(end_time - start_time, 3) ) )
+    }
+
+
+
   return(results)
 }

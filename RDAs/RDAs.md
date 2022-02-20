@@ -281,7 +281,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_Broad) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH","FOR")
-col_Broad <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_Broad <- c("brown1","brown1","brown1","brown1","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 
 dists_Broad <- as.matrix(dist(rbind(loadings_Broad,c(0,0))))[11,-11]
@@ -329,7 +329,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_Broad) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH","FOR")
-col_Broad <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_Broad <- c("brown1","brown1","brown1","brown1","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 
 dists_Broad <- as.matrix(dist(rbind(loadings_Broad,c(0,0))))[11,-11]
@@ -378,7 +378,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_SSF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH","FOR")
-col_SSF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_SSF <- c("brown1","brown1","brown1","brown1","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 
 dists_SSF <- as.matrix(dist(rbind(loadings_SSF,c(0,0))))[11,-11]
@@ -426,7 +426,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_SSF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH","FOR")
-col_SSF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_SSF <- c("brown1","brown1","brown1","brown1","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 
 dists_SSF <- as.matrix(dist(rbind(loadings_SSF,c(0,0))))[11,-11]
@@ -473,7 +473,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_DRF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH","FOR")
-col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_DRF <- c("brown1","brown1","brown1","brown1","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 
 dists_DRF <- as.matrix(dist(rbind(loadings_DRF,c(0,0))))[11,-11]
@@ -521,7 +521,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_DRF) <- c("TS","RT","TP","PS","HYD","CC","ARE","DEP","VH","FOR")
-col_DRF <- c("brown1","brown1","brown1","brown1","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_DRF <- c("brown1","brown1","brown1","brown1","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 
 dists_DRF <- as.matrix(dist(rbind(loadings_DRF,c(0,0))))[11,-11]
@@ -577,7 +577,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_ST) <- c("HYD","ARE","DEP","VH","FOR")
-col_ST <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_ST <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_ST <- as.matrix(dist(rbind(loadings_ST,c(0,0))))[6,-6]
 dists_ST_prop <- dists_ST/max(dists_ST)
@@ -623,7 +623,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_ST) <- c("HYD","ARE","DEP","VH","FOR")
-col_ST <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_ST <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_ST <- as.matrix(dist(rbind(loadings_ST,c(0,0))))[6,-6]
 dists_ST_prop <- dists_ST/max(dists_ST)
@@ -673,7 +673,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_IC) <- c("HYD","ARE","DEP","VH","FOR")
-col_IC <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_IC <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_IC <- as.matrix(dist(rbind(loadings_IC,c(0,0))))[6,-6]
 dists_IC_prop <- dists_IC/max(dists_IC)
@@ -722,7 +722,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_IC) <- c("HYD","ARE","DEP","VH","FOR")
-col_IC <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_IC <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_IC <- as.matrix(dist(rbind(loadings_IC,c(0,0))))[6,-6]
 dists_IC_prop <- dists_IC/max(dists_IC)
@@ -771,7 +771,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_NI) <- c("HYD","ARE","DEP","VH","FOR")
-col_NI <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_NI <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_NI <- as.matrix(dist(rbind(loadings_NI,c(0,0))))[6,-6]
 dists_NI_prop <- dists_NI/max(dists_NI)
@@ -818,7 +818,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_NI) <- c("HYD","ARE","DEP","VH","FOR")
-col_NI <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_NI <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_NI <- as.matrix(dist(rbind(loadings_NI,c(0,0))))[6,-6]
 dists_NI_prop <- dists_NI/max(dists_NI)
@@ -867,7 +867,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_MD) <- c("HYD","CC","ARE","DEP","VH","FOR")
-col_MD <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_MD <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_MD <- as.matrix(dist(rbind(loadings_MD,c(0,0))))[7,-7]
 dists_MD_prop <- dists_MD/max(dists_MD)
@@ -914,7 +914,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_MD) <- c("HYD","CC","ARE","DEP","VH","FOR")
-col_MD <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_MD <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_MD <- as.matrix(dist(rbind(loadings_MD,c(0,0))))[7,-7]
 dists_MD_prop <- dists_MD/max(dists_MD)
@@ -963,7 +963,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_JA) <- c("HYD","CC","ARE","DEP","VH","FOR")
-col_JA <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_JA <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_JA <- as.matrix(dist(rbind(loadings_JA,c(0,0))))[7,-7]
 dists_JA_prop <- dists_JA/max(dists_JA)
@@ -1010,7 +1010,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_JA) <- c("HYD","CC","ARE","DEP","VH","FOR")
-col_JA <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_JA <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_JA <- as.matrix(dist(rbind(loadings_JA,c(0,0))))[7,-7]
 dists_JA_prop <- dists_JA/max(dists_JA)
@@ -1061,7 +1061,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_UBA) <- c("HYD","CC","ARE","DEP","FOR")
-col_UBA <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_UBA <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_UBA <- as.matrix(dist(rbind(loadings_UBA,c(0,0))))[6,-6]
 dists_UBA_prop <- dists_UBA/max(dists_UBA)
@@ -1108,7 +1108,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_UBA) <- c("HYD","CC","ARE","DEP","FOR")
-col_UBA <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_UBA <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_UBA <- as.matrix(dist(rbind(loadings_UBA,c(0,0))))[6,-6]
 dists_UBA_prop <- dists_UBA/max(dists_UBA)
@@ -1157,7 +1157,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_BER) <- c("HYD","CC","ARE","DEP","FOR")
-col_BER <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_BER <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_BER <- as.matrix(dist(rbind(loadings_BER,c(0,0))))[6,-6]
 dists_BER_prop <- dists_BER/max(dists_BER)
@@ -1204,7 +1204,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_BER) <- c("HYD","CC","ARE","DEP","FOR")
-col_BER <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_BER <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_BER <- as.matrix(dist(rbind(loadings_BER,c(0,0))))[6,-6]
 dists_BER_prop <- dists_BER/max(dists_BER)
@@ -1253,7 +1253,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_ITA) <- c("HYD","CC","ARE","DEP","VH")
-col_ITA <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_ITA <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_ITA <- as.matrix(dist(rbind(loadings_ITA,c(0,0))))[6,-6]
 dists_ITA_prop <- dists_ITA/max(dists_ITA)
@@ -1299,7 +1299,7 @@ ymin <- -1.2
 ymax <-  1.2
 
 rownames(loadings_ITA) <- c("HYD","CC","ARE","DEP","VH")
-col_ITA <- c("darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod","darkgoldenrod")
+col_ITA <- c("forestgreen","forestgreen","forestgreen","forestgreen","forestgreen")
 
 dists_ITA <- as.matrix(dist(rbind(loadings_ITA,c(0,0))))[6,-6]
 dists_ITA_prop <- dists_ITA/max(dists_ITA)

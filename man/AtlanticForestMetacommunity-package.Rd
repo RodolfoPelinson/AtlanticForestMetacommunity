@@ -6,8 +6,7 @@
 \alias{AtlanticForestMetacommunity-package}
 \title{AtlanticForestMetacommunity: Gives the functions and data for the Analysis of Pelinson et al. 2021 "Disentangling the multiple drivers of amphibian metacommunity structure in the Atlantic Forest at multiple spatial scales"}
 \description{
-This package is intended to reproduce the data analysis presented
-    by Pelinson et al 2021. "Disentangling the multiple drivers of amphibian metacommunity structure in the Atlantic Forest at multiple spatial scales"
+This package is intended to reproduce the data analysis presented by Pelinson et al 2021. "Disentangling the multiple drivers of amphibian metacommunity structure in the Atlantic Forest at multiple spatial scales"
 }
 \seealso{
 Useful links:

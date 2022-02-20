@@ -93,7 +93,7 @@ ITA_pa=ITA_pa_orig[,which (colSums(ITA_pa_orig)>1)]
 ##################################################################################################################
 ########################################    ENVIRONMENTAL DATA    ################################################
 ##################################################################################################################
-Broad_locality <- data$locality
+Broad_locality <- data$locality[2:nrow(data)]
 
 Broadenv<-data.frame(hydroperiod = data$hydroperiod[2:nrow(data)],
                      canopy_cover = data$canopy_cover_cat[2:nrow(data)],

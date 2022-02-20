@@ -519,7 +519,7 @@ function to select the most important variables, when they could
 significantly explain species occurrences. This function mostly rely on
 the function `fs()` from package `adespatial`. Forward selection is only
 performed when the whole predictor matrix can significantly explain (p
-&lt; 0.05) the variation in species occurrences.
+\< 0.05) the variation in species occurrences.
 
 ### Broad Spatial Extent
 
@@ -1028,7 +1028,19 @@ Broad_varpart <- var_partitioning(Y = Broad_pa,
 #Testing significande of spatially structured environment
 candidates_Broad_env <- listw.candidates(Broad_coord, style = "B", nb = c("del", "gab", "rel", "pcnm"),
                                    weights = c("flin", "fup","fdown"), y_fdown = 5, y_fup = 0.5)
+```
 
+    ## 
+    ##      PLEASE NOTE:  The components "delsgs" and "summary" of the
+    ##  object returned by deldir() are now DATA FRAMES rather than
+    ##  matrices (as they were prior to release 0.0-18).
+    ##  See help("deldir").
+    ##  
+    ##      PLEASE NOTE: The process that deldir() uses for determining
+    ##  duplicated points has changed from that used in version
+    ##  0.0-9 of this package (and previously). See help("deldir").
+
+``` r
 Broad_MEM_env <- listw.select(Broad_env_FS, candidates = candidates_Broad_env, MEM.autocor = c("positive"), method = c("FWD"),
              MEM.all = FALSE, nperm = 10000, nperm.global = 10000, alpha = 0.05, p.adjust = FALSE, verbose = FALSE)
 ```
@@ -2067,12 +2079,12 @@ Varpart_barplot_break <- Varpart_barplot; Varpart_barplot_break[8,] <- Varpart_b
 Varpart_barplot_break <- Varpart_barplot_break[c(1,4,3,6,2,5,7,8),]
 
 par(mfrow = c(1,1))
-barplot(as.matrix(Varpart_barplot_break), axes = F, col = c(Pure_Env = "gold",
-                                                            Env_Spa = mix_color(alpha = 0.4,"gold","cornflowerblue"),
+barplot(as.matrix(Varpart_barplot_break), axes = F, col = c(Pure_Env = "forestgreen",
+                                                            Env_Spa = mix_color(alpha = 0.4,"forestgreen","cornflowerblue"),
                                                             Pure_Spa = "cornflowerblue",
                                                             Spa_Clim  = mix_color(alpha = 0.4,"brown1","cornflowerblue"),
                                                             Pure_Clim = "brown1",
-                                                            Env_Clim  = mix_color(alpha = 0.4,"brown1","gold"),
+                                                            Env_Clim  = mix_color(alpha = 0.4,"brown1","forestgreen"),
                                                             Spa_Clim_Env = mix_color(alpha = 0.7,"brown1","grey"),
                                                             Resid = "grey80"), space = c(0,2,1,2,1,1,1,1,2,1,1), border = "white",
         legend.text = c("Environment","Environment-Space","Space","Climate-Space","Climate","Climate-Environment","All three","Residual"), ylim = c(0,0.8),
@@ -2092,11 +2104,11 @@ text(c(0.5,   3.5,5.5   ,8.5,10.5,12.5,14.5,16.5,    19.5,21.5,23.5),rep(0.79,11
 #text(c(3.5,3.5),c(0.02,0.1), labels =c("*","*","*"), adj = 0.5, col = "white", cex = 2)
 #text(c(5.5,5.5),c(0.01,0.065), labels =c("*","*","*"), adj = 0.5, col = "white", cex = 2)
 
-#text(c(0.5,0.3,0.7,0.5),c(0.24,0.35,0.35,0.035), labels =c("*","*","*","*"), adj = 0.5, col = c("brown1","brown1","gold","gold"), cex = 2)
+#text(c(0.5,0.3,0.7,0.5),c(0.24,0.35,0.35,0.035), labels =c("*","*","*","*"), adj = 0.5, col = c("brown1","brown1","forestgreen","forestgreen"), cex = 2)
 
-#text(c(3.5,3.3,3.7),c(0.22,0.3075,0.3075), labels =c("*","*","*"), adj = 0.5, col = c("brown1","brown1","gold"), cex = 2)
+#text(c(3.5,3.3,3.7),c(0.22,0.3075,0.3075), labels =c("*","*","*"), adj = 0.5, col = c("brown1","brown1","forestgreen"), cex = 2)
 
-#text(c(5.5,5.3, 5.7),c(0.115,0.145,0.145), labels =c("*","*","*"), adj = 0.5, col = c("brown1","brown1","gold"), cex = 2)
+#text(c(5.5,5.3, 5.7),c(0.115,0.145,0.145), labels =c("*","*","*"), adj = 0.5, col = c("brown1","brown1","forestgreen"), cex = 2)
 
 
 ###Mudar para simbolos
@@ -2232,7 +2244,7 @@ axis(2, at = c(0,0.05,0.1,0.15,0.2, 0.25,0.3,0.35,0.4), labels = c("0 %","5 %","
 axis(1,at = c(0.5,2.5,4.5),line = 0, labels =c("Large","Intermediate","Small"), tick = F,las = 1, hadj = 0.5, cex.axis = 1.3)
 
 
-barplot(as.matrix(Means_spatial_extent[c(14,13),]), axes = F, col = c("gold",mix_color(alpha = 0.5,"gold","grey25")), space = c(0,1,1),
+barplot(as.matrix(Means_spatial_extent[c(14,13),]), axes = F, col = c("forestgreen",mix_color(alpha = 0.5,"forestgreen","grey25")), space = c(0,1,1),
         border = "white", ylim = c(0,0.4), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Local Environment")
 arrows(y0 = c(as.matrix(se_spatial_extent_lower[2,])),
        y1 = c(as.matrix(se_spatial_extent_upper[2,])),
@@ -2268,7 +2280,7 @@ axis(1,at = c(0.5,2.5,5.5,7.5),line = -0.5, labels =c("SSF","DRF", "SSF","DRF"),
 
 barplot(as.matrix(data.frame(Varpart_plot[c("Env_Non_Spatially_Structured", "Env_Spatially_Structured"),c("SSF","DRF")],
         Means_small_extent[c("Env_Non_Spatially_Structured","Env_Spatially_Structured"),])),
-        axes = F, col = c("gold",mix_color(alpha = 0.5,"gold","grey25")), space = c(0,1,2,1),
+        axes = F, col = c("forestgreen",mix_color(alpha = 0.5,"forestgreen","grey25")), space = c(0,1,2,1),
         border = "white", ylim = c(0,0.4), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "Local Environment")
 arrows(y0 = c(as.matrix(se_small_extent_lower["Env",])),
        y1 = c(as.matrix(se_small_extent_upper["Env",])),
@@ -2346,7 +2358,7 @@ axis(1,at = c(3.75,5.25,7.75,9.25),line = -0.5, labels =c("SSF","DRF", "SSF","DR
 
 barplot(as.matrix(data.frame(Varpart_plot[c("Env_Non_Spatially_Structured", "Env_Spatially_Structured"),c("Broad","SSF","DRF")],
         Means_small_extent[c("Env_Non_Spatially_Structured","Env_Spatially_Structured"),])),
-        axes = F, col = c("gold",mix_color(alpha = 0.5,"gold","grey25")), space = c(0.75,1.5,0.5,1.5,0.5),
+        axes = F, col = c("forestgreen",mix_color(alpha = 0.5,"forestgreen","grey25")), space = c(0.75,1.5,0.5,1.5,0.5),
         border = "white", ylim = c(0,0.4), axisnames= F, ylab = "Adjusted R²", cex.lab = 1.25, main = "local Environment", xlim = c(0,9.75) )
 
 arrows(y0 = c(as.matrix(se_small_extent_lower["Env",])),
