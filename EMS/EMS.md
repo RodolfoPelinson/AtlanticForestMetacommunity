@@ -865,8 +865,8 @@ calculated the Metacommunity Structure (i.e. co-occurrence pattern). To
 keep a good representation of spatial scale we restricted our sampling
 procedure following:
 
--   5 communities from each of the 3 areas of the DRF, plus one from any
-    of those areas for a total of 15 communities.
+-   5 communities from each of the 3 areas of the DRF for a total of 15
+    communities.
 
 ``` r
 set.seed(3)
@@ -1246,10 +1246,10 @@ This is the percentage of coherent metacommunities found in our
 subsamples:
 
 ``` r
-length(Metacommunities_Broad_20$p_Coherence[Metacommunities_Broad_20$p_Coherence < 0.05]) / length(Metacommunities_Broad_20$p_Coherence)
+length(Metacommunities_Broad$p_Coherence[Metacommunities_Broad$p_Coherence < 0.05]) / length(Metacommunities_Broad$p_Coherence)
 ```
 
-    ## [1] 0.951
+    ## [1] 0.756
 
  
 

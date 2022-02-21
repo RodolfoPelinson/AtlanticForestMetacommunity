@@ -724,7 +724,7 @@ Light grey bars are Quasi structures.
 #### DRF
 We sampled 15 communities from a total of 50 for 1500 times and calculated the Metacommunity Structure (i.e. co-occurrence pattern). To keep a good representation of spatial scale we restricted our sampling procedure following:
 
- - 5 communities from each of the 3 areas of the DRF, plus one from any of those areas for a total of 15 communities.
+ - 5 communities from each of the 3 areas of the DRF for a total of 15 communities.
 
 ```{r, eval = FALSE}
 set.seed(3)
@@ -1077,7 +1077,7 @@ Metacommunities_Broad <- IdentifyStructure2(Broad_matrices_pa,
 
 This is the percentage of coherent metacommunities found in our subsamples:
 ```{r}
-length(Metacommunities_Broad_20$p_Coherence[Metacommunities_Broad_20$p_Coherence < 0.05]) / length(Metacommunities_Broad_20$p_Coherence)
+length(Metacommunities_Broad$p_Coherence[Metacommunities_Broad$p_Coherence < 0.05]) / length(Metacommunities_Broad$p_Coherence)
 ```
 \ 
 
