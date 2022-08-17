@@ -4,16 +4,16 @@
 # Pelinson et al.
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of `AtlanticForestMetacommunity` is to walk the user through
 the statistical analysis presented in:
 
-**Pelinson et al “Disentangling the multiple drivers of amphibian
-metacommunity structure in the Atlantic Forest at multiple spatial
+**Pelinson et al 2022 “Disentangling the multiple drivers of tadpole
+metacommunity structure in different ecoregions and multiple spatial
 scales”**  
-DOI: NOT YET AVAILABLE
+DOI:
+[10.1007/s10750-022-04967-w](https://doi.org/10.1007/s10750-022-04967-w)
 
 The analyses were divided in three different sections:
 
