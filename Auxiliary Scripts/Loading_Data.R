@@ -2,59 +2,41 @@
 ############################
 set.seed(1, sample.kind = "default")
 
-
 library("vegan")
-data = read.csv("C:/Users/rodol/OneDrive/Trabalho/Papers/Analysis/AtlanticForestMetacommunity/Data csv/Data.csv",header=TRUE,row.names = 1, encoding = "UTF-8")
-#data(Tadpoles_Atlantic_Forest)
-#data <- Tadpoles_Atlantic_Forest
+data(Tadpoles_Atlantic_Forest)
+data <- Tadpoles_Atlantic_Forest
 ##################################################################################################################
 ###########################################    SPECIES DATA    ###################################################
 ##################################################################################################################
 
-Broad=data[2:nrow(data),1:57]
+Broad_pa=data[2:nrow(data),1:57]
 
-for(i in 1:ncol(Broad)){
-  Broad[,i]<- as.numeric(Broad[,i])
+for(i in 1:ncol(Broad_pa)){
+  Broad_pa[,i]<- as.numeric(Broad_pa[,i])
 }
 
-SSFoc<-data[which(data$ecoregion == "SSF"),1:57]
-for(i in 1:ncol(SSFoc)){
-  SSFoc[,i]<- as.numeric(SSFoc[,i])
+SSFpa<-data[which(data$ecoregion == "SSF"),1:57]
+for(i in 1:ncol(SSFpa)){
+  SSFpa[,i]<- as.numeric(SSFpa[,i])
 }
 
-DRFoc=data[which(data$ecoregion == "DRF"),1:57]
-for(i in 1:ncol(DRFoc)){
-  DRFoc[,i]<- as.numeric(DRFoc[,i])
+DRFpa=data[which(data$ecoregion == "DRF"),1:57]
+for(i in 1:ncol(DRFpa)){
+  DRFpa[,i]<- as.numeric(DRFpa[,i])
 }
 
 
-SToc=(SSFoc[1:8,])
-ICoc=(SSFoc[9:20,])
-NIoc=(SSFoc[21:28,])
-MDoc=(SSFoc[29:36,])
-JAoc=(SSFoc[37:46,])
+STpa=(SSFpa[1:8,])
+ICpa=(SSFpa[9:20,])
+NIpa=(SSFpa[21:28,])
+MDpa=(SSFpa[29:36,])
+JApa=(SSFpa[37:46,])
 
 
-DRFoc
-UBAoc=(DRFoc[c(10,11,12,13,14,15,16,17,18,19,38,39,40,41,42,43,44,45,46,47,48,49,50),])
-BERoc=(DRFoc[26:37,])
-ITAoc=(DRFoc[c(1,2,3,4,5,6,7,8,9,20,21,22,23,24,25),])
-
-
-#Transforming data to presence absence
-Broad_pa <- decostand(Broad, method = "pa")
-
-SSF_pa <- decostand(SSFoc, method = "pa")
-IC_pa <- decostand(ICoc, method = "pa")
-NI_pa <- decostand(NIoc, method = "pa")
-ST_pa <- decostand(SToc, method = "pa")
-MD_pa <- decostand(MDoc, method = "pa")
-JA_pa <- decostand(JAoc, method = "pa")
-
-DRF_pa <- decostand(DRFoc, method = "pa")
-UBA_pa <- decostand(UBAoc, method = "pa")
-BER_pa <- decostand(BERoc, method = "pa")
-ITA_pa <- decostand(ITAoc, method = "pa")
+DRFpa
+UBApa=(DRFpa[c(10,11,12,13,14,15,16,17,18,19,38,39,40,41,42,43,44,45,46,47,48,49,50),])
+BERpa=(DRFpa[26:37,])
+ITApa=(DRFpa[c(1,2,3,4,5,6,7,8,9,20,21,22,23,24,25),])
 
 
 Broad_pa_orig <- Broad_pa[,which (colSums(Broad_pa)>0)]
