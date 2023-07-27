@@ -41,17 +41,17 @@ ITApa=(DRFpa[c(1,2,3,4,5,6,7,8,9,20,21,22,23,24,25),])
 
 Broad_pa_orig <- Broad_pa[,which (colSums(Broad_pa)>0)]
 
-SSF_pa_orig <- SSF_pa[,which (colSums(SSF_pa)>0)]
-ST_pa_orig <- ST_pa[,which (colSums(ST_pa)>0)]
-IC_pa_orig <- IC_pa[,which (colSums(IC_pa)>0)]
-NI_pa_orig <- NI_pa[,which (colSums(NI_pa)>0)]
-MD_pa_orig <- MD_pa[,which (colSums(MD_pa)>0)]
-JA_pa_orig <- JA_pa[,which (colSums(JA_pa)>0)]
+SSF_pa_orig <- SSFpa[,which (colSums(SSFpa)>0)]
+ST_pa_orig <- STpa[,which (colSums(STpa)>0)]
+IC_pa_orig <- ICpa[,which (colSums(ICpa)>0)]
+NI_pa_orig <- NIpa[,which (colSums(NIpa)>0)]
+MD_pa_orig <- MDpa[,which (colSums(MDpa)>0)]
+JA_pa_orig <- JApa[,which (colSums(JApa)>0)]
 
-DRF_pa_orig <- DRF_pa[,which (colSums(DRF_pa)>0)]
-UBA_pa_orig <- UBA_pa[,which (colSums(UBA_pa)>0)]
-BER_pa_orig <- BER_pa[,which (colSums(BER_pa)>0)]
-ITA_pa_orig <- ITA_pa[,which (colSums(ITA_pa)>0)]
+DRF_pa_orig <- DRFpa[,which (colSums(DRFpa)>0)]
+UBA_pa_orig <- UBApa[,which (colSums(UBApa)>0)]
+BER_pa_orig <- BERpa[,which (colSums(BERpa)>0)]
+ITA_pa_orig <- ITApa[,which (colSums(ITApa)>0)]
 
 
 
